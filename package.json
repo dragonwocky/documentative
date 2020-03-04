@@ -1,0 +1,25 @@
+{
+  "name": "documentative",
+  "version": "0.0.1",
+  "description": "a tool for generating docs from markdown",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No test specified\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dragonwocky/documentative.git"
+  },
+  "author": "dragonwocky <thedragonring.bod@gmail.com> (https://dragonwocky.me/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dragonwocky/documentative/issues"
+  },
+  "homepage": "https://github.com/dragonwocky/documentative#readme",
+  "dependencies": {
+    "fs-extra": "^8.1.0",
+    "highlight.js": "^9.18.1",
+    "marked": "^0.8.0",
+    "pug": "^2.0.4"
+  }
+}

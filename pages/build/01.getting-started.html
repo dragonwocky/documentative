@@ -1,0 +1,1650 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Sear</title><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Nunito+Sans"><link rel="stylesheet" href="styles.css"><script src="scrollnav.js"></script></head><body><aside><div class="title"><h1>Sear.js</h1><img src="logo.png"></div><ul><li><a href="./">testindex</a></li><li><a href="#sear">Sear</a><ul><li class="depth-2"><a href="#a-what-">a what?</a></li><li class="depth-2"><a href="#docs-features">docs / features</a></li><li class="depth-4"><a href="#app-declaration">app declaration</a></li><li class="depth-4"><a href="#properties">properties</a></li><li class="depth-4"><a href="#watchers">watchers</a></li><li class="depth-3"><a href="#reactive-binding">reactive binding</a></li><li class="depth-4"><a href="#-html">:html</a></li><li class="depth-4"><a href="#-text">:text</a></li><li class="depth-4"><a href="#-moustache-">{{ moustache }}</a></li><li class="depth-4"><a href="#-value">:value</a></li><li class="depth-4"><a href="#-unbound">:unbound</a></li><li class="depth-4"><a href="#-pre">:pre</a></li><li class="depth-4"><a href="#-each">:each</a></li><li class="depth-4"><a href="#-if-else">:if / :else</a></li><li class="depth-4"><a href="#-bind-attr">:bind:attr</a></li><li class="depth-2"><a href="#license">license</a></li><li class="depth-1"><a href="#skink">Skink</a></li><li class="depth-4"><a href="#general-commands">General Commands</a></li><li class="depth-4"><a href="#mod-commands">Mod Commands</a></li><li class="depth-4"><a href="#required-permissions">Required Permissions</a></li><li class="depth-4"><a href="#feature-ideas-aka-todo-list-">Feature Ideas (aka TODO list)</a></li><li class="depth-3"><a href="#known-issues">Known Issues</a></li><li class="depth-3"><a href="#contributing">Contributing</a></li><li class="depth-3"><a href="#docs">Docs</a></li><li class="depth-4"><a href="#configuration">Configuration</a></li><li class="depth-4"><a href="#command-template">Command Template</a></li><li class="depth-4"><a href="#event-template">Event Template</a></li><li class="depth-4"><a href="#api">API</a></li><li class="depth-4"><a href="#database">Database</a></li><li class="depth-1"><a href="#examples">examples</a></li><li class="depth-2"><a href="#sub-1">sub 1</a></li><li class="depth-3"><a href="#subsub-b">subsub B</a></li><li class="depth-1"><a href="#customising">customising</a></li><li class="depth-1"><a href="#backbone">backbone</a></li><li class="depth-3"><a href="#ready-to-start-making-a-bot-out-of-backbone-have-a-look-at-the-wiki-https-github-com-thedragonring-backbone-wiki-to-learn-how-to-set-it-up-and-add-features-">Ready to start making a bot out of Backbone? Have a look at [the wiki](https://github.com/TheDragonRing/backbone/wiki) to learn how to set it up and add features!</a></li><li class="depth-1"><a href="#sear-2">Sear</a></li><li class="depth-2"><a href="#a-what--2">a what?</a></li><li class="depth-2"><a href="#docs-features-2">docs / features</a></li><li class="depth-4"><a href="#app-declaration-2">app declaration</a></li><li class="depth-4"><a href="#properties-2">properties</a></li><li class="depth-4"><a href="#watchers-2">watchers</a></li><li class="depth-3"><a href="#reactive-binding-2">reactive binding</a></li><li class="depth-4"><a href="#-html-2">:html</a></li><li class="depth-4"><a href="#-text-2">:text</a></li><li class="depth-4"><a href="#-moustache--2">{{ moustache }}</a></li><li class="depth-4"><a href="#-value-2">:value</a></li><li class="depth-4"><a href="#-unbound-2">:unbound</a></li><li class="depth-4"><a href="#-pre-2">:pre</a></li><li class="depth-4"><a href="#-each-2">:each</a></li><li class="depth-4"><a href="#-if-else-2">:if / :else</a></li><li class="depth-4"><a href="#-bind-attr-2">:bind:attr</a></li><li class="depth-2"><a href="#license-2">license</a></li><li class="depth-1"><a href="#skink-2">Skink</a></li><li class="depth-4"><a href="#general-commands-2">General Commands</a></li><li class="depth-4"><a href="#mod-commands-2">Mod Commands</a></li><li class="depth-4"><a href="#required-permissions-2">Required Permissions</a></li><li class="depth-4"><a href="#feature-ideas-aka-todo-list--2">Feature Ideas (aka TODO list)</a></li><li class="depth-3"><a href="#known-issues-2">Known Issues</a></li><li class="depth-3"><a href="#contributing-2">Contributing</a></li><li class="depth-3"><a href="#docs-2">Docs</a></li><li class="depth-4"><a href="#configuration-2">Configuration</a></li><li class="depth-4"><a href="#command-template-2">Command Template</a></li><li class="depth-4"><a href="#event-template-2">Event Template</a></li><li class="depth-4"><a href="#api-2">API</a></li><li class="depth-4"><a href="#database-2">Database</a></li><li class="depth-1"><a href="#examples-2">examples</a></li><li class="depth-2"><a href="#sub-1-2">sub 1</a></li><li class="depth-3"><a href="#subsub-b-2">subsub B</a></li><li class="depth-1"><a href="#customising-2">customising</a></li><li class="depth-1"><a href="#backbone-2">backbone</a></li><li class="depth-3"><a href="#ready-to-start-making-a-bot-out-of-backbone-have-a-look-at-the-wiki-https-github-com-thedragonring-backbone-wiki-to-learn-how-to-set-it-up-and-add-features--2">Ready to start making a bot out of Backbone? Have a look at [the wiki](https://github.com/TheDragonRing/backbone/wiki) to learn how to set it up and add features!</a></li></ul></li><li><a href="03.customising.html">customising</a></li><li><a href="02.examples.html">examples</a></li><li><a href="https://github.com/dragonwocky">github</a></li></ul><p class="mark">docs by <a href="https://dragonwocky.me/documentative">documentative</a></p></aside><div class="documentative">
+          <section class="block">
+            <h1 id="sear">
+              <a href="#sear">Sear</a>
+            </h1>
+        <p><strong>a lightweight, reactive data system</strong></p>
+<p><a href="https://github.com/dragonwocky/sear/releases/latest"><img src="https://img.shields.io/github/v/release/dragonwocky/sear?style=flat-square" alt=""></a>
+<a href="https://github.com/dragonwocky/sear/blob/master/LICENSE"><img src="https://img.shields.io/github/license/dragonwocky/sear?color=884ea0&style=flat-square" alt=""></a>
+<a href="https://github.com/dragonwocky/sear/releases/latest"><img src="https://img.shields.io/github/downloads/dragonwocky/sear/total?color=f1c40f&style=flat-square" alt=""></a></p>
+<p><a href="https://github.com/dragonwocky/sear/blob/master/sear.js"><img src="https://img.shields.io/github/size/dragonwocky/sear/sear.js?label=size&color=brightgreen&style=flat-square" alt=""></a>
+<a href="https://github.com/dragonwocky/sear/blob/master/sear.min.js"><img src="https://img.shields.io/github/size/dragonwocky/sear/sear.min.js?label=minified&color=brightgreen&style=flat-square" alt=""></a>
+<a href="https://github.com/dragonwocky/sear/blob/master/sear.min.js"><img src="https://img.badgesize.io/https://dragonwocky.me/sear/sear.min.js?compression=gzip&label=minified%20%2B%20gzip&style=flat-square" alt=""></a></p>
+<p><img src="https://img.shields.io/badge/production%20ready-no-b20000?style=flat-square" alt=""></p>
+
+          </section>
+          <section class="block">
+            <h2 id="a-what-">
+              <a href="#a-what-">a what?</a>
+            </h2>
+        <p>when building your web app, there are 4 main data sets you deal with.</p>
+<ul>
+<li>visible / the html being displayed</li>
+<li>script / any javascript variables you may wish to update</li>
+<li>client-stored / anything persisted on the client side (e.g. localStorage)</li>
+<li>server-stored / data gained from interactions with the server.</li>
+</ul>
+<p>sear doesn&#39;t touch anything to do with the server. there&#39;re so many ways data
+transfer between the server and client can be implemented, that&#39;s best left to you.</p>
+<p>the other 3? sear takes them all, and gives one single object to interact with
+(from above, script data). you update data within that object, and the other two
+(visible + client-stored) reactively update accordingly (if necessary).</p>
+<p>this can massively simplify web app development when used to its fully potential,
+enabling (once initialised) you to do in only a couple of lines what you may once
+have needed to write 20 for.</p>
+<p>why should you use this when there are so many other libraries out there promising
+similar things, all of which seem to have massive amounts of support behind them?
+all depends on your use case. they had many things i didn&#39;t need nor want, and lacked
+other things i did (without having to install extra libraries). so, i spent ~50 hours
+of my time building something simple but powerful. this doesn&#39;t come with the complexities
+of constructing multiple components on the server-side and then learning an extensive api
+to fit everything together. it comes with functionality that does the job without trying
+to do any more.</p>
+<p>if you do want something like that, check out <a href="https://vuejs.org/">Vue.js</a> or
+<a href="https://svelte.dev/">Svelte</a>. otherwise, give this a try. it has some decent
+capabilities, and does the job well enough.</p>
+
+          </section>
+          <section class="block">
+            <h2 id="docs-features">
+              <a href="#docs-features">docs / features</a>
+            </h2>
+        <p>(to see these in action, go to <a href="https://dragonwocky.me/sear/">the website</a>)</p>
+
+          </section>
+          <section class="block">
+            <h4 id="app-declaration">
+              <a href="#app-declaration">app declaration</a>
+            </h4>
+        <p>include the file! either download the file from <a href="https://github.com/dragonwocky/sear/releases/download/v0.5.5/sear.0.5.5.js">here</a>
+and include in your own assets, or source it from <code>https://dragonwocky.me/sear/sear.min.js</code>. To access a specific version, use <code>https://dragonwocky.me/sear/dist/sear.&lt;version-number&gt;.js</code> (replacing <code>&lt;version-number&gt;</code> with e.g. <code>0.5.5</code>).</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://dragonwocky.me/sear/sear.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<p>initialise.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Sear({
+  <span class="hljs-comment">/*
+   * whatever element you want to restrict this to
+   * [type] single ID as a string
+   * [default] document.body
+   */</span>
+  <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span>,
+
+  <span class="hljs-attr">format</span>: {
+    <span class="hljs-comment">/*
+     * persist app data (see below: client) to localStorage under this name
+     * [default] none (doesn't persist)
+     */</span>
+    <span class="hljs-attr">name</span>: <span class="hljs-string">'Sear/Demo'</span>,
+    <span class="hljs-comment">/*
+     * version of the data structure
+     * [type] string or number
+     * [default] none (won't check)
+     */</span>
+    <span class="hljs-attr">version</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-comment">/*
+     * run this handler if version (above) doesn't match
+     * with the persisted data structure version
+     * [args] old (outdated data found in localStorage), version (of outdated data)
+     * [default] return {}; (starts afresh)
+     */</span>
+    handler(old, version) {
+      <span class="hljs-keyword">return</span> {};
+    }
+  },
+
+  <span class="hljs-comment">/*
+   * any reactive data properties (inc. computed properties)
+   */</span>
+  <span class="hljs-comment">// data will return to defaults on page reload</span>
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">example</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-comment">// client data will be persisted to and fetched from localStorage</span>
+    <span class="hljs-comment">//  -&gt; only works if format.name is defined</span>
+    <span class="hljs-comment">//  -&gt; (otherwise will act like normal data)</span>
+    <span class="hljs-attr">client</span>: {}
+  },
+
+  <span class="hljs-comment">// any functions watching for changes to data</span>
+  <span class="hljs-attr">watch</span>: {}
+});
+
+<span class="hljs-comment">// returns the following</span>
+{ <span class="hljs-attr">example</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">client</span>: {} };</code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="properties">
+              <a href="#properties">properties</a>
+            </h4>
+        <p>basic properties can be objects, arrays, dates, strings, numbers, and boolean values.</p>
+<pre><code class="lang-js">data.client: {
+  <span class="hljs-attr">selected</span>: <span class="hljs-string">'purple'</span>,
+  <span class="hljs-attr">icecream</span>: {
+    <span class="hljs-attr">flavours</span>: [<span class="hljs-string">'berry'</span>, <span class="hljs-string">'watermelon'</span>, <span class="hljs-string">'&lt;b&gt;tiramisu&lt;/b&gt;'</span>]
+  }
+};</code></pre>
+<p>these can be updated like any normal object property, or added in later.</p>
+<pre><code class="lang-js">app[<span class="hljs-string">'client'</span>].user.selected = <span class="hljs-string">'green'</span>;
+app[<span class="hljs-string">'client'</span>].icecream.new = <span class="hljs-string">''</span>;
+app[<span class="hljs-string">'client'</span>].paragraph = <span class="hljs-string">`this is &lt;b&gt;bold&lt;/b&gt;.
+  this is &lt;i&gt;italicised&lt;/i&gt;.
+  but i? i am &lt;s&gt;struck out&lt;/s&gt;.`</span>;</code></pre>
+<p>computed properties are functions that can return a dynamic value
+and can access fellow properties via <code>this</code>. these must not be declared
+as arrow functions! (arrow functions break persistence and accessing <code>this</code>)</p>
+<blockquote>
+<p>to access a computed value,
+use <code>app.value</code> rather than <code>app.value()</code>.</p>
+</blockquote>
+<pre><code class="lang-js">data: {
+  redselected() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-string">'client'</span>]selected === <span class="hljs-string">'red'</span>;
+  },
+  colour () {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'color: '</span> + <span class="hljs-keyword">this</span>[<span class="hljs-string">'client'</span>].selected;
+  }
+}</code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="watchers">
+              <a href="#watchers">watchers</a>
+            </h4>
+        <p>a watcher function will be evaluated whenever its corresponding data
+prop is changed. an argument is passed to it with the previous value of that data.</p>
+<blockquote>
+<p>due to the way the observation system works,
+watchers for properties within objects are declared by <code>&#39;parent.child&#39;(prev) {}</code>
+rather than <code>parent: { child(prev) {} }</code>.
+this allows for watching objects and their properties separately.</p>
+</blockquote>
+<pre><code class="lang-js">watch: {
+  <span class="hljs-string">'client.selected'</span>(prev) {
+    <span class="hljs-built_in">console</span>.log(
+      <span class="hljs-string">`[watcher] selected colour has changed from <span class="hljs-subst">${prev}</span> to <span class="hljs-subst">${<span class="hljs-keyword">this</span>[<span class="hljs-string">'client'</span>].selected}</span>`</span>
+    );
+  },
+  <span class="hljs-string">'client.icecream.flavours'</span>(prev) {
+    <span class="hljs-keyword">const</span> flavours = [...this[<span class="hljs-string">'client'</span>].icecream.flavours]
+      .filter(<span class="hljs-function"><span class="hljs-params">flavour</span> =&gt;</span> {
+        <span class="hljs-keyword">if</span> (prev.includes(flavour)) {
+          prev.splice(prev.indexOf(flavour), <span class="hljs-number">1</span>);
+          <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+      });
+    <span class="hljs-keyword">if</span> (flavours.length) {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`[watcher] flavour(s) added: &lt;&lt;<span class="hljs-subst">${flavours.join(<span class="hljs-string">'&gt;&gt; &lt;&lt;'</span>)}</span>&gt;&gt;`</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (prev.length)
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`[watcher] flavour(s) removed: &lt;&lt;<span class="hljs-subst">${prev.join(<span class="hljs-string">'&gt;&gt; &lt;&lt;'</span>)}</span>&gt;&gt;`</span>);
+  }
+}</code></pre>
+
+          </section>
+          <section class="block">
+            <h3 id="reactive-binding">
+              <a href="#reactive-binding">reactive binding</a>
+            </h3>
+        
+          </section>
+          <section class="block">
+            <h4 id="-html">
+              <a href="#-html">:html</a>
+            </h4>
+        <p>sync the contents of the bound element to a data property.
+contents will be displayed as HTML.</p>
+<blockquote>
+<p>not recommended (unless for e.g. displaying parsed markdown).
+dynamically rendering untrusted or user-input content could lead to
+XSS attacks (or other unintended consequences).</p>
+</blockquote>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">:html</span>=<span class="hljs-string">"client.paragraph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="-text">
+              <a href="#-text">:text</a>
+            </h4>
+        <p>sync the contents of the bound element to a data property.
+contents will be displayed as plain text.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">:text</span>=<span class="hljs-string">"client.paragraph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="-moustache-">
+              <a href="#-moustache-">{{ moustache }}</a>
+            </h4>
+        <p>text binding can also be done via <code>{{ moustache }}</code> tags.</p>
+<blockquote>
+<p>use only in text nodes. use in attributes etc. will make weird things happen.</p>
+</blockquote>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{ client.paragraph }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="-value">
+              <a href="#-value">:value</a>
+            </h4>
+        <p>sync the value of the bound input to a data property.
+works for any input (e.g. text, checkbox, select, you name it).</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">:value</span>=<span class="hljs-string">"client.paragraph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">:value</span>=<span class="hljs-string">"client.selected"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"red"</span>&gt;</span>red<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"blue"</span>&gt;</span>blue<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"green"</span>&gt;</span>green<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"purple"</span>&gt;</span>purple<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span></code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="-unbound">
+              <a href="#-unbound">:unbound</a>
+            </h4>
+        <p>use if you want something to be initially populated with a value,
+but not reactively updated.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>initial paragraph (as of page load):<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">:text</span>=<span class="hljs-string">"client.paragraph"</span> <span class="hljs-attr">:unbound</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="-pre">
+              <a href="#-pre">:pre</a>
+            </h4>
+        <p>use if you want to preserve everything within that tag -
+content will not be modified/updated in any way.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">:pre</span>&gt;</span>these {{ tags }} will <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">:text</span>=<span class="hljs-string">"client.paragraph"</span>&gt;</span>not<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> be parsed!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="-each">
+              <a href="#-each">:each</a>
+            </h4>
+        <p>repeat an element for each value of an array.
+assign this attribute to a container, and the first child will be the one
+repeated within the container.</p>
+<p>to access the relevant index/id (starting from 1) use <code>[[:each:id]]</code> and
+to access the current value use <code>[[:each:value]]</code>.
+if the value should be parsed as html (e.g. for displaying markdown), use <code>[[:each:value:html]]</code>.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">:each</span>=<span class="hljs-string">"client.icecream.flavours"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span>&gt;</span>[[:each:id]]<span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>. [[:each:value]]<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">"app['client'].icecream.flavours.splice([[:each:id]] - 1, 1)"</span>&gt;</span>
+    delete
+  <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<blockquote>
+<p>extra snippet! to add something to the list, use the following js
+(assuming you&#39;ve bound an input via <code>:value=&quot;icecream.new&quot;</code>):</p>
+<pre><code class="lang-js"><span class="hljs-keyword">if</span> (app[<span class="hljs-string">'client'</span>]icecream.new) {
+  app[<span class="hljs-string">'client'</span>]icecream.flavours = [app[<span class="hljs-string">'client'</span>]icecream.new, ...app[<span class="hljs-string">'client'</span>]icecream.flavours];
+  app[<span class="hljs-string">'client'</span>]icecream.new = <span class="hljs-string">''</span>;
+}</code></pre>
+</blockquote>
+
+          </section>
+          <section class="block">
+            <h4 id="-if-else">
+              <a href="#-if-else">:if / :else</a>
+            </h4>
+        <p>with <code>:if</code>, the element will only be present on the page if the
+relevant prop has a truthy value.</p>
+<p>with <code>:else</code>, the element will only be present on the page if the
+relevant prop has a falsy value.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>is red selected?<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">:if</span>=<span class="hljs-string">"client.redselected"</span>&gt;</span>yes it is<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">:else</span>=<span class="hljs-string">"client.redselected"</span>&gt;</span>no it isn't<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="-bind-attr">
+              <a href="#-bind-attr">:bind:attr</a>
+            </h4>
+        <p>use to reactively update/bind any attribute value.</p>
+<p>values are separated by spaces, written as <code>condition=response</code>.
+if there is no <code>response</code>, it will be assumed to be the value of <code>condition</code>.</p>
+<p>if the attribute is boolean, then a truthy <code>condition</code> will result in the
+presence of the attribute. a falsy <code>condition</code> will result in the removal of
+the attribute. to inverse this, do <code>condition=false</code>.</p>
+<blockquote>
+<p>this is only 1 way (it does not sync).
+for the <code>checked</code> attribute of checkboxes, use <code>:value</code> instead.</p>
+</blockquote>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">:bind:disabled</span>=<span class="hljs-string">"client.redselected=false"</span> <span class="hljs-attr">disabled</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>(will be disabled if red is not selected)<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">:bind:style</span>=<span class="hljs-string">"colour"</span>&gt;</span>i'm {{ client.selected }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
+          </section>
+          <section class="block">
+            <h2 id="license">
+              <a href="#license">license</a>
+            </h2>
+        <p><em>reactivity concepts originally learnt from</em>
+_<a href="https://github.com/shentao/seer/">https://github.com/shentao/seer/</a>, which is_
+<em>Copyright (c) 2016 Damian Dulisz under the MIT license.</em></p>
+<p>code here is my own, and is licensed in the <a href="LICENSE">LICENSE</a> file. a couple of functions were modified
+from things found on the internet, and links to the sites from which they were
+taken are in the version of the source that has comments (the not-minified one).</p>
+<blockquote>
+<p>basically: do what you like with this, so long as you attribute/credit me.</p>
+</blockquote>
+
+          </section>
+          <section class="block">
+            <h1 id="skink">
+              <a href="#skink">Skink</a>
+            </h1>
+        <p>A multi-purpose <a href="https://discordapp.com">Discord</a> bot built with <a href="https://abal.moe/Eris">Eris</a>.</p>
+<ul>
+<li>A set of base features and configuration/customisation abilities.</li>
+<li>Separate sets (and prefixes) for moderation and general commands (the bot will also respond to mentions for the latter).</li>
+<li>A few extra fun features, including cleverbot implementation: chat in DMs or with a command.</li>
+<li>A basic economy system to allow for future features that will make use of the currency.</li>
+</ul>
+
+          </section>
+          <section class="block">
+            <h4 id="general-commands">
+              <a href="#general-commands">General Commands</a>
+            </h4>
+        <p>Default General Prefix: <code>--</code></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Aliases</th>
+<th>Usage (<code>&lt;required&gt; [optional]</code>)</th>
+<th>Example</th>
+<th>Category</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>help</code></td>
+<td>Lists all commands and their usages.</td>
+<td><code>?</code></td>
+<td><code>help [command]</code></td>
+<td><code>help ping</code></td>
+<td>Core</td>
+</tr>
+<tr>
+<td><code>invite</code></td>
+<td>Gives a link to invite this bot to another server.</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Core</td>
+</tr>
+<tr>
+<td><code>ping</code></td>
+<td>Tests the bot&#39;s response time.</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Core</td>
+</tr>
+<tr>
+<td><code>eval</code></td>
+<td>Evalues inputted JavaScript.</td>
+<td></td>
+<td><code>eval &lt;js&gt;</code></td>
+<td><code>eval 1 + 1</code></td>
+<td>Core</td>
+</tr>
+<tr>
+<td><code>reload</code></td>
+<td>Reloads various bot files.</td>
+<td></td>
+<td><code>reload [what: config|command|event] [which] [-set]</code></td>
+<td><code>reload command -general ping</code></td>
+<td>Core</td>
+</tr>
+<tr>
+<td><code>userprefix</code></td>
+<td>Sets your personal prefix for communicating with this bot.</td>
+<td><code>prefix</code></td>
+<td><code>--userprefix &lt;prefix&gt; [-set {def: general}]</code></td>
+<td><code>userprefix .. -general</code></td>
+<td>Utils</td>
+</tr>
+<tr>
+<td><code>stats</code></td>
+<td>Gives some bot statistics.</td>
+<td><code>statistics</code></td>
+<td></td>
+<td></td>
+<td>Info</td>
+</tr>
+<tr>
+<td><code>serverinfo</code></td>
+<td>Shows information about the server you&#39;re in.</td>
+<td><code>server</code></td>
+<td></td>
+<td></td>
+<td>Info</td>
+</tr>
+<tr>
+<td><code>userinfo</code></td>
+<td>Shows information about you or a specified user.</td>
+<td><code>user</code></td>
+<td><code>userinfo [user]</code></td>
+<td><code>userinfo @thedragonring</code></td>
+<td>Info</td>
+</tr>
+<tr>
+<td><code>8ball</code></td>
+<td>Roll the 8ball, and learn the answer to any yes/no question!</td>
+<td></td>
+<td><code>8ball &lt;question&gt;</code></td>
+<td></td>
+<td>Fun</td>
+</tr>
+<tr>
+<td><code>icecream</code></td>
+<td>I scream for icecream!</td>
+<td></td>
+<td><code>icecream [user|check|eat]</code></td>
+<td></td>
+<td>Fun</td>
+</tr>
+<tr>
+<td><code>talk</code></td>
+<td>Talk to the bot.</td>
+<td><code>chat</code>, <code>t</code></td>
+<td><code>talk &lt;message&gt;</code></td>
+<td></td>
+<td>Fun</td>
+</tr>
+<tr>
+<td><code>balance</code></td>
+<td>Displays how many scales you or another user has.</td>
+<td><code>bal</code>, <code>scales</code></td>
+<td><code>balance [user]</code></td>
+<td></td>
+<td>Economy</td>
+</tr>
+<tr>
+<td><code>transfer</code></td>
+<td>Transfers the specified number of scales to another user.</td>
+<td><code>pay</code></td>
+<td><code>transfer &lt;user&gt; &lt;amount&gt;</code></td>
+<td></td>
+<td>Economy</td>
+</tr>
+<tr>
+<td><code>daily</code></td>
+<td>Collects or grants scales (can only be used once a day).</td>
+<td></td>
+<td><code>daily [user]</code></td>
+<td></td>
+<td>Economy</td>
+</tr>
+</tbody></table>
+<p><em>The commands <code>eval</code> and <code>reload</code> can only be run by the bot owner.</em></p>
+
+          </section>
+          <section class="block">
+            <h4 id="mod-commands">
+              <a href="#mod-commands">Mod Commands</a>
+            </h4>
+        <p>Default Mod Prefix: <code>%%</code></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Aliases</th>
+<th>Usage (<code>&lt;required&gt; [optional]</code>)</th>
+<th>Example</th>
+<th>Category</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>help</code></td>
+<td>Lists all commands and their usages.</td>
+<td><code>?</code></td>
+<td><code>help [command]</code></td>
+<td><code>help ping</code></td>
+<td>Core</td>
+</tr>
+<tr>
+<td><code>mod</code></td>
+<td>Sets the moderator role.</td>
+<td></td>
+<td><code>mod &lt;role|check|unset&gt;</code></td>
+<td><code>mod @spies</code></td>
+<td>Configuration</td>
+</tr>
+<tr>
+<td><code>serverprefix</code></td>
+<td>Sets the prefix for communicating with this bot on this server.</td>
+<td><code>prefix</code></td>
+<td><code>--serverprefix &lt;prefix&gt; [-set {def: general}]</code></td>
+<td><code>serverprefix .. -general</code></td>
+<td>Configuration</td>
+</tr>
+<tr>
+<td><code>channel</code></td>
+<td>Enables or disables use of the bot in a certain channel.</td>
+<td></td>
+<td><code>channel &lt;enable|disable|list&gt; [which]</code></td>
+<td>Configuration</td>
+<td></td>
+</tr>
+<tr>
+<td><code>command</code></td>
+<td>Enables or disables use of a certain command in this server.</td>
+<td></td>
+<td><code>channel &lt;enable|disable|list&gt; [which]</code></td>
+<td>Configuration</td>
+<td></td>
+</tr>
+<tr>
+<td><code>ban</code></td>
+<td>Bans a user for a specified reason.</td>
+<td></td>
+<td><code>ban &lt;user&gt; [reason</code></td>
+<td>Server Management</td>
+<td></td>
+</tr>
+<tr>
+<td><code>pardon</code></td>
+<td>Pardons (unbans) a user for a specified reason.</td>
+<td><code>unban</code></td>
+<td><code>pardon &lt;user&gt; [reason]</code></td>
+<td>Server Management</td>
+<td></td>
+</tr>
+<tr>
+<td><code>kick</code></td>
+<td>Kicks a user for a specified reason.</td>
+<td></td>
+<td><code>kick &lt;user&gt; [reason]</code></td>
+<td>Server Management</td>
+<td></td>
+</tr>
+<tr>
+<td><code>mute</code></td>
+<td>Mutes a user.</td>
+<td></td>
+<td><code>mute &lt;user&gt; [seconds]</code></td>
+<td>Server Management</td>
+<td></td>
+</tr>
+<tr>
+<td><code>unmute</code></td>
+<td>Unmutes a user.</td>
+<td></td>
+<td><code>unmute &lt;user&gt;</code></td>
+<td>Server Management</td>
+<td></td>
+</tr>
+<tr>
+<td><code>prune</code></td>
+<td>Removes the specified number of messages.</td>
+<td></td>
+<td><code>prune &lt;1-99&gt;</code></td>
+<td>Server Management</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><em>These commands can only be run by users with the <code>ADMINISTRATOR</code> permission or users with the role set by the <code>mod</code> command.</em></p>
+
+          </section>
+          <section class="block">
+            <h4 id="required-permissions">
+              <a href="#required-permissions">Required Permissions</a>
+            </h4>
+        <ul>
+<li><code>readMessages</code>, <code>sendMessages</code>, <code>embedLinks</code> &amp; <code>addReactions</code>: for responding to commands.</li>
+</ul>
+
+          </section>
+          <section class="block">
+            <h4 id="feature-ideas-aka-todo-list-">
+              <a href="#feature-ideas-aka-todo-list-">Feature Ideas (aka TODO list)</a>
+            </h4>
+        <ul>
+<li>Rooms: when enabled by mods, users can run <code>room</code> and create a channel in a set category named after them, having complete moderation over that channel.</li>
+<li>Voting system: round 1, register by voting; round 2, optionally change vote (if wanting to vote for winners).</li>
+<li>Games: Hangman, Noughts &amp; Crosses, Connect4, Battles.</li>
+<li>Mod logging.</li>
+<li>Tags (custom commands).</li>
+<li>Selfranks (support for adding by reaction)</li>
+<li>Ranks/experience system. Including decay, roles based on position not just level, maybe way to &quot;battle&quot; other users for their xp?</li>
+<li>Starboard (add x starred msgs to x channel).</li>
+<li>Pets.</li>
+</ul>
+
+          </section>
+          <section class="block">
+            <h3 id="known-issues">
+              <a href="#known-issues">Known Issues</a>
+            </h3>
+        <ul>
+<li>Cleverbot responds slowly.</li>
+<li>Only up to 99 messages can be pruned each time.</li>
+<li>Custom user prefixes are global, not per-server. Is this good or bad?</li>
+</ul>
+
+          </section>
+          <section class="block">
+            <h3 id="contributing">
+              <a href="#contributing">Contributing</a>
+            </h3>
+        <p>If you notice any bugs, please open an issue with information about what happened (or what didn&#39;t happen) and why (what you tried to do and how you tried to do it). Contributions in the form of pull requests for new features or improvements to existing features are welcome.</p>
+<p><em>Skink is licensed under the ISC License (see the <a href="LICENSE">LICENSE</a> file).</em></p>
+<hr>
+
+          </section>
+          <section class="block">
+            <h3 id="docs">
+              <a href="#docs">Docs</a>
+            </h3>
+        
+          </section>
+          <section class="block">
+            <h4 id="configuration">
+              <a href="#configuration">Configuration</a>
+            </h4>
+        <pre><code class="lang-js"><span class="hljs-comment">// config.js</span>
+
+{
+  <span class="hljs-string">"prefixes"</span>: {
+    <span class="hljs-string">"general"</span>: <span class="hljs-string">"--"</span>,
+    <span class="hljs-string">"moderation"</span>: <span class="hljs-string">"%%"</span>
+  },
+  <span class="hljs-comment">// used in the help message</span>
+  <span class="hljs-string">"emoji"</span>: <span class="hljs-string">"🦎"</span>,
+  <span class="hljs-string">"info"</span>: <span class="hljs-string">"Shown in the help message. Available tags are {GUILDPREFIX} (custom prefix set by command for a guild) and {SERVERCOUNT} (example: 37 servers)."</span>,
+  <span class="hljs-string">"invite"</span>: <span class="hljs-string">"https://discordapp.com/oauth2/authorize?client_id=&amp;scope=bot&amp;permissions="</span>,
+  <span class="hljs-comment">// decimal colour - below is https://www.colorhexa.com/b3000a</span>
+  <span class="hljs-string">"embedColour"</span>: <span class="hljs-number">11730954</span>,
+  <span class="hljs-string">"status"</span>: {
+    <span class="hljs-comment">// available: 0 (Playing), 2 (Listening to) and 3 (Watching)</span>
+    <span class="hljs-string">"type"</span>: <span class="hljs-number">3</span>,
+    <span class="hljs-comment">// available: {SERVERCOUNT} (example: 37 servers)</span>
+    <span class="hljs-string">"value"</span>: <span class="hljs-string">"for --help | {SERVERCOUNT}"</span>
+  }
+}</code></pre>
+<pre><code class="lang-js"><span class="hljs-comment">// secrets.js</span>
+
+{
+  <span class="hljs-string">"cleverUser"</span>: <span class="hljs-string">"(cleverbot.io)"</span>,
+  <span class="hljs-string">"cleverKey"</span>: <span class="hljs-string">"(cleverbot.io)"</span>,
+  <span class="hljs-string">"TOKEN"</span>: <span class="hljs-string">"(discord)"</span>
+}</code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="command-template">
+              <a href="#command-template">Command Template</a>
+            </h4>
+        <pre><code class="lang-js"><span class="hljs-comment">// file: ./commands/example.js</span>
+
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'example'</span>,
+  <span class="hljs-attr">aliases</span>: [<span class="hljs-string">'something'</span>],
+  <span class="hljs-attr">description</span>: <span class="hljs-string">'Does a thing.'</span>,
+  <span class="hljs-attr">category</span>: <span class="hljs-string">'General'</span>,
+  <span class="hljs-attr">usage</span>: <span class="hljs-string">'&lt;required&gt; [optional] [options: this|that] [something {def: hello}] [-flag]'</span>,
+  <span class="hljs-attr">example</span>: <span class="hljs-string">'@user bcos why not -hey'</span>,
+  <span class="hljs-attr">args</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-comment">// in seconds</span>
+  <span class="hljs-attr">cooldown</span>: <span class="hljs-number">3</span>,
+  <span class="hljs-comment">// permissions required by the bot to run command (https://abal.moe/Eris/docs/reference)</span>
+  <span class="hljs-attr">perms</span>: [],
+  <span class="hljs-comment">// user IDs blocked from running this command</span>
+  <span class="hljs-attr">blocked</span>: [],
+  <span class="hljs-comment">// if value: only these user IDs can run this command</span>
+  <span class="hljs-attr">only</span>: [],
+  <span class="hljs-attr">run</span>: <span class="hljs-function">(<span class="hljs-params">bot, message, [set, prefix, cmd], [guildDB, userDB]</span>) =&gt;</span> {
+    <span class="hljs-comment">// do stuff</span>
+  };
+};</code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="event-template">
+              <a href="#event-template">Event Template</a>
+            </h4>
+        <pre><code class="lang-js"><span class="hljs-comment">// file: ./events/eventName.js</span>
+
+exports.trigger = <span class="hljs-function">(<span class="hljs-params">bot, arg1, arg2, etc</span>) =&gt;</span> {
+  <span class="hljs-comment">// do stuff</span>
+};</code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="api">
+              <a href="#api">API</a>
+            </h4>
+        <pre><code class="lang-js">skink || <span class="hljs-keyword">super</span>.bot() = <span class="hljs-comment">// the master object</span>
+{
+  $client = <span class="hljs-comment">// eris</span>
+  $secrets = <span class="hljs-comment">// resources/secrets.json</span>
+  $config = <span class="hljs-comment">// resources/config.json</span>
+  $events = <span class="hljs-comment">// collection of loaded events</span>
+  $commands = <span class="hljs-comment">// collection of loaded commands</span>
+  $load {
+    config() = <span class="hljs-comment">// (re)load $config</span>
+    <span class="hljs-keyword">async</span> events(name) = <span class="hljs-comment">// (re)load $events</span>
+    <span class="hljs-keyword">async</span> commands(name, <span class="hljs-keyword">set</span>) = // (re)load $commands
+  }
+  $utils {
+    flatten(...arr) = <span class="hljs-comment">// recursively merges arrays to remove depth</span>
+    join(array, char = <span class="hljs-string">', '</span>, word) = <span class="hljs-comment">// (['a', 'b', 'c'], ', ', ', and ') =&gt;  'a, b, and c'</span>
+    line(string, char = <span class="hljs-string">'='</span>, where) = <span class="hljs-comment">// 0: both, 1: top, 2: bottom</span>
+    <span class="hljs-keyword">async</span> walk(dir, list = []) = <span class="hljs-comment">// recusively read directory contents</span>
+    <span class="hljs-keyword">async</span> filter(arr, check) = <span class="hljs-comment">// async version of the built-in filter</span>
+  }
+  $collection() = <span class="hljs-comment">// returns new collection (extension of map)</span>
+}</code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="database">
+              <a href="#database">Database</a>
+            </h4>
+        <pre><code class="lang-js">guilds [
+  {
+    _id = <span class="hljs-comment">// guild ID</span>
+    disabled {
+      channels = <span class="hljs-comment">// array of disabled channel IDs</span>
+      commands = <span class="hljs-comment">// object with arrays of disabled command names for each command set</span>
+    }
+    roles {
+      mod = <span class="hljs-comment">// users with this role can run moderation commands</span>
+      muted = <span class="hljs-comment">// the role used to mute users</span>
+    }
+    prefixes = <span class="hljs-comment">// object with custom guild prefixes for each command set</span>
+  }
+]
+
+users [
+  {
+    _id = <span class="hljs-comment">// user ID</span>
+    prefixes = <span class="hljs-comment">// object with custom user prefixes for each command set</span>
+    scales = <span class="hljs-comment">// scale balance (credits/tokens)</span>
+    icecream = <span class="hljs-comment">// number of icecreams from icecream command</span>
+    daily = <span class="hljs-comment">// time user last ran daily command successfully</span>
+  }
+]</code></pre>
+
+          </section>
+          <section class="block">
+            <h1 id="examples">
+              <a href="#examples">examples</a>
+            </h1>
+        <p>lorem ipsum</p>
+
+          </section>
+          <section class="block">
+            <h2 id="sub-1">
+              <a href="#sub-1">sub 1</a>
+            </h2>
+        <p>this is <del>text</del>. i think. <em>could</em> be wrong, <strong>tho</strong>.</p>
+
+          </section>
+          <section class="block">
+            <h3 id="subsub-b">
+              <a href="#subsub-b">subsub B</a>
+            </h3>
+        <blockquote>
+<p>yeet</p>
+</blockquote>
+
+          <div class="example">
+            <p>html</p>
+          </div>
+        
+          </section>
+          <section class="block">
+            <h1 id="customising">
+              <a href="#customising">customising</a>
+            </h1>
+        <p>lorem ipsum <code>inline</code></p>
+
+          </section>
+          <section class="block">
+            <h1 id="backbone">
+              <a href="#backbone">backbone</a>
+            </h1>
+        <p>A modular bot template for <a href="https://discord.js.org/#/">discord.js</a>. Before building a bot from this, you should have a fairly decent grasp of <a href="https://www.google.com.eg/search?q=javascript">JavaScript</a> (it&#39;s possible to create a bot without it, but frustrating and slow).</p>
+<p>For anything that isn&#39;t covered by this, have a look at the <a href="https://discordapp.com/developers/docs/intro">Discord Developer Documentation</a> and the <a href="https://discord.js.org/#/docs/main/stable/general/welcome">discord.js docs</a>. The <a href="https://discordjs.guide/#/">Discord.js Guide</a> and <a href="https://anidiots.guide/">An Idiot&#39;s Guide</a> are both good resources too.</p>
+<p>Backbone is licensed under the MIT License (see the LICENSE file).</p>
+
+          </section>
+          <section class="block">
+            <h3 id="ready-to-start-making-a-bot-out-of-backbone-have-a-look-at-the-wiki-https-github-com-thedragonring-backbone-wiki-to-learn-how-to-set-it-up-and-add-features-">
+              <a href="#ready-to-start-making-a-bot-out-of-backbone-have-a-look-at-the-wiki-https-github-com-thedragonring-backbone-wiki-to-learn-how-to-set-it-up-and-add-features-">Ready to start making a bot out of Backbone? Have a look at [the wiki](https://github.com/TheDragonRing/backbone/wiki) to learn how to set it up and add features!</a>
+            </h3>
+        <p>Seriously, go check it out. It has everything from creating the bot user to using the database and adding Cleverbot functionality.</p>
+
+          </section>
+          <section class="block">
+            <h1 id="sear-2">
+              <a href="#sear-2">Sear</a>
+            </h1>
+        <p>a lightweight, reactive data system</p>
+
+          </section>
+          <section class="block">
+            <h2 id="a-what--2">
+              <a href="#a-what--2">a what?</a>
+            </h2>
+        <p>when building your web app, there are 4 main data sets you deal with.</p>
+<ul>
+<li>visible / the html being displayed</li>
+<li>script / any javascript variables you may wish to update</li>
+<li>client-stored / anything persisted on the client side (e.g. localStorage)</li>
+<li>server-stored / data gained from interactions with the server.</li>
+</ul>
+<p>sear doesn&#39;t touch anything to do with the server. there&#39;re so many ways data
+transfer between the server and client can be implemented, that&#39;s best left to you.</p>
+<p>the other 3? sear takes them all, and gives one single object to interact with
+(from above, script data). you update data within that object, and the other two
+(visible + client-stored) reactively update accordingly (if necessary).</p>
+<p>this can massively simplify web app development when used to its fully potential,
+enabling (once initialised) you to do in only a couple of lines what you may once
+have needed to write 20 for.</p>
+<p>why should you use this when there are so many other libraries out there promising
+similar things, all of which seem to have massive amounts of support behind them?
+all depends on your use case. they had many things i didn&#39;t need nor want, and lacked
+other things i did (without having to install extra libraries). so, i spent ~50 hours
+of my time building something simple but powerful. this doesn&#39;t come with the complexities
+of constructing multiple components on the server-side and then learning an extensive api
+to fit everything together. it comes with functionality that does the job without trying
+to do any more.</p>
+<p>if you do want something like that, check out <a href="https://vuejs.org/">Vue.js</a> or
+<a href="https://svelte.dev/">Svelte</a>. otherwise, give this a try. it has some decent
+capabilities, and does the job well enough.</p>
+
+          </section>
+          <section class="block">
+            <h2 id="docs-features-2">
+              <a href="#docs-features-2">docs / features</a>
+            </h2>
+        <p>(to see these in action, go to <a href="https://dragonwocky.me/sear/">the website</a>)</p>
+
+          </section>
+          <section class="block">
+            <h4 id="app-declaration-2">
+              <a href="#app-declaration-2">app declaration</a>
+            </h4>
+        <p>include the file! either download the file from <a href="https://github.com/dragonwocky/sear/releases/download/v0.5.5/sear.0.5.5.js">here</a>
+and include in your own assets, or source it from <code>https://dragonwocky.me/sear/sear.min.js</code>. To access a specific version, use <code>https://dragonwocky.me/sear/dist/sear.&lt;version-number&gt;.js</code> (replacing <code>&lt;version-number&gt;</code> with e.g. <code>0.5.5</code>).</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://dragonwocky.me/sear/sear.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<p>initialise.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Sear({
+  <span class="hljs-comment">/*
+   * whatever element you want to restrict this to
+   * [type] single ID as a string
+   * [default] document.body
+   */</span>
+  <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span>,
+
+  <span class="hljs-attr">format</span>: {
+    <span class="hljs-comment">/*
+     * persist app data (see below: client) to localStorage under this name
+     * [default] none (doesn't persist)
+     */</span>
+    <span class="hljs-attr">name</span>: <span class="hljs-string">'Sear/Demo'</span>,
+    <span class="hljs-comment">/*
+     * version of the data structure
+     * [type] string or number
+     * [default] none (won't check)
+     */</span>
+    <span class="hljs-attr">version</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-comment">/*
+     * run this handler if version (above) doesn't match
+     * with the persisted data structure version
+     * [args] old (outdated data found in localStorage), version (of outdated data)
+     * [default] return {}; (starts afresh)
+     */</span>
+    handler(old, version) {
+      <span class="hljs-keyword">return</span> {};
+    }
+  },
+
+  <span class="hljs-comment">/*
+   * any reactive data properties (inc. computed properties)
+   */</span>
+  <span class="hljs-comment">// data will return to defaults on page reload</span>
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">example</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-comment">// client data will be persisted to and fetched from localStorage</span>
+    <span class="hljs-comment">//  -&gt; only works if format.name is defined</span>
+    <span class="hljs-comment">//  -&gt; (otherwise will act like normal data)</span>
+    <span class="hljs-attr">client</span>: {}
+  },
+
+  <span class="hljs-comment">// any functions watching for changes to data</span>
+  <span class="hljs-attr">watch</span>: {}
+});
+
+<span class="hljs-comment">// returns the following</span>
+{ <span class="hljs-attr">example</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">client</span>: {} };</code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="properties-2">
+              <a href="#properties-2">properties</a>
+            </h4>
+        <p>basic properties can be objects, arrays, dates, strings, numbers, and boolean values.</p>
+<pre><code class="lang-js">data.client: {
+  <span class="hljs-attr">selected</span>: <span class="hljs-string">'purple'</span>,
+  <span class="hljs-attr">icecream</span>: {
+    <span class="hljs-attr">flavours</span>: [<span class="hljs-string">'berry'</span>, <span class="hljs-string">'watermelon'</span>, <span class="hljs-string">'&lt;b&gt;tiramisu&lt;/b&gt;'</span>]
+  }
+};</code></pre>
+<p>these can be updated like any normal object property, or added in later.</p>
+<pre><code class="lang-js">app[<span class="hljs-string">'client'</span>].user.selected = <span class="hljs-string">'green'</span>;
+app[<span class="hljs-string">'client'</span>].icecream.new = <span class="hljs-string">''</span>;
+app[<span class="hljs-string">'client'</span>].paragraph = <span class="hljs-string">`this is &lt;b&gt;bold&lt;/b&gt;.
+  this is &lt;i&gt;italicised&lt;/i&gt;.
+  but i? i am &lt;s&gt;struck out&lt;/s&gt;.`</span>;</code></pre>
+<p>computed properties are functions that can return a dynamic value
+and can access fellow properties via <code>this</code>. these must not be declared
+as arrow functions! (arrow functions break persistence and accessing <code>this</code>)</p>
+<blockquote>
+<p>to access a computed value,
+use <code>app.value</code> rather than <code>app.value()</code>.</p>
+</blockquote>
+<pre><code class="lang-js">data: {
+  redselected() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-string">'client'</span>]selected === <span class="hljs-string">'red'</span>;
+  },
+  colour () {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'color: '</span> + <span class="hljs-keyword">this</span>[<span class="hljs-string">'client'</span>].selected;
+  }
+}</code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="watchers-2">
+              <a href="#watchers-2">watchers</a>
+            </h4>
+        <p>a watcher function will be evaluated whenever its corresponding data
+prop is changed. an argument is passed to it with the previous value of that data.</p>
+<blockquote>
+<p>due to the way the observation system works,
+watchers for properties within objects are declared by <code>&#39;parent.child&#39;(prev) {}</code>
+rather than <code>parent: { child(prev) {} }</code>.
+this allows for watching objects and their properties separately.</p>
+</blockquote>
+<pre><code class="lang-js">watch: {
+  <span class="hljs-string">'client.selected'</span>(prev) {
+    <span class="hljs-built_in">console</span>.log(
+      <span class="hljs-string">`[watcher] selected colour has changed from <span class="hljs-subst">${prev}</span> to <span class="hljs-subst">${<span class="hljs-keyword">this</span>[<span class="hljs-string">'client'</span>].selected}</span>`</span>
+    );
+  },
+  <span class="hljs-string">'client.icecream.flavours'</span>(prev) {
+    <span class="hljs-keyword">const</span> flavours = [...this[<span class="hljs-string">'client'</span>].icecream.flavours]
+      .filter(<span class="hljs-function"><span class="hljs-params">flavour</span> =&gt;</span> {
+        <span class="hljs-keyword">if</span> (prev.includes(flavour)) {
+          prev.splice(prev.indexOf(flavour), <span class="hljs-number">1</span>);
+          <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+      });
+    <span class="hljs-keyword">if</span> (flavours.length) {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`[watcher] flavour(s) added: &lt;&lt;<span class="hljs-subst">${flavours.join(<span class="hljs-string">'&gt;&gt; &lt;&lt;'</span>)}</span>&gt;&gt;`</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (prev.length)
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`[watcher] flavour(s) removed: &lt;&lt;<span class="hljs-subst">${prev.join(<span class="hljs-string">'&gt;&gt; &lt;&lt;'</span>)}</span>&gt;&gt;`</span>);
+  }
+}</code></pre>
+
+          </section>
+          <section class="block">
+            <h3 id="reactive-binding-2">
+              <a href="#reactive-binding-2">reactive binding</a>
+            </h3>
+        
+          </section>
+          <section class="block">
+            <h4 id="-html-2">
+              <a href="#-html-2">:html</a>
+            </h4>
+        <p>sync the contents of the bound element to a data property.
+contents will be displayed as HTML.</p>
+<blockquote>
+<p>not recommended (unless for e.g. displaying parsed markdown).
+dynamically rendering untrusted or user-input content could lead to
+XSS attacks (or other unintended consequences).</p>
+</blockquote>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">:html</span>=<span class="hljs-string">"client.paragraph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="-text-2">
+              <a href="#-text-2">:text</a>
+            </h4>
+        <p>sync the contents of the bound element to a data property.
+contents will be displayed as plain text.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">:text</span>=<span class="hljs-string">"client.paragraph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="-moustache--2">
+              <a href="#-moustache--2">{{ moustache }}</a>
+            </h4>
+        <p>text binding can also be done via <code>{{ moustache }}</code> tags.</p>
+<blockquote>
+<p>use only in text nodes. use in attributes etc. will make weird things happen.</p>
+</blockquote>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{ client.paragraph }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="-value-2">
+              <a href="#-value-2">:value</a>
+            </h4>
+        <p>sync the value of the bound input to a data property.
+works for any input (e.g. text, checkbox, select, you name it).</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">:value</span>=<span class="hljs-string">"client.paragraph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">:value</span>=<span class="hljs-string">"client.selected"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"red"</span>&gt;</span>red<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"blue"</span>&gt;</span>blue<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"green"</span>&gt;</span>green<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"purple"</span>&gt;</span>purple<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span></code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="-unbound-2">
+              <a href="#-unbound-2">:unbound</a>
+            </h4>
+        <p>use if you want something to be initially populated with a value,
+but not reactively updated.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>initial paragraph (as of page load):<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">:text</span>=<span class="hljs-string">"client.paragraph"</span> <span class="hljs-attr">:unbound</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="-pre-2">
+              <a href="#-pre-2">:pre</a>
+            </h4>
+        <p>use if you want to preserve everything within that tag -
+content will not be modified/updated in any way.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">:pre</span>&gt;</span>these {{ tags }} will <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">:text</span>=<span class="hljs-string">"client.paragraph"</span>&gt;</span>not<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> be parsed!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="-each-2">
+              <a href="#-each-2">:each</a>
+            </h4>
+        <p>repeat an element for each value of an array.
+assign this attribute to a container, and the first child will be the one
+repeated within the container.</p>
+<p>to access the relevant index/id (starting from 1) use <code>[[:each:id]]</code> and
+to access the current value use <code>[[:each:value]]</code>.
+if the value should be parsed as html (e.g. for displaying markdown), use <code>[[:each:value:html]]</code>.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">:each</span>=<span class="hljs-string">"client.icecream.flavours"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span>&gt;</span>[[:each:id]]<span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>. [[:each:value]]<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">"app['client'].icecream.flavours.splice([[:each:id]] - 1, 1)"</span>&gt;</span>
+    delete
+  <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<blockquote>
+<p>extra snippet! to add something to the list, use the following js
+(assuming you&#39;ve bound an input via <code>:value=&quot;icecream.new&quot;</code>):</p>
+<pre><code class="lang-js"><span class="hljs-keyword">if</span> (app[<span class="hljs-string">'client'</span>]icecream.new) {
+  app[<span class="hljs-string">'client'</span>]icecream.flavours = [app[<span class="hljs-string">'client'</span>]icecream.new, ...app[<span class="hljs-string">'client'</span>]icecream.flavours];
+  app[<span class="hljs-string">'client'</span>]icecream.new = <span class="hljs-string">''</span>;
+}</code></pre>
+</blockquote>
+
+          </section>
+          <section class="block">
+            <h4 id="-if-else-2">
+              <a href="#-if-else-2">:if / :else</a>
+            </h4>
+        <p>with <code>:if</code>, the element will only be present on the page if the
+relevant prop has a truthy value.</p>
+<p>with <code>:else</code>, the element will only be present on the page if the
+relevant prop has a falsy value.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>is red selected?<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">:if</span>=<span class="hljs-string">"client.redselected"</span>&gt;</span>yes it is<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">:else</span>=<span class="hljs-string">"client.redselected"</span>&gt;</span>no it isn't<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="-bind-attr-2">
+              <a href="#-bind-attr-2">:bind:attr</a>
+            </h4>
+        <p>use to reactively update/bind any attribute value.</p>
+<p>values are separated by spaces, written as <code>condition=response</code>.
+if there is no <code>response</code>, it will be assumed to be the value of <code>condition</code>.</p>
+<p>if the attribute is boolean, then a truthy <code>condition</code> will result in the
+presence of the attribute. a falsy <code>condition</code> will result in the removal of
+the attribute. to inverse this, do <code>condition=false</code>.</p>
+<blockquote>
+<p>this is only 1 way (it does not sync).
+for the <code>checked</code> attribute of checkboxes, use <code>:value</code> instead.</p>
+</blockquote>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">:bind:disabled</span>=<span class="hljs-string">"client.redselected=false"</span> <span class="hljs-attr">disabled</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>(will be disabled if red is not selected)<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">:bind:style</span>=<span class="hljs-string">"colour"</span>&gt;</span>i'm {{ client.selected }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
+          </section>
+          <section class="block">
+            <h2 id="license-2">
+              <a href="#license-2">license</a>
+            </h2>
+        <p><em>reactivity concepts originally learnt from</em>
+_<a href="https://github.com/shentao/seer/">https://github.com/shentao/seer/</a>, which is_
+<em>Copyright (c) 2016 Damian Dulisz under the MIT license.</em></p>
+<p>code here is my own, and is licensed in the <a href="LICENSE">LICENSE</a> file. a couple of functions were modified
+from things found on the internet, and links to the sites from which they were
+taken are in the version of the source that has comments (the not-minified one).</p>
+<blockquote>
+<p>basically: do what you like with this, so long as you attribute/credit me.</p>
+</blockquote>
+
+          </section>
+          <section class="block">
+            <h1 id="skink-2">
+              <a href="#skink-2">Skink</a>
+            </h1>
+        <p>A multi-purpose <a href="https://discordapp.com">Discord</a> bot built with <a href="https://abal.moe/Eris">Eris</a>.</p>
+<ul>
+<li>A set of base features and configuration/customisation abilities.</li>
+<li>Separate sets (and prefixes) for moderation and general commands (the bot will also respond to mentions for the latter).</li>
+<li>A few extra fun features, including cleverbot implementation: chat in DMs or with a command.</li>
+<li>A basic economy system to allow for future features that will make use of the currency.</li>
+</ul>
+
+          </section>
+          <section class="block">
+            <h4 id="general-commands-2">
+              <a href="#general-commands-2">General Commands</a>
+            </h4>
+        <p>Default General Prefix: <code>--</code></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Aliases</th>
+<th>Usage (<code>&lt;required&gt; [optional]</code>)</th>
+<th>Example</th>
+<th>Category</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>help</code></td>
+<td>Lists all commands and their usages.</td>
+<td><code>?</code></td>
+<td><code>help [command]</code></td>
+<td><code>help ping</code></td>
+<td>Core</td>
+</tr>
+<tr>
+<td><code>invite</code></td>
+<td>Gives a link to invite this bot to another server.</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Core</td>
+</tr>
+<tr>
+<td><code>ping</code></td>
+<td>Tests the bot&#39;s response time.</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Core</td>
+</tr>
+<tr>
+<td><code>eval</code></td>
+<td>Evalues inputted JavaScript.</td>
+<td></td>
+<td><code>eval &lt;js&gt;</code></td>
+<td><code>eval 1 + 1</code></td>
+<td>Core</td>
+</tr>
+<tr>
+<td><code>reload</code></td>
+<td>Reloads various bot files.</td>
+<td></td>
+<td><code>reload [what: config|command|event] [which] [-set]</code></td>
+<td><code>reload command -general ping</code></td>
+<td>Core</td>
+</tr>
+<tr>
+<td><code>userprefix</code></td>
+<td>Sets your personal prefix for communicating with this bot.</td>
+<td><code>prefix</code></td>
+<td><code>--userprefix &lt;prefix&gt; [-set {def: general}]</code></td>
+<td><code>userprefix .. -general</code></td>
+<td>Utils</td>
+</tr>
+<tr>
+<td><code>stats</code></td>
+<td>Gives some bot statistics.</td>
+<td><code>statistics</code></td>
+<td></td>
+<td></td>
+<td>Info</td>
+</tr>
+<tr>
+<td><code>serverinfo</code></td>
+<td>Shows information about the server you&#39;re in.</td>
+<td><code>server</code></td>
+<td></td>
+<td></td>
+<td>Info</td>
+</tr>
+<tr>
+<td><code>userinfo</code></td>
+<td>Shows information about you or a specified user.</td>
+<td><code>user</code></td>
+<td><code>userinfo [user]</code></td>
+<td><code>userinfo @thedragonring</code></td>
+<td>Info</td>
+</tr>
+<tr>
+<td><code>8ball</code></td>
+<td>Roll the 8ball, and learn the answer to any yes/no question!</td>
+<td></td>
+<td><code>8ball &lt;question&gt;</code></td>
+<td></td>
+<td>Fun</td>
+</tr>
+<tr>
+<td><code>icecream</code></td>
+<td>I scream for icecream!</td>
+<td></td>
+<td><code>icecream [user|check|eat]</code></td>
+<td></td>
+<td>Fun</td>
+</tr>
+<tr>
+<td><code>talk</code></td>
+<td>Talk to the bot.</td>
+<td><code>chat</code>, <code>t</code></td>
+<td><code>talk &lt;message&gt;</code></td>
+<td></td>
+<td>Fun</td>
+</tr>
+<tr>
+<td><code>balance</code></td>
+<td>Displays how many scales you or another user has.</td>
+<td><code>bal</code>, <code>scales</code></td>
+<td><code>balance [user]</code></td>
+<td></td>
+<td>Economy</td>
+</tr>
+<tr>
+<td><code>transfer</code></td>
+<td>Transfers the specified number of scales to another user.</td>
+<td><code>pay</code></td>
+<td><code>transfer &lt;user&gt; &lt;amount&gt;</code></td>
+<td></td>
+<td>Economy</td>
+</tr>
+<tr>
+<td><code>daily</code></td>
+<td>Collects or grants scales (can only be used once a day).</td>
+<td></td>
+<td><code>daily [user]</code></td>
+<td></td>
+<td>Economy</td>
+</tr>
+</tbody></table>
+<p><em>The commands <code>eval</code> and <code>reload</code> can only be run by the bot owner.</em></p>
+
+          </section>
+          <section class="block">
+            <h4 id="mod-commands-2">
+              <a href="#mod-commands-2">Mod Commands</a>
+            </h4>
+        <p>Default Mod Prefix: <code>%%</code></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Aliases</th>
+<th>Usage (<code>&lt;required&gt; [optional]</code>)</th>
+<th>Example</th>
+<th>Category</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>help</code></td>
+<td>Lists all commands and their usages.</td>
+<td><code>?</code></td>
+<td><code>help [command]</code></td>
+<td><code>help ping</code></td>
+<td>Core</td>
+</tr>
+<tr>
+<td><code>mod</code></td>
+<td>Sets the moderator role.</td>
+<td></td>
+<td><code>mod &lt;role|check|unset&gt;</code></td>
+<td><code>mod @spies</code></td>
+<td>Configuration</td>
+</tr>
+<tr>
+<td><code>serverprefix</code></td>
+<td>Sets the prefix for communicating with this bot on this server.</td>
+<td><code>prefix</code></td>
+<td><code>--serverprefix &lt;prefix&gt; [-set {def: general}]</code></td>
+<td><code>serverprefix .. -general</code></td>
+<td>Configuration</td>
+</tr>
+<tr>
+<td><code>channel</code></td>
+<td>Enables or disables use of the bot in a certain channel.</td>
+<td></td>
+<td><code>channel &lt;enable|disable|list&gt; [which]</code></td>
+<td>Configuration</td>
+<td></td>
+</tr>
+<tr>
+<td><code>command</code></td>
+<td>Enables or disables use of a certain command in this server.</td>
+<td></td>
+<td><code>channel &lt;enable|disable|list&gt; [which]</code></td>
+<td>Configuration</td>
+<td></td>
+</tr>
+<tr>
+<td><code>ban</code></td>
+<td>Bans a user for a specified reason.</td>
+<td></td>
+<td><code>ban &lt;user&gt; [reason</code></td>
+<td>Server Management</td>
+<td></td>
+</tr>
+<tr>
+<td><code>pardon</code></td>
+<td>Pardons (unbans) a user for a specified reason.</td>
+<td><code>unban</code></td>
+<td><code>pardon &lt;user&gt; [reason]</code></td>
+<td>Server Management</td>
+<td></td>
+</tr>
+<tr>
+<td><code>kick</code></td>
+<td>Kicks a user for a specified reason.</td>
+<td></td>
+<td><code>kick &lt;user&gt; [reason]</code></td>
+<td>Server Management</td>
+<td></td>
+</tr>
+<tr>
+<td><code>mute</code></td>
+<td>Mutes a user.</td>
+<td></td>
+<td><code>mute &lt;user&gt; [seconds]</code></td>
+<td>Server Management</td>
+<td></td>
+</tr>
+<tr>
+<td><code>unmute</code></td>
+<td>Unmutes a user.</td>
+<td></td>
+<td><code>unmute &lt;user&gt;</code></td>
+<td>Server Management</td>
+<td></td>
+</tr>
+<tr>
+<td><code>prune</code></td>
+<td>Removes the specified number of messages.</td>
+<td></td>
+<td><code>prune &lt;1-99&gt;</code></td>
+<td>Server Management</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><em>These commands can only be run by users with the <code>ADMINISTRATOR</code> permission or users with the role set by the <code>mod</code> command.</em></p>
+
+          </section>
+          <section class="block">
+            <h4 id="required-permissions-2">
+              <a href="#required-permissions-2">Required Permissions</a>
+            </h4>
+        <ul>
+<li><code>readMessages</code>, <code>sendMessages</code>, <code>embedLinks</code> &amp; <code>addReactions</code>: for responding to commands.</li>
+</ul>
+
+          </section>
+          <section class="block">
+            <h4 id="feature-ideas-aka-todo-list--2">
+              <a href="#feature-ideas-aka-todo-list--2">Feature Ideas (aka TODO list)</a>
+            </h4>
+        <ul>
+<li>Rooms: when enabled by mods, users can run <code>room</code> and create a channel in a set category named after them, having complete moderation over that channel.</li>
+<li>Voting system: round 1, register by voting; round 2, optionally change vote (if wanting to vote for winners).</li>
+<li>Games: Hangman, Noughts &amp; Crosses, Connect4, Battles.</li>
+<li>Mod logging.</li>
+<li>Tags (custom commands).</li>
+<li>Selfranks (support for adding by reaction)</li>
+<li>Ranks/experience system. Including decay, roles based on position not just level, maybe way to &quot;battle&quot; other users for their xp?</li>
+<li>Starboard (add x starred msgs to x channel).</li>
+<li>Pets.</li>
+</ul>
+
+          </section>
+          <section class="block">
+            <h3 id="known-issues-2">
+              <a href="#known-issues-2">Known Issues</a>
+            </h3>
+        <ul>
+<li>Cleverbot responds slowly.</li>
+<li>Only up to 99 messages can be pruned each time.</li>
+<li>Custom user prefixes are global, not per-server. Is this good or bad?</li>
+</ul>
+
+          </section>
+          <section class="block">
+            <h3 id="contributing-2">
+              <a href="#contributing-2">Contributing</a>
+            </h3>
+        <p>If you notice any bugs, please open an issue with information about what happened (or what didn&#39;t happen) and why (what you tried to do and how you tried to do it). Contributions in the form of pull requests for new features or improvements to existing features are welcome.</p>
+<p><em>Skink is licensed under the ISC License (see the <a href="LICENSE">LICENSE</a> file).</em></p>
+<hr>
+
+          </section>
+          <section class="block">
+            <h3 id="docs-2">
+              <a href="#docs-2">Docs</a>
+            </h3>
+        
+          </section>
+          <section class="block">
+            <h4 id="configuration-2">
+              <a href="#configuration-2">Configuration</a>
+            </h4>
+        <pre><code class="lang-js"><span class="hljs-comment">// config.js</span>
+
+{
+  <span class="hljs-string">"prefixes"</span>: {
+    <span class="hljs-string">"general"</span>: <span class="hljs-string">"--"</span>,
+    <span class="hljs-string">"moderation"</span>: <span class="hljs-string">"%%"</span>
+  },
+  <span class="hljs-comment">// used in the help message</span>
+  <span class="hljs-string">"emoji"</span>: <span class="hljs-string">"🦎"</span>,
+  <span class="hljs-string">"info"</span>: <span class="hljs-string">"Shown in the help message. Available tags are {GUILDPREFIX} (custom prefix set by command for a guild) and {SERVERCOUNT} (example: 37 servers)."</span>,
+  <span class="hljs-string">"invite"</span>: <span class="hljs-string">"https://discordapp.com/oauth2/authorize?client_id=&amp;scope=bot&amp;permissions="</span>,
+  <span class="hljs-comment">// decimal colour - below is https://www.colorhexa.com/b3000a</span>
+  <span class="hljs-string">"embedColour"</span>: <span class="hljs-number">11730954</span>,
+  <span class="hljs-string">"status"</span>: {
+    <span class="hljs-comment">// available: 0 (Playing), 2 (Listening to) and 3 (Watching)</span>
+    <span class="hljs-string">"type"</span>: <span class="hljs-number">3</span>,
+    <span class="hljs-comment">// available: {SERVERCOUNT} (example: 37 servers)</span>
+    <span class="hljs-string">"value"</span>: <span class="hljs-string">"for --help | {SERVERCOUNT}"</span>
+  }
+}</code></pre>
+<pre><code class="lang-js"><span class="hljs-comment">// secrets.js</span>
+
+{
+  <span class="hljs-string">"cleverUser"</span>: <span class="hljs-string">"(cleverbot.io)"</span>,
+  <span class="hljs-string">"cleverKey"</span>: <span class="hljs-string">"(cleverbot.io)"</span>,
+  <span class="hljs-string">"TOKEN"</span>: <span class="hljs-string">"(discord)"</span>
+}</code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="command-template-2">
+              <a href="#command-template-2">Command Template</a>
+            </h4>
+        <pre><code class="lang-js"><span class="hljs-comment">// file: ./commands/example.js</span>
+
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'example'</span>,
+  <span class="hljs-attr">aliases</span>: [<span class="hljs-string">'something'</span>],
+  <span class="hljs-attr">description</span>: <span class="hljs-string">'Does a thing.'</span>,
+  <span class="hljs-attr">category</span>: <span class="hljs-string">'General'</span>,
+  <span class="hljs-attr">usage</span>: <span class="hljs-string">'&lt;required&gt; [optional] [options: this|that] [something {def: hello}] [-flag]'</span>,
+  <span class="hljs-attr">example</span>: <span class="hljs-string">'@user bcos why not -hey'</span>,
+  <span class="hljs-attr">args</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-comment">// in seconds</span>
+  <span class="hljs-attr">cooldown</span>: <span class="hljs-number">3</span>,
+  <span class="hljs-comment">// permissions required by the bot to run command (https://abal.moe/Eris/docs/reference)</span>
+  <span class="hljs-attr">perms</span>: [],
+  <span class="hljs-comment">// user IDs blocked from running this command</span>
+  <span class="hljs-attr">blocked</span>: [],
+  <span class="hljs-comment">// if value: only these user IDs can run this command</span>
+  <span class="hljs-attr">only</span>: [],
+  <span class="hljs-attr">run</span>: <span class="hljs-function">(<span class="hljs-params">bot, message, [set, prefix, cmd], [guildDB, userDB]</span>) =&gt;</span> {
+    <span class="hljs-comment">// do stuff</span>
+  };
+};</code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="event-template-2">
+              <a href="#event-template-2">Event Template</a>
+            </h4>
+        <pre><code class="lang-js"><span class="hljs-comment">// file: ./events/eventName.js</span>
+
+exports.trigger = <span class="hljs-function">(<span class="hljs-params">bot, arg1, arg2, etc</span>) =&gt;</span> {
+  <span class="hljs-comment">// do stuff</span>
+};</code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="api-2">
+              <a href="#api-2">API</a>
+            </h4>
+        <pre><code class="lang-js">skink || <span class="hljs-keyword">super</span>.bot() = <span class="hljs-comment">// the master object</span>
+{
+  $client = <span class="hljs-comment">// eris</span>
+  $secrets = <span class="hljs-comment">// resources/secrets.json</span>
+  $config = <span class="hljs-comment">// resources/config.json</span>
+  $events = <span class="hljs-comment">// collection of loaded events</span>
+  $commands = <span class="hljs-comment">// collection of loaded commands</span>
+  $load {
+    config() = <span class="hljs-comment">// (re)load $config</span>
+    <span class="hljs-keyword">async</span> events(name) = <span class="hljs-comment">// (re)load $events</span>
+    <span class="hljs-keyword">async</span> commands(name, <span class="hljs-keyword">set</span>) = // (re)load $commands
+  }
+  $utils {
+    flatten(...arr) = <span class="hljs-comment">// recursively merges arrays to remove depth</span>
+    join(array, char = <span class="hljs-string">', '</span>, word) = <span class="hljs-comment">// (['a', 'b', 'c'], ', ', ', and ') =&gt;  'a, b, and c'</span>
+    line(string, char = <span class="hljs-string">'='</span>, where) = <span class="hljs-comment">// 0: both, 1: top, 2: bottom</span>
+    <span class="hljs-keyword">async</span> walk(dir, list = []) = <span class="hljs-comment">// recusively read directory contents</span>
+    <span class="hljs-keyword">async</span> filter(arr, check) = <span class="hljs-comment">// async version of the built-in filter</span>
+  }
+  $collection() = <span class="hljs-comment">// returns new collection (extension of map)</span>
+}</code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="database-2">
+              <a href="#database-2">Database</a>
+            </h4>
+        <pre><code class="lang-js">guilds [
+  {
+    _id = <span class="hljs-comment">// guild ID</span>
+    disabled {
+      channels = <span class="hljs-comment">// array of disabled channel IDs</span>
+      commands = <span class="hljs-comment">// object with arrays of disabled command names for each command set</span>
+    }
+    roles {
+      mod = <span class="hljs-comment">// users with this role can run moderation commands</span>
+      muted = <span class="hljs-comment">// the role used to mute users</span>
+    }
+    prefixes = <span class="hljs-comment">// object with custom guild prefixes for each command set</span>
+  }
+]
+
+users [
+  {
+    _id = <span class="hljs-comment">// user ID</span>
+    prefixes = <span class="hljs-comment">// object with custom user prefixes for each command set</span>
+    scales = <span class="hljs-comment">// scale balance (credits/tokens)</span>
+    icecream = <span class="hljs-comment">// number of icecreams from icecream command</span>
+    daily = <span class="hljs-comment">// time user last ran daily command successfully</span>
+  }
+]</code></pre>
+
+          </section>
+          <section class="block">
+            <h1 id="examples-2">
+              <a href="#examples-2">examples</a>
+            </h1>
+        <p>lorem ipsum</p>
+
+          </section>
+          <section class="block">
+            <h2 id="sub-1-2">
+              <a href="#sub-1-2">sub 1</a>
+            </h2>
+        <p>this is <del>text</del>. i think. <em>could</em> be wrong, <strong>tho</strong>.</p>
+
+          </section>
+          <section class="block">
+            <h3 id="subsub-b-2">
+              <a href="#subsub-b-2">subsub B</a>
+            </h3>
+        <blockquote>
+<p>yeet</p>
+</blockquote>
+
+          <div class="example">
+            <p>html</p>
+          </div>
+        
+          </section>
+          <section class="block">
+            <h1 id="customising-2">
+              <a href="#customising-2">customising</a>
+            </h1>
+        <p>lorem ipsum <code>inline</code></p>
+
+          </section>
+          <section class="block">
+            <h1 id="backbone-2">
+              <a href="#backbone-2">backbone</a>
+            </h1>
+        <p>A modular bot template for <a href="https://discord.js.org/#/">discord.js</a>. Before building a bot from this, you should have a fairly decent grasp of <a href="https://www.google.com.eg/search?q=javascript">JavaScript</a> (it&#39;s possible to create a bot without it, but frustrating and slow).</p>
+<p>For anything that isn&#39;t covered by this, have a look at the <a href="https://discordapp.com/developers/docs/intro">Discord Developer Documentation</a> and the <a href="https://discord.js.org/#/docs/main/stable/general/welcome">discord.js docs</a>. The <a href="https://discordjs.guide/#/">Discord.js Guide</a> and <a href="https://anidiots.guide/">An Idiot&#39;s Guide</a> are both good resources too.</p>
+<p>Backbone is licensed under the MIT License (see the LICENSE file).</p>
+
+          </section>
+          <section class="block">
+            <h3 id="ready-to-start-making-a-bot-out-of-backbone-have-a-look-at-the-wiki-https-github-com-thedragonring-backbone-wiki-to-learn-how-to-set-it-up-and-add-features--2">
+              <a href="#ready-to-start-making-a-bot-out-of-backbone-have-a-look-at-the-wiki-https-github-com-thedragonring-backbone-wiki-to-learn-how-to-set-it-up-and-add-features--2">Ready to start making a bot out of Backbone? Have a look at [the wiki](https://github.com/TheDragonRing/backbone/wiki) to learn how to set it up and add features!</a>
+            </h3>
+        <p>Seriously, go check it out. It has everything from creating the bot user to using the database and adding Cleverbot functionality.</p>
+
+                </section><nav><a class="prev" href="./"><</a><a class="next" href="03.customising.html">></a></nav></div></body></html>
