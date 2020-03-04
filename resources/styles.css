@@ -180,7 +180,7 @@ aside .mark a {
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  padding: 0 1.5em 1.5em 1.5em;
+  padding: 0 1.5em 3em 1.5em;
 }
 .documentative .block {
   margin: 1.5em;
@@ -216,11 +216,16 @@ aside .mark a {
 .documentative nav .prev,
 .documentative nav .next {
   margin: 1em;
-  border-radius: 55%;
-  font-size: 0.8em;
-  font-family: 'Source Code Pro', monospace;
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
+  text-align: center;
+  font-size: 1.5em;
+  font-family: monospace;
+  font-weight: bold;
   color: var(--colour);
-  background-color: var(--standout);
+  background-color: var(--shadow);
 }
 
 .documentative h1 {

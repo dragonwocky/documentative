@@ -28,7 +28,7 @@ html
     .documentative
       != content
       nav
-        if (index > 0)
+        if (index > 0 && pages[index - 1].type === 'page')
           a.prev(href=pages[index - 1].url) <
-        if (index < pages.length - 1)
+        if (index < pages.length - 1 && pages[index + 1].type === 'page')
           a.next(href=pages[index + 1].url) >
