@@ -1,92 +1,89 @@
 /*
- * Documentative
+ * Documentative Styling
  * (c) 2020 dragonwocky <thedragonring.bod@gmail.com>
  * (https://dragonwocky.me/) under the MIT License
  */
-
 :root {
-  --background: #f7f9f9;
-  --inverse: #0e0f0f;
-
+  --primary: #b20000;
+  --absolute: #000;
+  --contrast: #fff;
+  --text: rgba(0, 0, 0, 0.84);
+  --link: var(--primary);
+  --grey: var(--hover);
+  --bg: #fbfcfc;
+  --box: #f2f3f4;
+  --code: #f7f9f9;
+  --button: var(--shadow);
   --border: #e5e7e9;
   --shadow: #eee;
   --glow: transparent;
-
-  --button: #eaecee;
-  --input: #f0f3f4;
-
-  --colour: #333;
-  --standout: #000;
-  --contrast: #fff;
-  --primary: #b20000;
-  --menu-weight: bold;
-
-  --box: #fbfcfc;
-  --code: #f2f3f4;
+  --scroll: #e9e9e9;
+  --hover: #dedede;
+  --code-lang: #555;
   --hljs-html: #000080;
   --hljs-attr: #008080;
   --hljs-string: #d14;
   --hljs-builtin: #0086b3;
   --hljs-keyword: var(--colour);
+  --hljs-selector: #900;
+  --hljs-type: #458;
+  --hljs-regex: #009926;
+  --hljs-symbol: #990073;
+  --hljs-meta: #999;
   --hljs-comment: #707070;
+  --hljs-deletion: #e8b9b8;
+  --hljs-deletion-text: #4c232d;
+  --hljs-addition: #b9e0d3;
+  --hljs-addition-text: #1e4839;
 }
-
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0e0f0f;
-    --inverse: #f7f9f9;
-
-    --border: #2d2e2f;
-    --shadow: #070707;
-    --glow: #b20000;
-
-    --button: #0a0c0e;
-    --input: var(--button);
-
-    --scroll: #202225;
-    --scrollhover: #36393f;
-
-    --colour: #ddd;
-    --standout: #fff;
+    --absolute: #fff;
     --contrast: #000;
-    --primary: #f33;
-    --menu-weight: normal;
-
+    --text: #ddd;
+    --link: #ff2626;
+    --bg: #0e0f0f;
     --box: #050505;
     --code: #000;
+    --border: #2d2e2f;
+    --shadow: #070707;
+    --glow: var(--primary);
+    --scroll: #202225;
+    --hover: #36393f;
+    --code-lang: #ccc;
     --hljs-html: #46db8c;
     --hljs-attr: #dd1111;
     --hljs-string: #abcdef;
-    --hljs-builtin: #b8528d; /* bd1a79, 926956 */
+    --hljs-builtin: #b8528d;
+    /* bd1a79, 926956 */
     --hljs-keyword: #2d8b59;
     --hljs-comment: #a0a0a0;
+    --hljs-deletion: #4c232d;
+    --hljs-deletion-text: #e8b9b8;
+    --hljs-addition: #1e4839;
+    --hljs-addition-text: #b9e0d3;
   }
 }
-
 * {
   box-sizing: border-box;
+  word-break: break-word;
+  text-decoration: none;
 }
-html {
+html,
+body {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
 }
 body {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  color: var(--colour);
-  background-color: var(--background);
+  color: var(--text);
+  background-color: var(--bg);
   font-family: 'Nunito Sans', sans-serif;
-  display: grid;
-  grid-template-columns: 25% auto;
 }
-
 ::-webkit-scrollbar {
-  margin: 1px;
-  width: 8px;
-  height: 8px;
+  width: 2px;
+  height: 2px;
 }
 ::-webkit-scrollbar-corner,
 ::-webkit-scrollbar-track {
@@ -97,216 +94,302 @@ body {
   border-radius: 5px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--scrollhover);
+  background: var(--hover);
 }
-
 aside {
-  background-color: var(--box);
-  overflow-x: auto;
-  padding: 0 1.5em 1em 1.5em;
   display: flex;
   flex-direction: column;
+  background-color: var(--box);
+  overflow-x: auto;
 }
 aside .title {
-  width: 100%;
   display: flex;
   flex-direction: row;
-  margin: 1.5em 0 1.15em 0;
 }
 aside .title h1 {
-  font: 1.75em Courier, monospace;
-  font-weight: 500;
-  margin: 0;
-  padding-bottom: 2.5px;
-  border-bottom: 5px solid #b20000;
-  color: var(--standout);
+  font: 1.8em 'Source Code Pro', monospace;
+  margin: 0 0 1em 1.5rem;
+  padding: 1em 1em 2.5px 0;
+  border-bottom: 5px solid var(--primary);
+  color: var(--absolute);
 }
-aside .title img {
-  width: 2.6em;
-  height: 2.6em;
-  margin: 0 0.4em;
+aside .title .icon {
+  margin: auto 0.5em;
+}
+aside .title .icon img {
+  width: 2.5em;
+  height: 2.5em;
+  margin: auto 0.5em;
   filter: drop-shadow(0 0 0.75em var(--glow));
+}
+aside > ul:first-child > li:first-child {
+  padding-top: 1em;
 }
 aside ul {
   list-style-type: none;
   padding-inline-start: 0;
   margin: 0;
 }
-aside > ul:first-child > li:first-child {
-  padding-top: 1em;
-}
 aside ul li a {
-  color: var(--colour);
-  text-decoration: none;
-  word-break: break-word;
+  color: var(--text);
   padding-bottom: 0.1em 5em;
   display: block;
+  padding: 2px 1.5em;
+}
+aside ul li a:hover,
+aside ul li a:active {
+  background: var(--scroll);
 }
 aside ul li a.active {
-  color: var(--primary);
+  color: var(--link);
   font-weight: bold;
   text-shadow: 0 0 0.75em var(--glow);
 }
-aside ul li.depth-1 {
-  padding-left: 0.375em;
+aside ul li.depth-1 a {
+  padding-left: 1.875em;
 }
-aside ul li.depth-2 {
-  padding-left: calc(0.75em * 1);
+aside ul li.depth-2 a {
+  padding-left: calc(1.5em + calc(0.75em * 1));
 }
-aside ul li.depth-3 {
-  padding-left: calc(0.75em * 2);
+aside ul li.depth-3 a {
+  padding-left: calc(1.5em + calc(0.75em * 2));
 }
-aside ul li.depth-4 {
-  padding-left: calc(0.75em * 3);
+aside ul li.depth-4 a {
+  padding-left: calc(1.5em + calc(0.75em * 3));
 }
-aside ul li.depth-5 {
-  padding-left: calc(0.75em * 4);
+aside ul li.depth-5 a {
+  padding-left: calc(1.5em + calc(0.75em * 4));
 }
-aside ul li.depth-6 {
-  padding-left: calc(0.75em * 5);
+aside ul li.depth-6 a {
+  padding-left: calc(1.5em + calc(0.75em * 5));
 }
 aside .mark {
   text-align: right;
-  margin: auto 0 0 0;
+  margin-top: auto;
+  padding: 2px 1.5em;
   font-size: 0.8em;
-  color: var(--scrollhover);
 }
 aside .mark a {
-  color: var(--scrollhover);
-  text-decoration: dotted;
+  color: var(--grey);
 }
-
-.documentative {
+.wrapper {
+  height: 100%;
   width: 100%;
+  overflow-y: hidden;
+}
+.wrapper .documentative {
   height: 100%;
   overflow-y: auto;
   padding: 0 1.5em 3em 1.5em;
+  display: flex;
+  flex-direction: column;
 }
-.documentative .block {
+.wrapper .documentative .block {
   margin: 1.5em;
   word-wrap: break-word;
 }
-.documentative .block:first-child {
+.wrapper .documentative .block:first-child {
   margin: 0 1.5em 1.5em 1.5em;
 }
-.documentative .example {
+.wrapper .documentative .example {
   margin-top: 1em;
   padding: 1em;
   background-color: var(--box);
   box-shadow: 0.4em 0.4em 1em var(--shadow);
 }
-.documentative .example p:first-child {
-  margin-top: 0;
-}
-.documentative .example p:last-child {
+.wrapper .documentative .example p:first-child,
+.wrapper .documentative .example p:last-child {
   margin-bottom: 0;
 }
-.documentative nav {
+.wrapper .documentative nav {
   width: 75%;
   position: fixed;
-  bottom: 0;
+  bottom: 1em;
   right: 0;
+  pointer-events: none;
 }
-.documentative nav .prev {
+.wrapper .documentative nav .prev {
   float: left;
+  pointer-events: all;
 }
-.documentative nav .next {
+.wrapper .documentative nav .next {
   float: right;
+  pointer-events: all;
 }
-.documentative nav .prev,
-.documentative nav .next {
-  margin: 1em;
+.wrapper .documentative nav .prev,
+.wrapper .documentative nav .next {
   border-radius: 50%;
   width: 2em;
   height: 2em;
+  margin: 0 1em;
   line-height: 2em;
   text-align: center;
   font-size: 1.5em;
   font-family: monospace;
   font-weight: bold;
-  color: var(--colour);
-  background-color: var(--shadow);
+  color: var(--text);
+  background-color: var(--button);
 }
-
-.documentative h1 {
-  margin: 0;
-  padding-top: 1.5em;
+.wrapper .documentative .copyright {
+  text-align: right;
+  color: var(--grey);
+  margin: auto 1.5em 0;
 }
-.documentative h2,
-.documentative h3,
-.documentative h4,
-.documentative h5,
-.documentative h6 {
+.wrapper .documentative .copyright hr {
+  border-color: var(--grey);
+}
+.wrapper .documentative .copyright a {
+  color: var(--grey);
+  text-shadow: none;
+}
+.wrapper .documentative h1,
+.wrapper .documentative h2,
+.wrapper .documentative h3,
+.wrapper .documentative h4,
+.wrapper .documentative h5,
+.wrapper .documentative h6 {
   margin: 0;
   padding-top: 1em;
 }
-.documentative h1 a,
-.documentative h2 a,
-.documentative h3 a,
-.documentative h4 a,
-.documentative h5 a,
-.documentative h6 a {
-  color: var(--colour);
-  text-decoration: none;
+.wrapper .documentative h1 a,
+.wrapper .documentative h2 a,
+.wrapper .documentative h3 a,
+.wrapper .documentative h4 a,
+.wrapper .documentative h5 a,
+.wrapper .documentative h6 a {
+  color: var(--text);
   text-shadow: none;
 }
-.documentative a {
-  color: var(--primary);
-  text-decoration: none;
+.wrapper .documentative h1 {
+  padding-top: 1.5em;
+}
+.wrapper .documentative a {
+  color: var(--link);
   text-shadow: 0 0 0.75em var(--glow);
 }
-.documentative blockquote {
+.wrapper .documentative blockquote {
   margin-left: 0;
   padding-left: 1em;
   border-left: 0.25em solid var(--border);
 }
-.documentative table {
+.wrapper .documentative table {
   width: 100%;
   border-collapse: collapse;
 }
-
-.documentative table,
-.documentative th,
-.documentative td {
+.wrapper .documentative table,
+.wrapper .documentative th,
+.wrapper .documentative td {
   padding: 0.2em 0.7em;
-  border: 1px solid var(--inverse);
+  border: 1px solid var(--border);
 }
-
-.documentative code {
+.wrapper .documentative code {
   padding: 0.5em;
   background-color: var(--code);
   border-radius: 5px;
   overflow-x: auto;
   position: relative;
   display: block;
-  font-size: 0.8em;
   font-family: 'Source Code Pro', monospace;
 }
-.documentative *:not(pre) > code {
+.wrapper .documentative *:not(pre) > code {
   line-height: 2.5em;
   font-size: 0.75em;
   display: inline;
 }
-.documentative pre {
+.wrapper .documentative pre {
   position: relative;
 }
-.documentative pre code {
+.wrapper .documentative pre code {
   padding: 1.8em;
   position: static;
+  font-size: 0.8em;
 }
-.documentative pre code::before {
+.wrapper .documentative pre code::before {
   position: absolute;
   right: 0;
   top: 0;
-  color: #ccc;
+  color: var(--code-lang);
   font-size: 0.65em;
   padding: 0.5em 0.8em;
 }
-.documentative pre .lang-html:before {
-  content: 'HTML';
+@media (min-width: 769px) {
+  body {
+    display: grid;
+    grid-template-columns: 25% 75%;
+  }
+  aside::-webkit-scrollbar-corner,
+  aside::-webkit-scrollbar-track {
+    background-color: var(--bg);
+  }
+  .toggle {
+    display: none;
+  }
 }
-.documentative pre .lang-js::before {
-  content: 'JS';
+@media (max-width: 768px) {
+  aside {
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: calc(4.5em - 100%);
+    width: calc(100% - 4.5em);
+    transition: left 500ms ease;
+  }
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: left 500ms ease;
+  }
+  .wrapper .documentative {
+    flex-shrink: 1;
+  }
+  .wrapper .documentative nav {
+    width: 100%;
+  }
+  .wrapper .toggle {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    padding: 0.8em 0;
+    background-color: var(--box);
+  }
+  .wrapper .toggle h1 {
+    font-size: 1.8em;
+    padding-top: 1.5px;
+    margin: auto 1.5rem auto 0;
+  }
+  .wrapper .toggle button {
+    font-size: 1.8em;
+    width: 2.5em;
+    margin: auto 0.5em;
+    color: var(--absolute);
+    border: none;
+    background: none;
+    text-align: center;
+    transition: transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  .wrapper .toggle button:hover,
+  .wrapper .toggle button:focus {
+    color: var(--text);
+  }
+  .wrapper .toggle button:active {
+    transform: scale(0.95);
+  }
+  .mobilemenu aside {
+    left: 0;
+  }
+  .mobilemenu .wrapper {
+    left: calc(100% - 4.5em);
+  }
+}
+.hljs-subst {
+  color: var(--text);
 }
 .hljs-comment,
 .hljs-quote {
@@ -317,9 +400,6 @@ aside .mark a {
 .hljs-selector-tag {
   color: var(--hljs-keyword);
   font-weight: bold;
-}
-.hljs-subst {
-  color: var(--colour);
 }
 .hljs-number,
 .hljs-literal,
@@ -332,42 +412,44 @@ aside .mark a {
 .hljs-doctag {
   color: var(--hljs-string);
 }
-.hljs-title,
-.hljs-section,
-.hljs-selector-id {
-  color: #900;
-  font-weight: bold;
-}
-.hljs-type,
-.hljs-class .hljs-title {
-  color: #458;
-  font-weight: bold;
-}
 .hljs-name,
 .hljs-attribute {
   color: var(--hljs-html);
-}
-.hljs-regexp,
-.hljs-link {
-  color: #009926;
-}
-.hljs-symbol,
-.hljs-bullet {
-  color: #990073;
 }
 .hljs-built_in,
 .hljs-builtin-name {
   color: var(--hljs-builtin);
 }
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: var(--hljs-selector);
+  font-weight: bold;
+}
+.hljs-type,
+.hljs-class .hljs-title {
+  color: var(--hljs-type);
+  font-weight: bold;
+}
+.hljs-regexp,
+.hljs-link {
+  color: var(--hljs-regex);
+}
+.hljs-symbol,
+.hljs-bullet {
+  color: var(--hljs-symbol);
+}
 .hljs-meta {
-  color: #999;
+  color: var(--hljs-meta);
   font-weight: bold;
 }
 .hljs-deletion {
-  background: #fdd;
+  background: var(--hljs-deletion);
+  color: var(--hljs-deletion-text);
 }
 .hljs-addition {
-  background: #dfd;
+  background: var(--hljs-addition);
+  color: var(--hljs-addition-text);
 }
 .hljs-emphasis {
   font-style: italic;
@@ -375,17 +457,8 @@ aside .mark a {
 .hljs-strong {
   font-weight: bold;
 }
-
-@media screen and (max-width: 900px) {
-  .documentative {
-    width: 100%;
-  }
-}
-@media screen and (max-width: 800px) {
-  .documentative {
-    display: block;
-  }
-  .documentative .block {
-    margin: 0;
-  }
-}
+.documentative pre .lang-diff::before { content: 'DIFF'; }
+.documentative pre .lang-python::before { content: 'PYTHON'; }
+.documentative pre .lang-html::before { content: 'HTML'; }
+.documentative pre .lang-js::before { content: 'JS'; }
+.documentative pre .lang-plaintext::before { content: 'PLAINTEXT'; }

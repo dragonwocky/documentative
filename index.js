@@ -1,165 +1,196 @@
-module.exports = async function(dir) {
-  const path = require('path'),
-    fs = require('fs-extra'),
-    marked = require('marked'),
-    hljs = require('highlight.js'),
-    pug = require('pug');
+/*
+ * Documentative
+ * (c) 2020 dragonwocky <thedragonring.bod@gmail.com>
+ * (https://dragonwocky.me/) under the MIT License
+ */
 
-  if (!dir) throw Error(`documentative build failed: no dir provided`);
-  await fs.promises.access(dir);
+const path = require('path'),
+  fs = require('fs-extra'),
+  klaw = require('klaw'),
+  resourceCache = {},
+  marked = require('marked'),
+  hljs = require('highlight.js'),
+  pug = require('pug'),
+  less = require('less'),
+  languages = new Set();
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  highlight: (code, language) => {
+    language = hljs.getLanguage(language) ? language : 'plaintext';
+    languages.add(language);
+    return hljs.highlight(language, code).value;
+  },
+  langPrefix: 'lang-',
+  gfm: true
+});
 
-  let conf;
-  try {
-    conf = await fs.readFile(path.join(dir, 'conf.json'), 'utf8');
-    try {
-      conf = JSON.parse(conf);
-    } catch (err) {
-      throw Error('documentative: invalid <conf.json> contents');
-    }
-  } catch {
-    conf = {};
-  }
-  conf.title = conf.title || 'Documentative';
-  conf.primary = typeof conf.primary === 'object' ? conf.primary : {};
-  conf.primary.light = conf.primary.light || '#b20000';
-  conf.primary.dark = conf.primary.dark || '#f33';
-  try {
-    if (!conf.icon) throw Error;
-    conf.icon = {
-      name: conf.icon,
-      src: await fs.readFile(path.join(dir, conf.icon))
-    };
-  } catch {
-    conf.icon = {
-      name: 'documentative.ico',
-      src: await fs.readFile(
-        path.join(__dirname, 'resources', 'documentative.ico'),
-        'utf8'
-      )
-    };
-  }
-
-  const files = (await fs.readdir(dir)).filter(file => file.endsWith('.md')).sort();
-  if (Array.isArray(conf.nav)) {
-    conf.nav = conf.nav.map(link => {
-      if (files.includes(link)) return link;
-      if (Array.isArray(link))
-        return {
-          type: 'link',
-          name: link[0],
-          url: link[1]
-        };
-      return {
-        type: 'link',
-        name: link,
-        url: link
-      };
-    });
-  } else {
-    conf.nav = files;
-    if (conf.nav.includes('index.md'))
-      conf.nav.splice(0, 0, conf.nav.splice(conf.nav.indexOf('index.md'), 1)[0]);
-  }
-
-  const renderer = new marked.Renderer();
-  marked.setOptions({
-    renderer: renderer,
-    highlight: (code, language) =>
-      hljs.highlight(hljs.getLanguage(language) ? language : 'plaintext', code).value,
-    langPrefix: 'lang-',
-    gfm: true
-  });
-
-  const pages = [],
-    IDs = [];
-  for (file of conf.nav) {
-    if (file.type === 'link') {
-      pages.push(file);
-      continue;
-    }
-    const tokens = marked.lexer(await fs.readFile(path.join(dir, file), 'utf8')),
-      headings = [];
-    for (let i = 0; i < tokens.length; i++) {
-      if (tokens[i].type === 'heading') {
-        const escaped = tokens[i].text.toLowerCase().replace(/[^\w]+/g, '-');
-        let ID = escaped,
-          duplicates = 1;
-        while (IDs.includes(ID)) {
-          duplicates++;
-          ID = escaped + '-' + duplicates;
-        }
-        IDs.push(ID);
-
-        headings.push({
-          name: tokens[i].text,
-          depth: tokens[i].depth,
-          hash: ID
-        });
-        tokens[i].type = 'html';
-        tokens[i].text = `
-          </section>
-          <section class="block">
-            <h${tokens[i].depth} id="${ID}">
-              <a href="#${ID}">${tokens[i].text}</a>
-            </h${tokens[i].depth}>
-        `;
-        delete tokens[i].depth;
-      }
-      if (tokens[i].type === 'code' && tokens[i].lang === 'example') {
-        tokens[i].type = 'html';
-        delete tokens[i].lang;
-        tokens[i].text = `
-          <div class="example">
-            ${tokens[i].text}
-          </div>
-        `;
-      }
-    }
-    file = file
-      .split('.')
-      .slice(0, -1)
-      .join('.');
-    if (!headings.length) headings.push(file);
-    pages.push({
-      type: 'page',
-      file: `${file}.html`,
-      url: file === 'index' ? './' : `${file}.html`,
-      title: headings[0],
-      headings: headings.slice(1),
-      content: `<section class="block">
-                  ${marked.parser(tokens)}
-                </section>`.replace(
-        new RegExp(`<section class="block">\\s*</section>`, 'g'),
-        ''
-      )
-    });
-  }
-
-  await fs.emptyDir(path.join(dir, 'build'));
-  for (let i = 0; i < pages.length; i++) {
-    if (pages[i].type === 'link') continue;
-    pages[i].pages = pages;
-    pages[i].index = i;
-    fs.outputFile(
-      path.join(dir, 'build', pages[i].file),
-      pug.renderFile(path.join(__dirname, 'resources', 'template.pug'), {
-        ...pages[i],
-        conf
-      }),
-      'utf8'
+async function build(inputdir, outputdir, config = {}) {
+  if (!inputdir) throw Error(`documentative: init failed, no input dir provided`);
+  inputdir = path.relative('.', inputdir);
+  if (!outputdir) throw Error(`documentative: init failed, no output dir provided`);
+  outputdir = path.relative('.', outputdir);
+  config = await checkconf(inputdir, config, 'options');
+  let assets, nav;
+  [nav, assets] = await processlist(inputdir, config.nav, 'nav');
+  if (!path.relative(inputdir, outputdir).startsWith('.'))
+    assets = assets.filter(
+      item => !item.startsWith(outputdir.slice(inputdir.length + 1))
     );
+  return assets;
+}
+
+async function filelist(dir) {
+  let files = [];
+  for await (const item of klaw(dir)) files.push(item.path);
+  files = files.map(item => path.relative('.', item).slice(dir.length + 1));
+  // .filter(item => !fs.lstatSync(item).isDirectory())
+  return files.sort();
+}
+
+async function checkconf(inputdir, obj, confloc) {
+  if (typeof obj !== 'object')
+    throw Error(`documentative: <${confloc}> should be an object`);
+  const err = prop => {
+    throw Error(`documentative: invalid ${prop} in <${confloc}>`);
+  };
+  // "title": "documentative"
+  if (obj.title) {
+    if (typeof obj.title !== 'string') err('title');
+  } else obj.title = 'documentative';
+  // "primary": "#b20000"
+  if (obj.primary) {
+    if (typeof obj.primary !== 'string') err('primary');
+  } else obj.primary = '#b20000';
+  // "icon": "logo.png"
+  if (obj.icon) {
+    if (
+      typeof obj.icon !== 'string' ||
+      !(await fs.pathExists(path.join(inputdir, obj.icon)))
+    )
+      err('icon');
+    obj.icon = {
+      name: obj.icon,
+      src: await fs.readFile(path.join(inputdir, obj.icon))
+    };
+  } else {
+    if (!resourceCache.icon)
+      resourceCache.icon = await fs.readFile(
+        path.join(__dirname, 'resources', 'documentative.ico')
+      );
+    obj.icon = {
+      name: 'documentative.ico',
+      src: resourceCache.icon
+    };
   }
-  fs.outputFile(path.join(dir, 'build', conf.icon.name), conf.icon.src, 'utf8');
-  fs.outputFile(
-    path.join(dir, 'build', 'styles.css'),
-    (await fs.readFile(path.join(__dirname, 'resources', 'styles.css'), 'utf8'))
-      .replace(/__light__/g, conf.primary.light)
-      .replace(/__dark__/g, conf.primary.dark),
-    'utf8'
-  );
-  fs.outputFile(
-    path.join(dir, 'build', 'scrollnav.js'),
-    await fs.readFile(path.join(__dirname, 'resources', 'scrollnav.js'), 'utf8'),
-    'utf8'
-  );
-};
+  // "copyright": {
+  //   "text": "© copyright 2020, dragonwocky",
+  //   "url": "https://dragonwocky.me/"
+  // },
+  if (
+    obj.copyright &&
+    (typeof obj.copyright !== 'object' ||
+      typeof obj.copyright.text !== 'string' ||
+      (obj.copyright.url && typeof obj.copyright.url !== 'string'))
+  )
+    err('copyright');
+  return obj;
+}
+
+async function processlist(inputdir, obj, confloc) {
+  const files = await filelist(inputdir);
+  let list;
+  if (obj) {
+    if (!Array.isArray(obj))
+      throw Error(`documentative: <${confloc}> should be an array`);
+    const err = prop => {
+      throw Error(`documentative: invalid entry ${prop} in <${confloc}>`);
+    };
+    list = await Promise.all(
+      obj.map(async entry => {
+        if (typeof entry === 'string')
+          // "title"
+          return {
+            type: 'title',
+            text: entry
+          };
+        if (Array.isArray(entry)) {
+          if (entry.length !== 2) err(entry);
+          if (files.includes(entry[1]))
+            // ["output", "src"]
+            return {
+              type: 'page',
+              output: entry[0].endsWith('.html') ? entry[0] : entry[0] + '.html',
+              src: entry[1]
+            };
+          // ["text", "url"]
+          return {
+            type: 'link',
+            text: entry[0],
+            url: entry[1]
+          };
+        }
+        if (typeof entry === 'object') {
+          // {
+          //    type: "page" || "link" || "title"
+          //    (page) output: output filepath
+          //    (page) src: source filepath
+          //    (link, title) text: displayed text
+          //    (link) url: url
+          // }
+          switch (entry.type) {
+            case 'page':
+              if (typeof entry.output !== 'string') err(`output '${entry.output}'`);
+              if (!entry.output.endsWith('.html')) entry.output += '.html';
+              if (
+                typeof entry.src !== 'string' ||
+                !(await fs.pathExists(path.join(this.inputdir, entry.src)))
+              )
+                err(`src '${entry.src}'`);
+              return entry;
+            case 'link':
+              if (typeof entry.text !== 'string') err(`text '${entry.text}'`);
+              if (typeof entry.url !== 'string') err(`url '${entry.url}'`);
+              return entry;
+            case 'title':
+              if (typeof entry.text !== 'string') err(`text '${entry.text}'`);
+              return entry;
+            default:
+              err(`type '${entry}'`);
+          }
+        }
+        err(entry);
+      })
+    );
+  } else {
+    list = files
+      .map(item =>
+        fs.lstatSync(path.join(inputdir, item)).isDirectory()
+          ? { type: 'title', text: path.basename(item) }
+          : item.endsWith('.md')
+          ? {
+              type: 'page',
+              output: item.slice(0, -3) + '.html',
+              src: item
+            }
+          : false
+      )
+      .reduce(
+        (prev, val) =>
+          val
+            ? val.src === (files.includes('index.md') ? 'index.md' : 'README.md')
+              ? [{ type: 'page', output: 'index.html', src: val.src }, ...prev]
+              : [...prev, val]
+            : prev,
+        []
+      );
+  }
+  return [
+    list,
+    files.filter(
+      item =>
+        !fs.lstatSync(path.join(inputdir, item)).isDirectory() && !item.endsWith('.md')
+    )
+  ];
+}
+
+module.exports = { build };

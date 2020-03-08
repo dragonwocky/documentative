@@ -1,3 +1,9 @@
+/*
+ * Documentative Scrollnav
+ * (c) 2020 dragonwocky <thedragonring.bod@gmail.com>
+ * (https://dragonwocky.me/) under the MIT License
+ */
+
 class Scrollnav {
   constructor(menu, content, options) {
     if (!(menu instanceof HTMLElement))
@@ -17,7 +23,7 @@ class Scrollnav {
         try {
           return this._content.querySelector(el.getAttribute('href')).parentElement;
         } catch {
-          return false;
+          return null;
         }
       })
       .filter(el => el);
@@ -64,14 +70,17 @@ class Scrollnav {
     if (!ID || typeof ID !== 'string') ID = location.hash || this._topheading.id;
     if (!ID.startsWith('#')) ID = '#' + ID;
     if (!this._menu.querySelector(`[href="${ID}"]`)) ID = '#' + this._topheading.id;
-    this._menu
-      .querySelectorAll('ul li a')
-      .forEach(el =>
-        el.getAttribute('href') === ID
-          ? el.classList.add('active')
-          : el.classList.remove('active')
-      );
-    if (history.replaceState) history.replaceState(null, null, ID);
+    clearTimeout(this.hashloc);
+    this.hashloc = setTimeout(() => {
+      this._menu
+        .querySelectorAll('ul li a')
+        .forEach(el =>
+          el.getAttribute('href') === ID
+            ? el.classList.add('active')
+            : el.classList.remove('active')
+        );
+      if (history.replaceState) history.replaceState(null, null, ID);
+    }, 100);
   }
   scroll(func) {
     return new Promise((resolve, reject) => {
@@ -138,6 +147,7 @@ class Scrollnav {
         },
         [0, null]
       )[1].children[0].id;
+
     this.set(ID);
     this.showmenu(ID);
   }

@@ -1,3 +1,6 @@
 const doc = require('./index.js');
 
-doc('pages').catch(console.log);
+doc
+  .build('pages', 'pages/build')
+  .then(console.log)
+  .catch(console.log);

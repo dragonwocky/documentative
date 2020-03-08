@@ -1,6 +1,6 @@
 {
   "name": "documentative",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "a tool for generating docs from markdown",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,8 @@
   "dependencies": {
     "fs-extra": "^8.1.0",
     "highlight.js": "^9.18.1",
+    "klaw": "^3.0.0",
+    "less": "^3.11.1",
     "marked": "^0.8.0",
     "pug": "^2.0.4"
   }

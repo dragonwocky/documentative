@@ -1,34 +1,62 @@
+
+// Documentative
+// (c) 2020 dragonwocky <thedragonring.bod@gmail.com>
+// (https://dragonwocky.me/) under the MIT License
+
 doctype html
 html
   head
     meta(charset='utf-8')
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title= title.name
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Source+Code+Pro|Nunito+Sans')
-    link(rel='stylesheet', href='styles.css')
-    script(src='scrollnav.js')
+    link(rel='stylesheet', href=depth + 'styles.css')
+    script(src=depth + 'scrollnav.js')
+    link(rel="shortcut icon", href=depth + data.icon.name, type="image/x-icon")
   body
-    aside
+    aside.menu
       .title
-        h1= conf.title
-        img(src=conf.icon.name)
-      ul
-        each page in pages
+        h1= data.title
+        span.icon
+          img(src=depth + data.icon.name)
+      ul.nav
+        each entry in data.menu
           li
-            if page.type === 'link'
-              a(href=page.url)= page.name
-            if page.type === 'page'
-              a(href=(page.title.name === title.name ? `#${page.title.hash}` : page.url))= page.title.name
-              if (page.title.name === title.name && headings.length)
+            if entry.type === 'link'
+              a(href=entry.url)= entry.text
+            if entry.type === 'title'
+              p= entry.text
+            if entry.type === 'page'
+              a(href=(entry.title.name === title.name ? `#${entry.title.hash}` : depth + entry.output))= entry.title.name
+              if entry.title.name === title.name && headings.length
                 ul
                   each heading in headings
                     li(class=`depth-${heading.depth}`)
                       a(href=`#${heading.hash}`)= heading.name
-      p.mark docs by 
-        a(href="https://dragonwocky.me/documentative") documentative
-    .documentative
-      != content
-      nav
-        if (index > 0 && pages[index - 1].type === 'page')
-          a.prev(href=pages[index - 1].url) <
-        if (index < pages.length - 1 && pages[index + 1].type === 'page')
-          a.next(href=pages[index + 1].url) >
+      p.mark
+        a(href="https://dragonwocky.me/documentative") docs by documentative
+    .wrapper
+      .toggle
+        button ☰
+        h1= data.title
+        script.
+          const toggle = document.querySelector('.toggle button');
+          toggle.onclick = () => document.body.classList.toggle('mobilemenu');
+          toggle.addEventListener('keyup', (ev) => {
+            if ([13, 32].includes(ev.keyCode))
+              document.body.classList.toggle('mobilemenu');
+          });
+      .documentative
+        .content
+          != content
+        if data.copyright
+          .copyright
+            hr
+            p
+              a(href=data.copyright.url)= typeof data.copyright === 'object' ? data.copyright.text : data.copyright
+        nav
+          if index > 0 && data.menu[index - 1].type === 'page'
+            a.prev(href=depth + data.menu[index - 1].output) <
+          if index < data.menu.length - 1 && data.menu[index + 1].type === 'page'
+            a.next(href=depth + data.menu[index + 1].output) >
+
