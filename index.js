@@ -43,16 +43,16 @@ async function build(inputdir, outputdir, config = {}) {
     files = files.filter(
       item => !item.startsWith(outputdir.slice(inputdir.length + 1))
     );
-  config = await checkconf(inputdir, config, 'options');
+  if (typeof config === 'object' && config.CLI)
+    files = files.filter(item => item !== 'config.json');
+  config = await checkconf(inputdir, config);
   const nav = await Promise.all(
-      (await processlist(inputdir, files, config.nav, 'nav')).map(
-        (entry, i) => {
-          if (entry.type !== 'page') return entry;
-          entry.index = i;
-          entry.depth = '../'.repeat(entry.output.split(path.sep).length - 1);
-          return parsepage(inputdir, entry);
-        }
-      )
+      (await processlist(inputdir, files, config.nav)).map((entry, i) => {
+        if (entry.type !== 'page') return entry;
+        entry.index = i;
+        entry.depth = '../'.repeat(entry.output.split(path.sep).length - 1);
+        return parsepage(inputdir, entry);
+      })
     ),
     assets = files.filter(
       item =>
@@ -100,10 +100,7 @@ async function build(inputdir, outputdir, config = {}) {
             ...page,
             config,
             nav,
-            resources: {
-              css: resourceFilenames.css,
-              js: resourceFilenames.js
-            }
+            resources: resourceFilenames
           }),
           'utf8'
         );
@@ -138,7 +135,8 @@ async function serve(inputdir, port, config = {}) {
   if (typeof port !== 'number')
     throw Error(`documentative: serve failed, port must be a number`);
   inputdir = path.relative('.', inputdir);
-  config = await checkconf(inputdir, config, 'options');
+  const CLI = typeof config === 'object' && config.CLI;
+  config = await checkconf(inputdir, config);
 
   if (!resourceCache.template)
     resourceCache.template = pug.compileFile(
@@ -167,7 +165,8 @@ async function serve(inputdir, port, config = {}) {
         assets = files.filter(
           item =>
             !fs.lstatSync(path.join(inputdir, item)).isDirectory() &&
-            !item.endsWith('.md')
+            !item.endsWith('.md') &&
+            (CLI ? item !== 'config.json' : true)
         );
       let content, type;
       switch (req.url) {
@@ -201,7 +200,7 @@ async function serve(inputdir, port, config = {}) {
                 .includes(req.url.slice(1))
             )
               req.url += '/index.html';
-            let nav = await processlist(inputdir, files, config.nav, 'nav');
+            let nav = await processlist(inputdir, files, config.nav);
             const page = nav.find(item => item.output === req.url.slice(1));
             if (page) {
               nav = await Promise.all(
@@ -218,7 +217,7 @@ async function serve(inputdir, port, config = {}) {
                 ...page,
                 config,
                 nav,
-                resourcesFilenames
+                resources: resourceFilenames
               });
               type = 'text/html';
             } else {
@@ -245,11 +244,11 @@ async function filelist(dir) {
   return files.sort();
 }
 
-async function checkconf(inputdir, obj, objloc) {
+async function checkconf(inputdir, obj) {
   if (typeof obj !== 'object')
-    throw Error(`documentative: <${objloc}> should be an object`);
+    throw Error(`documentative: <config> should be an object`);
   const err = prop => {
-    throw Error(`documentative: invalid ${prop} in <${objloc}>`);
+    throw Error(`documentative: invalid ${prop} in <config>`);
   };
   if ([null, undefined].includes(obj.icon) && !resourceCache.icon)
     resourceCache.icon = await fs.readFile(
@@ -297,13 +296,13 @@ async function checkconf(inputdir, obj, objloc) {
   };
 }
 
-async function processlist(inputdir, files, obj, objloc) {
+async function processlist(inputdir, files, obj) {
   let list;
   if (obj) {
     if (!Array.isArray(obj))
-      throw Error(`documentative: <${objloc}> should be an array`);
+      throw Error(`documentative: <config.nav> should be an array`);
     const err = prop => {
-      throw Error(`documentative: invalid entry ${prop} in <${objloc}>`);
+      throw Error(`documentative: invalid entry ${prop} in <config.nav>`);
     };
     list = await Promise.all(
       obj.map(async entry => {

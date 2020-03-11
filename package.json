@@ -24,10 +24,11 @@
     "less": "^3.11.1",
     "marked": "^0.8.0",
     "mime-types": "^2.1.26",
+    "minimist": "^1.2.3",
     "pug": "^2.0.4"
   },
   "bin": {
-    "documentative-build": "bin/build.js",
-    "documentative-serve": "bin/serve.js"
+    "documentative-build": "bin.js",
+    "documentative-serve": "bin.js"
   }
 }
