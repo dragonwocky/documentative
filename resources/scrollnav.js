@@ -21,7 +21,8 @@ class Scrollnav {
     this._sections = [...this._menu.querySelectorAll('ul li a')]
       .map(el => {
         try {
-          return this._content.querySelector(el.getAttribute('href')).parentElement;
+          return this._content.querySelector(el.getAttribute('href'))
+            .parentElement;
         } catch {
           return null;
         }
@@ -67,9 +68,11 @@ class Scrollnav {
   }
 
   set(ID) {
-    if (!ID || typeof ID !== 'string') ID = location.hash || this._topheading.id;
+    if (!ID || typeof ID !== 'string')
+      ID = location.hash || this._topheading.id;
     if (!ID.startsWith('#')) ID = '#' + ID;
-    if (!this._menu.querySelector(`[href="${ID}"]`)) ID = '#' + this._topheading.id;
+    if (!this._menu.querySelector(`[href="${ID}"]`))
+      ID = '#' + this._topheading.id;
     clearTimeout(this.hashloc);
     this.hashloc = setTimeout(() => {
       this._menu
@@ -97,20 +100,19 @@ class Scrollnav {
     });
   }
   showmenu(ID) {
-    if (!ID || typeof ID !== 'string') ID = location.hash || this._topheading.id;
+    if (!ID || typeof ID !== 'string')
+      ID = location.hash || this._topheading.id;
     if (!ID.startsWith('#')) ID = '#' + ID;
-    if (!this._menu.querySelector(`[href="${ID}"]`)) ID = '#' + this._topheading.id;
-    let offset = this._menu.querySelector(`[href="${ID}"]`).parentElement.offsetTop;
+    if (!this._menu.querySelector(`[href="${ID}"]`))
+      ID = '#' + this._topheading.id;
+    let offset = this._menu.querySelector(`[href="${ID}"]`).parentElement
+      .offsetTop;
     if (offset < this._menu.clientHeight / 2) offset = 0;
     clearTimeout(this.menupos);
-    this.menupos = setTimeout(
-      () =>
-        this._menu.scroll({
-          top: offset,
-          behavior: 'smooth'
-        }),
-      100
-    );
+    this._menu.scroll({
+      top: offset,
+      behavior: 'smooth'
+    });
   }
 
   hashwatcher(ev) {
@@ -153,11 +155,15 @@ class Scrollnav {
   }
 }
 
-const construct = () =>
+const construct = () => {
   new Scrollnav(
     document.querySelector('aside'),
     document.querySelector('.documentative')
   );
+
+  document.querySelector('.toggle button').onclick = () =>
+    document.body.classList.toggle('mobilemenu');
+};
 
 if (document.readyState === 'complete') {
   construct();

@@ -109,7 +109,8 @@ aside .title {
 aside .title h1 {
   font: 1.8em 'Source Code Pro', monospace;
   margin: 0 0 1em 1.5rem;
-  padding: 1em 1em 2.5px 0;
+  padding: 1em 8px 2.5px 0;
+  letter-spacing: -2px;
   border-bottom: 5px solid var(--primary);
   color: var(--absolute);
 }
@@ -120,7 +121,6 @@ aside .title .icon img {
   width: 2.5em;
   height: 2.5em;
   margin: auto 0.5em;
-  filter: drop-shadow(0 0 0.75em var(--glow));
 }
 aside > ul:first-child > li:first-child {
   padding-top: 1em;
@@ -129,6 +129,14 @@ aside ul {
   list-style-type: none;
   padding-inline-start: 0;
   margin: 0;
+}
+aside ul li p {
+  font-weight: bold;
+  letter-spacing: -0.5px;
+  margin-bottom: 0;
+  padding: 2px 1.3em;
+  font-size: 1.1em;
+  color: var(--hljs-comment);
 }
 aside ul li a {
   color: var(--text);

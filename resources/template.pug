@@ -10,17 +10,17 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title= title.name
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Source+Code+Pro|Nunito+Sans')
-    link(rel='stylesheet', href=depth + 'styles.css')
-    script(src=depth + 'scrollnav.js')
-    link(rel="shortcut icon", href=depth + data.icon.name, type="image/x-icon")
+    link(rel='stylesheet', href=depth + resources.css)
+    script(src=depth + resources.js)
+    link(rel="shortcut icon", href=depth + config.icon.name, type="image/x-icon")
   body
     aside.menu
       .title
-        h1= data.title
+        h1= config.title
         span.icon
-          img(src=depth + data.icon.name)
+          img(src=depth + config.icon.name)
       ul.nav
-        each entry in data.menu
+        each entry in nav
           li
             if entry.type === 'link'
               a(href=entry.url)= entry.text
@@ -38,25 +38,18 @@ html
     .wrapper
       .toggle
         button ☰
-        h1= data.title
-        script.
-          const toggle = document.querySelector('.toggle button');
-          toggle.onclick = () => document.body.classList.toggle('mobilemenu');
-          toggle.addEventListener('keyup', (ev) => {
-            if ([13, 32].includes(ev.keyCode))
-              document.body.classList.toggle('mobilemenu');
-          });
+        h1= config.title
       .documentative
         .content
           != content
-        if data.copyright
+        if config.copyright
           .copyright
             hr
             p
-              a(href=data.copyright.url)= typeof data.copyright === 'object' ? data.copyright.text : data.copyright
+              a(href=config.copyright.url)= typeof config.copyright === 'object' ? config.copyright.text : config.copyright
         nav
-          if index > 0 && data.menu[index - 1].type === 'page'
-            a.prev(href=depth + data.menu[index - 1].output) <
-          if index < data.menu.length - 1 && data.menu[index + 1].type === 'page'
-            a.next(href=depth + data.menu[index + 1].output) >
+          if index > 0 && nav[index - 1].type === 'page'
+            a.prev(href=depth + nav[index - 1].output) <
+          if index < nav.length - 1 && nav[index + 1].type === 'page'
+            a.next(href=depth + nav[index + 1].output) >
 
