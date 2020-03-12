@@ -38,8 +38,7 @@ options:
       console.error(err);
       process.exit(1);
     });
-}
-if (process.argv[1].endsWith('/documentative-serve')) {
+} else if (process.argv[1].endsWith('/documentative-serve')) {
   const fs = require('fs'),
     path = require('path'),
     port = ![null, undefined].includes(argv.p)
