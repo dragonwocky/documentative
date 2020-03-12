@@ -15,10 +15,11 @@ html
     link(rel="shortcut icon", href=depth + config.icon.name, type="image/x-icon")
   body
     aside.menu
-      .title
-        h1= config.title
-        span.icon
-          img(src=depth + config.icon.name)
+      .block
+        .title
+          h1= config.title
+          span.icon
+            img(src=depth + config.icon.name)
       ul.nav
         each entry in nav
           li
@@ -49,7 +50,7 @@ html
               a(href=config.copyright.url)= typeof config.copyright === 'object' ? config.copyright.text : config.copyright
         nav
           if index > 0 && nav[index - 1].type === 'page'
-            a.prev(href=depth + nav[index - 1].output) <
+            a.prev(href=depth + nav[index - 1].output) ᐊ
           if index < nav.length - 1 && nav[index + 1].type === 'page'
-            a.next(href=depth + nav[index + 1].output) >
+            a.next(href=depth + nav[index + 1].output) ᐅ
 
