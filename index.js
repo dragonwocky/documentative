@@ -185,10 +185,14 @@ async function serve(inputdir, port, config = {}) {
           content = resourceCache.scrollnav;
           type = 'text/javascript';
           break;
+        case '/' + config.icon.name:
+          content = config.icon.src;
+          type = mime.lookup(config.icon.name);
+          break;
         default:
           if (assets.includes(req.url.slice(1))) {
             content = await fs.readFile(path.join(inputdir, req.url.slice(1)));
-            type = mime.lookup(req.url.slice(1));
+            type = mime.lookup(req.url);
           } else {
             if (req.url.endsWith('/')) req.url = req.url.slice(0, -1);
             if (
@@ -239,7 +243,9 @@ async function filelist(dir) {
   let files = [];
   for await (const item of klaw(dir)) files.push(item.path);
   files = files
-    .map(item => path.relative('.', item).slice(dir.length + 1))
+    .map(item =>
+      path.relative('.', item).slice(dir.length ? dir.length + 1 : 0)
+    )
     .filter(item => item);
   return files.sort();
 }
@@ -284,15 +290,14 @@ async function checkconf(inputdir, obj) {
     //   "text": "© copyright 2020, dragonwocky",
     //   "url": "https://dragonwocky.me/"
     // }
-    copyright: !(
-      [null, undefined].includes(obj.copyright) ||
-      typeof obj.copyright !== 'object' ||
-      typeof obj.copyright.text !== 'string' ||
-      (![null, undefined].includes(obj.copyright.url) &&
-        typeof obj.copyright.url !== 'string')
-    )
-      ? obj.copyright
-      : err('copyright')
+    copyright: ![null, undefined].includes(obj.copyright)
+      ? typeof obj.copyright !== 'object' ||
+        typeof obj.copyright.text !== 'string' ||
+        (![null, undefined].includes(obj.copyright.url) &&
+          typeof obj.copyright.url !== 'string')
+        ? obj.copyright
+        : err('copyright')
+      : null
   };
 }
 
@@ -362,37 +367,47 @@ async function processlist(inputdir, files, obj) {
       })
     );
   } else {
-    list = files
-      .map(item =>
-        fs.lstatSync(path.join(inputdir, item)).isDirectory()
-          ? files.reduce(
-              (prev, val) =>
-                val.startsWith(item + '/') && val.endsWith('.md')
-                  ? [...prev, val]
-                  : prev,
-              []
-            ).length
-            ? { type: 'title', text: item }
-            : false
-          : item.endsWith('.md')
-          ? {
-              type: 'page',
-              output: item.slice(0, -3) + '.html',
-              src: item
-            }
+    list = files.map(item =>
+      fs.lstatSync(path.join(inputdir, item)).isDirectory()
+        ? files.reduce(
+            (prev, val) =>
+              val.startsWith(item + '/') && val.endsWith('.md')
+                ? [...prev, val]
+                : prev,
+            []
+          ).length
+          ? { type: 'title', text: item }
           : false
-      )
-      // routes index.html to README.md
-      .reduce(
-        (prev, val) =>
-          val
-            ? val.src ===
-              (files.includes('index.md') ? 'index.md' : 'README.md')
-              ? [{ type: 'page', output: 'index.html', src: val.src }, ...prev]
-              : [...prev, val]
-            : prev,
-        []
-      );
+        : item.endsWith('.md')
+        ? {
+            type: 'page',
+            output: item.slice(0, -3) + '.html',
+            src: item
+          }
+        : false
+    );
+    // routes index.html to README.md
+    list = list.reduce((prev, val) => {
+      if (!val) return prev;
+      if (!val.src) return [...prev, val];
+
+      const folder = val.src
+          .split(path.sep)
+          .splice(0, -1)
+          .join(path.sep),
+        index = list.find(item => item.src === folder + 'index.md')
+          ? folder + 'index.md'
+          : folder + 'readme.md';
+      if (val.src.toLowerCase() !== index) return [...prev, val];
+      let loc = prev.findIndex(item => item.src && item.src.startsWith(folder));
+      if (0 > loc) loc = prev.length;
+      prev.splice(loc, 0, {
+        type: 'page',
+        output: folder + 'index.html',
+        src: val.src
+      });
+      return prev;
+    }, []);
   }
   return list;
 }
@@ -435,7 +450,7 @@ async function parsepage(inputdir, page) {
     `;
     }
   }
-  if (!page.headings.length) page.headings.push(src.slice(0, -3));
+  if (!page.headings.length) page.headings.push(page.output.slice(0, -5));
   page.title = page.headings.shift();
   page.content = `<section class="block">
                   ${marked.parser(tokens)}

@@ -21,6 +21,9 @@ options:
   --help, -h   show this message
   --port, -p   set the HTTP server port used by documentative-serve
     (default: 8080)
+
+** to configure the process, place configuration options into
+   <inputdir>/config.json - check the docs for info on these options
   `);
 } else if (process.argv[1].endsWith('/documentative-build')) {
   const fs = require('fs'),

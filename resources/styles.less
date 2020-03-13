@@ -28,6 +28,7 @@
   --code-lang: #555;
   --hljs-html: #000080;
   --hljs-attr: #008080;
+  --hljs-obj: #2c426b;
   --hljs-string: #d14;
   --hljs-builtin: #0086b3;
   --hljs-keyword: var(--colour);
@@ -66,6 +67,7 @@
     --code-lang: #ccc;
     --hljs-html: #46db8c;
     --hljs-attr: #dd1111;
+    --hljs-obj: #c6cbda;
     --hljs-string: #abcdef;
     --hljs-builtin: #b8528d; /* bd1a79, 926956 */
     --hljs-keyword: #2d8b59;
@@ -305,6 +307,14 @@ aside {
       padding-left: 1em;
       border-left: 0.25em solid var(--border);
     }
+    h1 + table,
+    h2 + table,
+    h3 + table,
+    h4 + table,
+    h5 + table,
+    h6 + table {
+      margin-top: 1em;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -448,6 +458,9 @@ aside {
 .hljs-selector-tag {
   color: var(--hljs-keyword);
   font-weight: bold;
+}
+.hljs-attr {
+  color: var(--hljs-obj);
 }
 .hljs-number,
 .hljs-literal,
