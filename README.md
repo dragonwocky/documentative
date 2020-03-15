@@ -16,6 +16,9 @@ as it was to actually build/update the project itself. this is, essentially, a n
 documentation from markdown docs. though I could have used Sphinx or MkDocs, I already had a fairly capable
 template I had put a decent amount of work into. so, I just built a parser/generator for it.
 
+documentative may not make writing documentation easier, but it sure does make help when it comes to
+publishing and maintaining it.
+
 ## usage
 
 this package is available from the npm package registry.
@@ -28,9 +31,7 @@ npm i -s documentative
 const doc = require('documentative');
 ```
 
-<br>
-
-**to build/precompile to a directory:**
+#### to build/precompile to a directory
 
 ```js
 doc.build(inputdir, outputdir, options);
@@ -45,9 +46,7 @@ doc.build(inputdir, outputdir, options);
 
 > ❗ ensure the output directory is safely empty! all files within it will be deleted.
 
-<br>
-
-**to serve the directory from a local http server:**
+#### to serve the directory from a local http server
 
 ```js
 doc.serve(inputdir, port, options);
@@ -63,7 +62,7 @@ doc.serve(inputdir, port, options);
 > ❗ not recommended unless for testing purposes
 > \- especially if serving a larger directory,
 > as it will re-read the entire directory to serve
-> every single file
+> every single file.
 
 ## cli
 
@@ -82,29 +81,170 @@ options:
     (default: 8080)
 
 ** to configure the process, place configuration options into
-   <inputdir>/config.json - check the docs for info on these options
+   <inputdir>/config.json
 ```
+
+## writing a page
+
+pages are written in github flavoured markdown.
+
+it is recommended to start every page with a `# h1`, as that is what is used
+for the sidebar table-of-contents documentative generates.
+
+check out [the styling guide](styling-guide.html) for ways to further customise what comes out.
 
 ## options
 
 ```js
 {
   title: string,
-    // type: string
     // default: "documentative"
-  primary: ,
-    // type: string
-    // default: "#b20000"
-  icon: ,
-    // type: string, filepath
+  primary: string,
+    // default: "#712c9c"
+  icon: string/filepath,
     // default: the documentative icon
   copyright: {
-    text: ,
-      // type: string
-      // default: none
-    url: ,
-      // type: string, link
-      // default: none
-  }
+    text: string,
+    url: string/link
+  }, // default: none
+  nav: [] // (see below)
 }
 ```
+
+### the nav: default behaviour
+
+1. all markdown files are listed.
+2. nav entry names are the first header within the `.md`,
+   or the filename.
+3. entries are sorted by alphabetical order,
+   though the `index.md` file is always first.
+4. if there is no `index.md` but there is a `README.md`,
+   it becomes the first in the order and is output as `index.html`.
+5. entries are categorised by directory (a title is added
+   with the name of the directory).
+
+### the nav: custom behaviour
+
+#### defining a title
+
+strict definition:
+
+```js
+{
+  type: 'title',
+  text: string // e.g. 'this is a title'
+}
+```
+
+shorthand:
+
+```js
+string;
+// e.g. 'this is a title'
+```
+
+#### defining a page
+
+strict definition:
+
+```js
+{
+  type: 'page',
+  output: string/filepath, // e.g. getting-started.html
+  src: string/filepath // e.g. tutorial.md
+}
+```
+
+shorthand:
+
+```js
+[output, src];
+// e.g. ['getting-started.html', 'tutorial.md']
+```
+
+> if the src is not a valid/existing file, it will be assumed to be a link.
+
+#### defining a link
+
+strict definition:
+
+```js
+{
+  type: 'link',
+  text: string, // e.g. github
+  url: string/link // e.g. https://github.com/dragonwocky/documentative/
+}
+```
+
+shorthand:
+
+```js
+[text, url];
+// e.g. ['github', 'https://github.com/dragonwocky/documentative/']
+```
+
+#### example nav
+
+strict definition:
+
+```js
+[
+  { type: 'page', output: 'getting-started.html', input: 'tutorial.md' },
+  { type: 'title', text: 'resources' },
+  {
+    type: 'link',
+    text: 'github',
+    url: 'https://github.com/dragonwocky/documentative/'
+  }
+];
+```
+
+shorthand:
+
+```js
+[
+  ['getting-started.html', 'tutorial.md'],
+  'resources',
+  ['github', 'https://github.com/dragonwocky/documentative/']
+];
+```
+
+(these methods can be mixed.)
+
+## output
+
+#### build
+
+1. the output directory is emptied or created.
+2. all markdown files included in the nav are output.
+3. all assets (non-`.md`) files are copied across as they are
+4. documentative resource files are copied across: `scrollnav.js`,
+   `styles.css` and (only if no icon has been specified in the
+   build/serve options) `documentative.ico`.
+
+> ❗ note that this means you cannot have any assets with those
+> names, as they will be overwritten.
+
+#### serve
+
+a http server is created. whenever a request is received:
+
+1. if `scrollnav.js` or `styles.css` are requested, serve them
+   from documentative's resources.
+2. if an icon has been specified and is requested, serve it.
+   otherwise, the icon shall be served as `documentative.ico`.
+3. if the file exists in the asset list (all non-`.md` files),
+   serve it.
+4. if a nav entry of type page and with an output
+   matching the request exists, serve it.
+5. if a file has still not been served, return a 404 error.
+
+> ❗ note that this means if you have a `.html` file called (e.g.)
+> `getting-started.html` and a `.md` file with its output set to
+> `getting-started.md`, the `.html` asset will override the parsed
+> `.md`.
+
+## potential future features
+
+- single-file compile
+- exclude list

@@ -1,7 +1,7 @@
 /*
  * Documentative
  * (c) 2020 dragonwocky <thedragonring.bod@gmail.com>
- * (https://dragonwocky.me/) under the MIT License
+ * (https://dragonwocky.me/) under the MIT license
  */
 
 const path = require('path'),
@@ -267,9 +267,9 @@ async function checkconf(inputdir, obj) {
       : typeof obj.title === 'string'
       ? obj.title
       : err('title'),
-    // "primary": "#b20000"
+    // "primary": "#712c9c"
     primary: [null, undefined].includes(obj.primary)
-      ? '#b20000'
+      ? '#712c9c'
       : typeof obj.primary === 'string'
       ? obj.primary
       : err('primary'),
@@ -291,13 +291,14 @@ async function checkconf(inputdir, obj) {
     //   "url": "https://dragonwocky.me/"
     // }
     copyright: ![null, undefined].includes(obj.copyright)
-      ? typeof obj.copyright !== 'object' ||
-        typeof obj.copyright.text !== 'string' ||
-        (![null, undefined].includes(obj.copyright.url) &&
-          typeof obj.copyright.url !== 'string')
+      ? typeof obj.copyright === 'object' &&
+        typeof obj.copyright.text === 'string' &&
+        ([null, undefined].includes(obj.copyright.url) ||
+          typeof obj.copyright.url === 'string')
         ? obj.copyright
         : err('copyright')
-      : null
+      : null,
+    nav: obj.nav
   };
 }
 
@@ -367,25 +368,29 @@ async function processlist(inputdir, files, obj) {
       })
     );
   } else {
-    list = files.map(item =>
-      fs.lstatSync(path.join(inputdir, item)).isDirectory()
-        ? files.reduce(
-            (prev, val) =>
-              val.startsWith(item + '/') && val.endsWith('.md')
-                ? [...prev, val]
-                : prev,
-            []
-          ).length
-          ? { type: 'title', text: item }
+    list = files
+      .map(item =>
+        fs.lstatSync(path.join(inputdir, item)).isDirectory()
+          ? files.find(val => val.startsWith(item + '/') && val.endsWith('.md'))
+            ? { type: 'title', text: item }
+            : false
+          : item.endsWith('.md')
+          ? {
+              type: 'page',
+              output: item.slice(0, -3) + '.html',
+              src: item
+            }
           : false
-        : item.endsWith('.md')
-        ? {
-            type: 'page',
-            output: item.slice(0, -3) + '.html',
-            src: item
-          }
-        : false
-    );
+      )
+      .reduce(
+        (prev, val) =>
+          val
+            ? val.output && val.output.split(path.sep).length === 1
+              ? [val, ...prev]
+              : [...prev, val]
+            : prev,
+        []
+      );
     // routes index.html to README.md
     list = list.reduce((prev, val) => {
       if (!val) return prev;

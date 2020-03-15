@@ -1,4 +1,11 @@
 #!/usr/bin/env node
+
+/*
+ * Documentative CLI
+ * (c) 2020 dragonwocky <thedragonring.bod@gmail.com>
+ * (https://dragonwocky.me/) under the MIT license
+ */
+
 const argv = require('minimist')(process.argv.slice(2));
 
 if (!argv['_'].length || argv.h || argv.help) {

@@ -1,7 +1,7 @@
 
 // Documentative
 // (c) 2020 dragonwocky <thedragonring.bod@gmail.com>
-// (https://dragonwocky.me/) under the MIT License
+// (https://dragonwocky.me/) under the MIT license
 
 doctype html
 html
@@ -15,14 +15,15 @@ html
     link(rel="shortcut icon", href=depth + config.icon.name, type="image/x-icon")
   body
     aside.menu
-      .block
+      div
+        //- (style='display: block')
         .title
           h1= config.title
           span.icon
             img(src=depth + config.icon.name)
       ul.nav
         each entry in nav
-          li
+          li.depth-1
             if entry.type === 'link'
               a(href=entry.url)= entry.text
             if entry.type === 'title'

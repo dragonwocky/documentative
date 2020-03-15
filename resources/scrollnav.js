@@ -1,7 +1,7 @@
 /*
  * Documentative Scrollnav
  * (c) 2020 dragonwocky <thedragonring.bod@gmail.com>
- * (https://dragonwocky.me/) under the MIT License
+ * (https://dragonwocky.me/) under the MIT license
  */
 
 class Scrollnav {
@@ -156,6 +156,9 @@ class Scrollnav {
 }
 
 const construct = () => {
+  if (location.pathname.endsWith('index.html'))
+    location.replace('./' + location.hash);
+
   new Scrollnav(
     document.querySelector('aside'),
     document.querySelector('.documentative')
