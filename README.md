@@ -91,7 +91,7 @@ pages are written in github flavoured markdown.
 it is recommended to start every page with a `# h1`, as that is what is used
 for the sidebar table-of-contents documentative generates.
 
-check out [the styling guide](styling-guide.html) for ways to further customise what comes out.
+check out [the styling guide](styling-guide.md) for ways to further customise what comes out.
 
 ## options
 

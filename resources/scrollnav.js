@@ -166,6 +166,11 @@ const construct = () => {
 
   document.querySelector('.toggle button').onclick = () =>
     document.body.classList.toggle('mobilemenu');
+  document.querySelectorAll('.documentative a').forEach(elem => {
+    const link = new URL(elem.href);
+    if (link.origin === location.origin && link.pathname.endsWith('.md'))
+      elem.href = link.href.slice(0, -3) + '.html';
+  });
 };
 
 if (document.readyState === 'complete') {
