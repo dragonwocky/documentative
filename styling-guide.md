@@ -50,40 +50,40 @@ to change a colour for the dark theme, define it within the
 
 #### variables
 
-| variable                                    | default (light)                                  | default (dark)                 |
-| ------------------------------------------- | ------------------------------------------------ | ------------------------------ |
-| `--primary`                                 | defined in [the build/serve options](./#options) | -                              |
-| `--absolute`                                | `#000`                                           | `#fff`                         |
-| `--contrast`                                | `#fff`                                           | `#000`                         |
-| `--text`                                    | `rgba(0, 0, 0, 0.84)`                            | `#ddd`                         |
-| `--link`                                    | `--primary`                                      | 22.5% lighter than `--primary` |
-| `--grey`                                    | `#dedede`                                        | `#36393f`                      |
-| `--bg`                                      | `#fbfcfc`                                        | `#0e0f0f`                      |
-| `--box`                                     | `#f2f3f4`                                        | `#050505`                      |
-| `--code`                                    | `#f7f9f9`                                        | `#000`                         |
-| `--button` (for the page navigation arrows) | `#eee`                                           | `#2d2d2d`                      |
-| `--border`                                  | `#e5e7e9`                                        | `#2d2e2f`                      |
-| `--shadow`                                  | `#eee`                                           | `#070707`                      |
-| `--glow`                                    | `transparent`                                    | `var(--primary)`               |
-| `--scroll`                                  | `#e9e9e9`                                        | `#202225`                      |
-| `--hover`                                   | `#dedede`                                        | `#36393f`                      |
-| `--code-lang`                               | `#555`                                           | `#ccc`                         |
-| `--hljs-html`                               | `#000080`                                        | `#46db8c`                      |
-| `--hljs-attr`                               | `#008080`                                        | `#dd1111`                      |
-| `--hljs-obj`                                | `#2c426b`                                        | `#c6cbda`                      |
-| `--hljs-string`                             | `#d14`                                           | `#abcdef`                      |
-| `--hljs-builtin`                            | `#0086b3`                                        | `#b8528d`                      |
-| `--hljs-keyword`                            | `rgba(0, 0, 0, 0.84)`                            | `#2d8b59`                      |
-| `--hljs-selector`                           | `#900`                                           | -                              |
-| `--hljs-type`                               | `#458`                                           | -                              |
-| `--hljs-regex`                              | `#009926`                                        | -                              |
-| `--hljs-symbol`                             | `#990073`                                        | -                              |
-| `--hljs-meta`                               | `#999`                                           | -                              |
-| `--hljs-comment`                            | `#707070`                                        | `#a0a0a0`                      |
-| `--hljs-deletion`                           | `#e8b9b8`                                        | `#4c232d`                      |
-| `--hljs-deletion-text`                      | `#4c232d`                                        | `#e8b9b8`                      |
-| `--hljs-addition`                           | `#b9e0d3`                                        | `#1e4839`                      |
-| `--hljs-addition-text`                      | `#1e4839`                                        | `#b9e0d3`                      |
+| variable                                    | default (light)                                        | default (dark)                 |
+| ------------------------------------------- | ------------------------------------------------------ | ------------------------------ |
+| `--primary`                                 | defined in [the build/serve options](index.md#options) | -                              |
+| `--absolute`                                | `#000`                                                 | `#fff`                         |
+| `--contrast`                                | `#fff`                                                 | `#000`                         |
+| `--text`                                    | `rgba(0, 0, 0, 0.84)`                                  | `#ddd`                         |
+| `--link`                                    | `--primary`                                            | 22.5% lighter than `--primary` |
+| `--grey`                                    | `#dedede`                                              | `#36393f`                      |
+| `--bg`                                      | `#fbfcfc`                                              | `#0e0f0f`                      |
+| `--box`                                     | `#f2f3f4`                                              | `#050505`                      |
+| `--code`                                    | `#f7f9f9`                                              | `#000`                         |
+| `--button` (for the page navigation arrows) | `#eee`                                                 | `#2d2d2d`                      |
+| `--border`                                  | `#e5e7e9`                                              | `#2d2e2f`                      |
+| `--shadow`                                  | `#eee`                                                 | `#070707`                      |
+| `--glow`                                    | `transparent`                                          | `var(--primary)`               |
+| `--scroll`                                  | `#e9e9e9`                                              | `#202225`                      |
+| `--hover`                                   | `#dedede`                                              | `#36393f`                      |
+| `--code-lang`                               | `#555`                                                 | `#ccc`                         |
+| `--hljs-html`                               | `#000080`                                              | `#46db8c`                      |
+| `--hljs-attr`                               | `#008080`                                              | `#dd1111`                      |
+| `--hljs-obj`                                | `#2c426b`                                              | `#c6cbda`                      |
+| `--hljs-string`                             | `#d14`                                                 | `#abcdef`                      |
+| `--hljs-builtin`                            | `#0086b3`                                              | `#b8528d`                      |
+| `--hljs-keyword`                            | `rgba(0, 0, 0, 0.84)`                                  | `#2d8b59`                      |
+| `--hljs-selector`                           | `#900`                                                 | -                              |
+| `--hljs-type`                               | `#458`                                                 | -                              |
+| `--hljs-regex`                              | `#009926`                                              | -                              |
+| `--hljs-symbol`                             | `#990073`                                              | -                              |
+| `--hljs-meta`                               | `#999`                                                 | -                              |
+| `--hljs-comment`                            | `#707070`                                              | `#a0a0a0`                      |
+| `--hljs-deletion`                           | `#e8b9b8`                                              | `#4c232d`                      |
+| `--hljs-deletion-text`                      | `#4c232d`                                              | `#e8b9b8`                      |
+| `--hljs-addition`                           | `#b9e0d3`                                              | `#1e4839`                      |
+| `--hljs-addition-text`                      | `#1e4839`                                              | `#b9e0d3`                      |
 
 ## theming - classes
 
@@ -98,7 +98,7 @@ to change a colour for the dark theme, define it within the
 | `.block`                       | an [example block](#the-example-block)                                |
 | `.prev`                        | the previous page button: ᐊ                                           |
 | `.next`                        | the previous page button: ᐅ                                           |
-| `.copyright`                   | the footer defined by [the build/serve options](./#options)           |
+| `.copyright`                   | the footer defined by [the build/serve options](index.md#options)     |
 | `.toggle`                      | the mobile nav bar, inc. the hamburger button                         |
 | `.mobilemenu`                  | the class toggled on/off the body to open/close the sidebar on mobile |
 

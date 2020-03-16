@@ -22,8 +22,8 @@ html
           span.icon
             img(src=depth + config.icon.name)
       ul.nav
-        each entry in nav
-          li.depth-1
+        each entry in config.nav
+          li.entry
             if entry.type === 'link'
               a(href=entry.url)= entry.text
             if entry.type === 'title'
@@ -50,8 +50,14 @@ html
             p
               a(href=config.copyright.url)= typeof config.copyright === 'object' ? config.copyright.text : config.copyright
         nav
-          if index > 0 && nav[index - 1].type === 'page'
-            a.prev(href=depth + nav[index - 1].output) ᐊ
-          if index < nav.length - 1 && nav[index + 1].type === 'page'
-            a.next(href=depth + nav[index + 1].output) ᐅ
+          - var n = 1;
+          while config.nav[index - n]
+            if index > 0 && config.nav[index - n].type === 'page'
+              a.prev(href=depth + config.nav[index - n].output) ᐊ
+            - n--;
+          - n = 1;
+          while config.nav[index + n]
+            if index < config.nav.length - n && config.nav[index + n].type === 'page'
+              a.next(href=depth + config.nav[index + n].output) ᐅ
+            - n++;
 

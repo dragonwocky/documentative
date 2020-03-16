@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"No test specified\"",
-    "HUH": "node index.js"
+    "serve": "documentative-serve ."
   },
   "repository": {
     "type": "git",

@@ -169,7 +169,7 @@ const construct = () => {
   document.querySelectorAll('.documentative a').forEach(elem => {
     const link = new URL(elem.href);
     if (link.origin === location.origin && link.pathname.endsWith('.md'))
-      elem.href = link.href.slice(0, -3) + '.html';
+      elem.href = link.origin + '/' + link.pathname + link.hash;
   });
 };
 

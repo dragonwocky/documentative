@@ -46,19 +46,19 @@ async function build(inputdir, outputdir, config = {}) {
   if (typeof config === 'object' && config.CLI)
     files = files.filter(item => item !== 'config.json');
   config = await checkconf(inputdir, config);
-  const nav = await Promise.all(
-      (await processlist(inputdir, files, config.nav)).map((entry, i) => {
-        if (entry.type !== 'page') return entry;
-        entry.index = i;
-        entry.depth = '../'.repeat(entry.output.split(path.sep).length - 1);
-        return parsepage(inputdir, entry);
-      })
-    ),
-    assets = files.filter(
+  (config.nav = await Promise.all(
+    (await processlist(inputdir, files, config.nav)).map((entry, i) => {
+      if (entry.type !== 'page') return entry;
+      entry.index = i;
+      entry.depth = '../'.repeat(entry.output.split(path.sep).length - 1);
+      return parsepage(inputdir, entry);
+    })
+  )),
+    (assets = files.filter(
       item =>
         !fs.lstatSync(path.join(inputdir, item)).isDirectory() &&
         !item.endsWith('.md')
-    );
+    ));
 
   await fs.emptyDir(outputdir);
 
@@ -99,7 +99,6 @@ async function build(inputdir, outputdir, config = {}) {
           resourceCache.template({
             ...page,
             config,
-            nav,
             resources: resourceFilenames
           }),
           'utf8'
@@ -204,11 +203,13 @@ async function serve(inputdir, port, config = {}) {
                 .includes(req.url.slice(1))
             )
               req.url += '/index.html';
-            let nav = await processlist(inputdir, files, config.nav);
-            const page = nav.find(item => item.output === req.url.slice(1));
+            config.nav = await processlist(inputdir, files, config.nav);
+            const page = config.nav.find(
+              item => item.output === req.url.slice(1)
+            );
             if (page) {
-              nav = await Promise.all(
-                nav.map((entry, i) => {
+              config.nav = await Promise.all(
+                config.nav.map((entry, i) => {
                   if (entry.type !== 'page') return entry;
                   entry.index = i;
                   entry.depth = '../'.repeat(
@@ -220,7 +221,6 @@ async function serve(inputdir, port, config = {}) {
               content = resourceCache.template({
                 ...page,
                 config,
-                nav,
                 resources: resourceFilenames
               });
               type = 'text/html';
