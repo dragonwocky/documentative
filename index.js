@@ -19,15 +19,27 @@ const path = require('path'),
   http = require('http'),
   mime = require('mime-types'),
   languages = new Set();
+
+class pageRenderer extends marked.Renderer {
+  constructor() {
+    super({
+      highlight: (code, language) => {
+        language = hljs.getLanguage(language) ? language : 'plaintext';
+        languages.add(language);
+        return hljs.highlight(language, code).value;
+      },
+      langPrefix: 'lang-',
+      gfm: true
+    });
+  }
+  link(...args) {
+    console.log(this.options);
+    return super.link(...args).replace(/^<a /, '<a target="_blank"');
+  }
+}
+
 marked.setOptions({
-  renderer: new marked.Renderer(),
-  highlight: (code, language) => {
-    language = hljs.getLanguage(language) ? language : 'plaintext';
-    languages.add(language);
-    return hljs.highlight(language, code).value;
-  },
-  langPrefix: 'lang-',
-  gfm: true
+  renderer: new pageRenderer()
 });
 
 async function build(inputdir, outputdir, config = {}) {
@@ -51,6 +63,11 @@ async function build(inputdir, outputdir, config = {}) {
       if (entry.type !== 'page') return entry;
       entry.index = i;
       entry.depth = '../'.repeat(entry.output.split(path.sep).length - 1);
+      entry.path =
+        entry.output
+          .split(path.sep)
+          .slice(0, -1)
+          .join('/') + '/';
       return parsepage(inputdir, entry);
     })
   )),
@@ -445,6 +462,7 @@ async function parsepage(inputdir, page) {
     `;
       delete token.depth;
     }
+
     if (token.type === 'code' && token.lang === 'html //example') {
       token.type = 'html';
       delete token.lang;

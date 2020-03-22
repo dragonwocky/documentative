@@ -35,7 +35,7 @@ options:
 } else if (process.argv[1].endsWith('/documentative-build')) {
   const fs = require('fs'),
     path = require('path');
-  require('./index.js')
+  require('./improved.js')
     .build(argv['_'][0], argv['_'][1], {
       ...(fs.existsSync(path.join(argv['_'][0], 'config.json'))
         ? JSON.parse(
@@ -43,6 +43,12 @@ options:
           )
         : {}),
       CLI: true
+    })
+    .then(success => {
+      if (success)
+        console.log(
+          `documentative: sucessfully built ${argv['_'][0]} to ${argv['_'][1]}`
+        );
     })
     .catch(err => {
       console.error(err);
@@ -56,7 +62,7 @@ options:
       : ![null, undefined].includes(argv.port)
       ? argv.port
       : 8080;
-  require('./index.js')
+  require('./improved.js')
     .serve(argv['_'][0], port, {
       ...(fs.existsSync(path.join(argv['_'][0], 'config.json'))
         ? JSON.parse(

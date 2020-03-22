@@ -91,13 +91,13 @@ pages are written in github flavoured markdown.
 it is recommended to start every page with a `# h1`, as that is what is used
 for the sidebar table-of-contents documentative generates.
 
-in order to maintain viability of pages as both markdown and html, any local (same hostname)
-links ending in `.md` are changed to `.html`. in order words: to link to other pages, write
-your links as `[link](page.md)` and they will come out as `<a href="page.html">link</a>`.
+in order to maintain viability of pages as both markdown and html, any local markdown page
+links are changed to match page src -> output. e.g. a link written as `[link](README.md)`
+may transformed to `<a href="index.html">link</a>`.
 
-check out [the styling guide](styling-guide.md) for ways to further customise what comes out.
+check out [the styling guide](//styling-guide.md) for ways to further customise what comes out.
 
-# options
+## options
 
 ```js
 {
