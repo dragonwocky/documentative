@@ -29,7 +29,15 @@
     "documentative-build": "bin.js",
     "documentative-serve": "bin.js"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  }
+  "files": [
+    "README.md",
+    "styling-guide.md",
+    "LICENSE",
+    "index.js",
+    "bin.js",
+    "resources/documentative.ico",
+    "resources/scrollnav.js",
+    "resources/styles.less",
+    "resources/template.pug"
+  ]
 }

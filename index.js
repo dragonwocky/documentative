@@ -24,7 +24,7 @@ const $ = {
     primary: '#712c9c',
     copyright: {
       text: '© 2020 dragonwocky, under the MIT license',
-      url: 'https://dragonwocky.me/#licensing'
+      url: 'https://dragonwocky.me/#mit'
     },
     exclude: [],
     overwrite: false

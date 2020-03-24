@@ -2,7 +2,10 @@
 
 a tool for precompiling docs from markdown
 
-`// add badges`
+[![npm](https://badgen.net/npm/v/documentative)](https://npmjs.com/package/documentative)
+[![install size](https://badgen.net/packagephobia/install/documentative)](https://packagephobia.now.sh/result?p=documentative)
+[![downloads](https://badgen.net/npm/dt/documentative)](https://npmjs.com/package/documentative)
+[![license](https://badgen.net/npm/license/documentative)](https://dragonwocky.me/#mit)
 
 ## what is this? why use it?
 
@@ -117,7 +120,7 @@ check out [the styling guide](styling-guide.md) for ways to further customise wh
     text: string,
       // default: "© 2020 dragonwocky, under the MIT license"
     url: string/link
-      // default: "https://dragonwocky.me/#licensing"
+      // default: "https://dragonwocky.me/#mit"
   },
   overwrite: boolean,
     // default: false
