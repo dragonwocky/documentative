@@ -63,7 +63,11 @@ async function build(inputdir, outputdir, config = {}) {
       (path.relative(inputdir, outputdir).startsWith('.') ||
       !path.relative(inputdir, outputdir)
         ? true
-        : !file.startsWith(outputdir.slice(inputdir.length + path.sep.length)))
+        : !file.startsWith(
+            outputdir.slice(
+              inputdir !== '.' ? inputdir.length + path.sep.length : 0
+            )
+          ))
   );
   if (!path.relative(inputdir, outputdir)) assets = [];
   nav = await Promise.all(
@@ -288,7 +292,7 @@ async function filelist(dir, filter = () => true) {
     .map(item =>
       path
         .relative('.', item)
-        .slice(dir.length && dir !== '.' ? dir.length + 1 : 0)
+        .slice(dir !== '.' ? dir.length + path.sep.length : 0)
     )
     .filter(
       item =>
