@@ -13,7 +13,9 @@ const path = require('path'),
   relative = path.relative,
   resourcepath = file => path.join(__dirname, 'resources', file),
   less = require('less'),
-  pug = require('pug');
+  pug = require('pug'),
+  marked = require('marked'),
+  hljs = require('highlight.js');
 
 const $ = {
   defaults: {
@@ -26,6 +28,15 @@ const $ = {
     exclude: [],
     overwrite: false,
     empty: false
+  },
+  marked: {
+    highlight: (code, lang) => {
+      lang = hljs.getLanguage(lang) ? lang : 'plaintext';
+      $.languages.add(lang);
+      return hljs.highlight(lang, code).value;
+    },
+    langPrefix: 'lang-',
+    gfm: true
   },
   resources: new Map(),
   languages: new Set()
@@ -42,28 +53,21 @@ async function build(inputdir, outputdir, config = {}) {
 
   let icon, nav;
   [config, icon, nav] = parseConfig(config);
-  let [pages, assets] = await filelist(inputdir, file =>
-    relative(inputdir, outputdir).startsWith('.')
-      ? true
-      : !file.startsWith(outputdir.slice(inputdir.length + path.sep.length)) &&
-        !config.exclude.includes(file)
+  let [pages, assets] = await filelist(
+    inputdir,
+    file =>
+      !config.exclude.includes(file) &&
+      (relative(inputdir, outputdir).startsWith('.') ||
+      !relative(inputdir, outputdir)
+        ? true
+        : !file.startsWith(outputdir.slice(inputdir.length + path.sep.length)))
   );
-  nav = parseNav(inputdir, pages);
-  console.log(nav);
-
-  // config.nav = await Promise.all(
-  //   (await processlist(inputdir, files, config.nav)).map((entry, i) => {
-  //     if (entry.type !== 'page') return entry;
-  //     entry.index = i;
-  //     entry.depth = '../'.repeat(entry.output.split(path.sep).length - 1);
-  //     entry.path =
-  //       entry.output
-  //         .split(path.sep)
-  //         .slice(0, -1)
-  //         .join('/') + '/';
-  //     return parsepage(inputdir, entry);
-  //   })
-  // );
+  if (!relative(inputdir, outputdir)) assets = [];
+  nav = await Promise.all(
+    parseNav(inputdir, pages, nav).map((entry, i, nav) =>
+      entry.type === 'page' ? parsePage(inputdir, entry, nav) : entry
+    )
+  );
 
   if (!fs.existsSync(outputdir)) await fsp.mkdir(outputdir);
   if (!fs.lstatSync(outputdir).isDirectory())
@@ -72,65 +76,32 @@ async function build(inputdir, outputdir, config = {}) {
     throw Error(`documentative<build>: outputdir "${outputdir}" is not empty!
         empty the directory and run again, or set the config.overwrite option to true`);
 
-  if (!$.resources.has('template'))
-    $.resources.set('template', pug.compileFile(resourcepath('template.pug')));
   await Promise.all([
-    async () => {
-      if (!$.resources.has('js'))
-        $.resources.set(
-          'js',
-          await fsp.readFile(resourcepath('scrollnav.js'), 'utf8')
-        );
-      return true;
-    },
-    async () => {
-      if (!$.resources.has('css'))
-        $.resources.set(
-          'css',
-          (
-            await less.render(
-              (await fsp.readFile(resourcepath('styles.less'), 'utf8')).replace(
-                /__primary__/g,
-                config.primary
-              )
-            )
-          ).css
-        );
-      return true;
-    },
-
+    loadResources(),
     ...assets.map(async asset => {
-      let dirs = asset.split(path.sep);
-      for (let i = 1; i < dirs.length; i++) {
-        let dir = path.join(outputdir, dirs.slice(0, i).join(path.sep));
-        switch (true) {
-          case !fs.lstatSync(dir).isDirectory():
-            await fsp.unlink(dir);
-          case !fs.existsSync(dir):
-            await fsp.mkdir(dir);
-        }
-      }
+      await populateDirs(outputdir, asset);
       await fsp.writeFile(
         path.join(outputdir, asset),
         await fsp.readFile(path.join(inputdir, asset))
       );
       return true;
     })
-    // , ...nav
-    //   .filter(entry => entry.type === 'page')
-    //   .map(async page => {
-    //     await fsp.outputFile(
-    //       path.join(outputdir, page.output),
-    //       $.resources.get('template')({
-    //         ...page,
-    //         config,
-    //         resources: $.files
-    //       }),
-    //       'utf8'
-    //     );
-    //     return true;
-    //   })
   ]);
+  nav
+    .filter(entry => entry.type === 'page')
+    .forEach(async page => {
+      await populateDirs(outputdir, page.output);
+      await fsp.writeFile(
+        path.join(outputdir, page.output),
+        $.resources.get('template')({
+          _: page,
+          config,
+          nav,
+          icon
+        }),
+        'utf8'
+      );
+    });
 
   if ([null, undefined].includes(icon)) {
     if (!$.resources.has('icon'))
@@ -143,12 +114,18 @@ async function build(inputdir, outputdir, config = {}) {
       $.resources.get('icon')
     );
   } else {
-    if (!assets.includes(relative(inputdir, icon.toString())))
-      console.warn('documentative<config>: specified icon does not exist');
+    if (typeof icon !== 'string')
+      throw Error(`documentative<config.icon>: should be a string/filepath`);
+    if (!assets.includes(relative(inputdir, icon)))
+      console.warn('documentative<config.icon>: does not exist');
   }
   fsp.writeFile(
     path.join(outputdir, 'styles.css'),
-    $.resources.get('css') +
+    (
+      await less.render(
+        $.resources.get('css').replace(/__primary__/g, config.primary)
+      )
+    ).css +
       [...$.languages]
         .map(
           lang =>
@@ -165,7 +142,108 @@ async function build(inputdir, outputdir, config = {}) {
   return true;
 }
 
-async function serve(inputdir, port, config = {}) {}
+async function serve(inputdir, port, config = {}) {
+  if (!inputdir)
+    throw Error(`documentative<serve>: failed, no input dir provided`);
+  if (!fs.lstatSync(inputdir).isDirectory())
+    throw Error(`documentative<build>: failed, input dir is not a directory`);
+  if (typeof port !== 'number')
+    throw Error(`documentative<serve>: failed, port must be a number`);
+  inputdir = relative('.', inputdir);
+  let icon, confNav;
+  [config, icon, confNav] = parseConfig(config);
+  if (![null, undefined].includes(icon) && typeof icon !== 'string')
+    throw Error(`documentative<config.icon>: should be a string/filepath`);
+  await loadResources();
+
+  return http
+    .createServer(async (req, res) => {
+      let [pages, assets] = await filelist(
+        inputdir,
+        file => !config.exclude.includes(file)
+      );
+      nav = parseNav(inputdir, pages, confNav);
+      let content, type;
+      switch (req.url) {
+        case '/styles.css':
+          content =
+            (
+              await less.render(
+                $.resources.get('css').replace(/__primary__/g, config.primary)
+              )
+            ).css +
+            [...$.languages]
+              .map(
+                lang =>
+                  `.documentative pre .lang-${lang}::before { content: '${lang.toUpperCase()}'; }`
+              )
+              .join('\n');
+          type = 'text/css';
+          break;
+        case '/scrollnav.js':
+          content = $.resources.get('js');
+          type = 'text/javascript';
+          break;
+        default:
+          if (![null, undefined].includes(icon)) {
+            if (!assets.includes(relative(inputdir, icon)))
+              console.warn('documentative<config.icon>: does not exist');
+          } else if (req.url === '/documentative.ico') {
+            if (!$.resources.has('icon'))
+              $.resources.set(
+                'icon',
+                await fsp.readFile(resourcepath('documentative.ico'))
+              );
+            content = $.resources.get('icon');
+            type = 'image/x-icon';
+            break;
+          }
+          if (assets.includes(req.url.slice(1))) {
+            content = await fs.readFile(path.join(inputdir, req.url.slice(1)));
+            type = mime.lookup(req.url);
+          } else {
+            if (req.url.endsWith('/')) req.url = req.url.slice(0, -1);
+            if (
+              !req.url ||
+              nav.find(
+                item =>
+                  item.type === 'page' &&
+                  item.output
+                    .split(path.sep)
+                    .slice(0, -1)
+                    .join('/') === req.url.slice(1)
+              )
+            )
+              req.url += '/index.html';
+            if (nav.find(item => item.output === req.url.slice(1))) {
+              nav = await Promise.all(
+                nav.map((entry, i, nav) =>
+                  entry.type === 'page'
+                    ? parsePage(inputdir, entry, nav)
+                    : entry
+                )
+              );
+              content = $.resources.get('template')({
+                _: nav.find(item => item.output === req.url.slice(1)),
+                config,
+                nav,
+                icon
+              });
+              type = 'text/html';
+            } else {
+              res.statusCode = 404;
+              res.statusMessage = http.STATUS_CODES['404'];
+              res.end();
+              return false;
+            }
+          }
+      }
+      res.writeHead(200, { 'Content-Type': type });
+      res.write(content);
+      res.end();
+    })
+    .listen(port);
+}
 
 function parseConfig(obj = {}) {
   if (typeof obj !== 'object')
@@ -189,7 +267,7 @@ function validateObj(obj, against) {
             }`
           );
         case typeof val === 'object':
-          if (typeof against[key] === 'object')
+          if (typeof against[key] === 'object' && !Array.isArray(against[key]))
             val = validateObj(val, against[key]);
         default:
           return [key, val];
@@ -220,104 +298,212 @@ async function filelist(dir, filter = () => true) {
       [[], []]
     );
 }
+async function populateDirs(loc, from) {
+  let dirs = from.split(path.sep);
+  for (let i = 1; i < dirs.length; i++) {
+    let dir = path.join(loc, dirs.slice(0, i).join(path.sep));
+    if (!fs.existsSync(dir)) await fsp.mkdir(dir);
+    if (!fs.lstatSync(dir).isDirectory()) {
+      await fsp.unlink(dir);
+      await fsp.mkdir(dir);
+    }
+  }
+  return true;
+}
+async function loadResources() {
+  if (!$.resources.has('template'))
+    $.resources.set('template', pug.compileFile(resourcepath('template.pug')));
+  if (!$.resources.has('js'))
+    $.resources.set(
+      'js',
+      await fsp.readFile(resourcepath('scrollnav.js'), 'utf8')
+    );
+  if (!$.resources.has('css'))
+    $.resources.set(
+      'css',
+      await fsp.readFile(resourcepath('styles.less'), 'utf8')
+    );
+  return true;
+}
 
-async function parseNav(inputdir, files, arr = []) {
+function parseNav(inputdir, files, arr = []) {
   if (!Array.isArray(arr))
     throw Error(`documentative<config.nav>: should be an array`);
-  if (!arr.length) {
-    return Object.entries(
-      files.reduce((prev, val) => {
-        const dir = val
-          .split(path.sep)
-          .slice(0, -1)
-          .join(path.sep);
-        if (!prev[dir]) prev[dir] = [];
-        prev[dir].push({
-          type: 'page',
-          output: val.slice(0, -3) + '.html',
-          src: val
-        });
-        return prev;
-      }, {})
-    )
-      .map(entry => {
-        const index =
-          entry[1].find(item => item.src.toLowerCase().endsWith('index.md')) ||
-          entry[1].find(item => item.src.toLowerCase().endsWith('readme.md'));
-        if (index) {
-          entry[1].splice(
-            entry[1].findIndex(item => item.src === index.src),
-            1
-          );
-          entry[1].unshift({
-            type: 'page',
-            output: [index.src.split(path.sep).slice(0, -1), 'index.html'].join(
-              path.sep
-            ),
-            src: index.src
-          });
-        }
-        if (entry[0]) entry[1].unshift({ type: 'title', text: entry[0] });
-        return entry[1];
-      })
-      .flat();
-  } else
-    return await Promise.all(
-      arr.map(async entry => {
-        if (typeof entry === 'string')
-          // "title"
-          return {
-            type: 'title',
-            text: entry
-          };
-        if (Array.isArray(entry)) {
-          if (entry.length !== 2) err(entry);
-          if (files.includes(entry[1]))
-            // ["output", "src"]
+  return (arr.length
+    ? arr.map(entry => {
+        switch (typeof entry) {
+          case 'string':
+            // "title"
             return {
-              type: 'page',
-              output: entry[0].endsWith('.html')
-                ? entry[0]
-                : entry[0] + '.html',
-              src: entry[1]
+              type: 'title',
+              text: entry
             };
-          // ["text", "url"]
-          return {
-            type: 'link',
-            text: entry[0],
-            url: entry[1]
-          };
-        }
-        if (typeof entry !== 'object') err(entry);
-        // {
-        //    type: "page" || "link" || "title"
-        //    (page) output: output filepath
-        //    (page) src: source filepath
-        //    (link, title) text: displayed text
-        //    (link) url: url
-        // }
-        switch (entry.type) {
-          case 'page':
-            if (typeof entry.output !== 'string')
-              err(`output '${entry.output}'`);
-            if (!entry.output.endsWith('.html')) entry.output += '.html';
-            if (
-              typeof entry.src !== 'string' ||
-              // ************* check files.includes??
-              !(await fs.pathExists(path.join(inputdir, entry.src)))
-            )
-              err(`src '${entry.src}'`);
-            return entry;
-          case 'link':
-            if (typeof entry.text !== 'string') err(`text '${entry.text}'`);
-            if (typeof entry.url !== 'string') err(`url '${entry.url}'`);
-            return entry;
-          case 'title':
-            if (typeof entry.text !== 'string') err(`text '${entry.text}'`);
-            return entry;
+          case 'object':
+            if (Array.isArray(entry)) {
+              if (entry.length === 1) entry[1] = entry[0];
+              if (files.includes(rel(inputdir, path.join(inputdir, entry[1]))))
+                // ["output", "src"]
+                return {
+                  type: 'page',
+                  output: entry[0].endsWith('.html')
+                    ? entry[0]
+                    : entry[0] + '.html',
+                  src: entry[1]
+                };
+              // ["text", "url"]
+              return {
+                type: 'link',
+                text: entry[0],
+                url: entry[1]
+              };
+            }
+            // {
+            //    type: "page" || "link" || "title"
+            //    (page) output: output filepath
+            //    (page) src: source filepath
+            //    (link, title) text: displayed text
+            //    (link) url: url
+            // }
+            switch (entry.type) {
+              case 'page':
+                if (
+                  typeof entry.output === 'string' &&
+                  typeof entry.src === 'string' &&
+                  files.includes(rel(inputdir, path.join(inputdir, entry.src)))
+                ) {
+                  if (!entry.output.endsWith('.html')) entry.output += '.html';
+                  return entry;
+                }
+              case 'link':
+                if (
+                  typeof entry.text === 'string' &&
+                  typeof entry.url === 'string'
+                )
+                  return entry;
+              case 'title':
+                if (typeof entry.text === 'string') return entry;
+            }
           default:
-            err(`type '${entry}'`);
+            throw Error(`documentative<config.nav>: invalid entry ${entry}`);
         }
       })
+    : Object.entries(
+        files.reduce((prev, val) => {
+          const dir = val
+            .split(path.sep)
+            .slice(0, -1)
+            .join(path.sep);
+          if (!prev[dir]) prev[dir] = [];
+          prev[dir].push({
+            type: 'page',
+            output: val.slice(0, -3) + '.html',
+            src: val
+          });
+          return prev;
+        }, {})
+      )
+        .map(entry => {
+          const index =
+            entry[1].find(item =>
+              item.src.toLowerCase().endsWith('index.md')
+            ) ||
+            entry[1].find(item => item.src.toLowerCase().endsWith('readme.md'));
+          if (index) {
+            entry[1].splice(
+              entry[1].findIndex(item => item.src === index.src),
+              1
+            );
+            entry[1].unshift({
+              type: 'page',
+              output: [
+                ...index.src.split(path.sep).slice(0, -1),
+                'index.html'
+              ].join(path.sep),
+              src: index.src
+            });
+          }
+          if (entry[0]) entry[1].unshift({ type: 'title', text: entry[0] });
+          return entry[1];
+        })
+        .flat()
+  ).map((entry, i, nav) => {
+    if (entry.type === 'page') {
+      entry.index = i;
+      entry.prev = i - 1;
+      while (nav[entry.prev] && nav[entry.prev].type !== 'page') entry.prev--;
+      entry.next = i + 1;
+      while (nav[entry.next] && nav[entry.next].type !== 'page') entry.next++;
+      entry.depth = '../'.repeat(entry.output.split(path.sep).length - 1);
+    }
+    return entry;
+  });
+}
+async function parsePage(inputdir, page, nav) {
+  const IDs = new marked.Slugger(),
+    tokens = marked.lexer(
+      await fsp.readFile(path.join(inputdir, page.src), 'utf8')
     );
+  page.headings = [];
+  for (let token of tokens) {
+    switch (token.type) {
+      case 'heading':
+        const ID = IDs.slug(token.text.toLowerCase());
+        page.headings.push({
+          name: token.text,
+          level: token.depth,
+          hash: ID
+        });
+        token.type = 'html';
+        token.text = `
+          </section>
+          <section class="block">
+            <h${token.depth} id="${ID}">
+              <a href="#${ID}">${token.text}</a>
+            </h${token.depth}>
+        `;
+        break;
+      case 'code':
+        if (token.lang === 'html //example') {
+          token.type = 'html';
+          token.text = `
+            <div class="example">
+              ${token.text}
+            </div>
+          `;
+        }
+        break;
+    }
+  }
+  page.title = page.headings.shift() || page.output.slice(0, -5);
+
+  // map src -> output (links)
+  nav = Object.fromEntries(
+    nav
+      .filter(entry => entry.type === 'page')
+      .map(entry => [entry.src, entry.output])
+  );
+  const renderer = new marked.Renderer();
+  renderer.ordinaryLink = renderer.link;
+  renderer.link = function(href, title, text) {
+    if (href.endsWith('.md')) {
+      const output =
+        nav[
+          path.join(
+            page.src
+              .split(path.sep)
+              .slice(0, -1)
+              .join(path.sep),
+            href
+          )
+        ];
+      if (output) href = [...page.depth.split('/'), output].join('/');
+    }
+    return this.ordinaryLink(href, title, text);
+  };
+
+  page.content = `
+    <section class="block">
+      ${marked.parser(tokens, { ...$.marked, renderer })}
+    </section>`.replace(/<section class="block">\s*<\/section>/g, '');
+  return page;
 }

@@ -1,39 +1,36 @@
-
+doctype html
 // Documentative
 // (c) 2020 dragonwocky <thedragonring.bod@gmail.com>
 // (https://dragonwocky.me/) under the MIT license
-
-doctype html
 html
   head
     meta(charset='utf-8')
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title= title.name
+    title= _.title.name
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Source+Code+Pro|Nunito+Sans')
-    link(rel='stylesheet', href=depth + resources.css)
-    script(src=depth + resources.js)
-    link(rel="shortcut icon", href=depth + config.icon.name, type="image/x-icon")
+    link(rel='stylesheet', href=_.depth + 'styles.css')
+    script(src=_.depth + 'scrollnav.js')
+    link(rel="shortcut icon", href=_.depth + (icon || 'documentative.ico'), type="image/x-icon")
   body
     aside.menu
       div
-        //- (style='display: block')
         .title
           h1= config.title
           span.icon
-            img(src=depth + config.icon.name)
+            img(src=_.depth + (icon || 'documentative.ico'))
       ul.nav
-        each entry in config.nav
+        each entry in nav
           li.entry
             if entry.type === 'link'
               a(href=entry.url)= entry.text
             if entry.type === 'title'
               p= entry.text
             if entry.type === 'page'
-              a(href=(entry.title.name === title.name ? `#${entry.title.hash}` : depth + entry.output))= entry.title.name
-              if entry.title.name === title.name && headings.length
+              a(href=(entry.title.name === _.title.name ? `#${entry.title.hash}` : _.depth + entry.output))= entry.title.name
+              if entry.title.name === _.title.name && _.headings.length
                 ul
-                  each heading in headings
-                    li(class=`depth-${heading.depth}`)
+                  each heading in _.headings
+                    li(class=`level-${heading.level}`)
                       a(href=`#${heading.hash}`)= heading.name
       p.mark
         a(href="https://dragonwocky.me/documentative") docs by documentative
@@ -41,23 +38,16 @@ html
       .toggle
         button ☰
         h1= config.title
-      .documentative
+      article.documentative
         .content
-          != content
-        if config.copyright
+          != _.content
+        if config.copyright.text
           .copyright
             hr
             p
-              a(href=config.copyright.url)= typeof config.copyright === 'object' ? config.copyright.text : config.copyright
+              a(href=config.copyright.url)= config.copyright.text
         nav
-          - var n = 1;
-          while config.nav[index - n]
-            if index > 0 && config.nav[index - n].type === 'page'
-              a.prev(href=depth + config.nav[index - n].output) ᐊ
-            - n--;
-          - n = 1;
-          while config.nav[index + n]
-            if index < config.nav.length - n && config.nav[index + n].type === 'page'
-              a.next(href=depth + config.nav[index + n].output) ᐅ
-            - n++;
-
+          if nav[_.prev]
+            a.prev(href=_.depth + nav[_.prev].output) ᐊ
+          if nav[_.next]
+            a.next(href=_.depth + nav[_.next].output) ᐅ

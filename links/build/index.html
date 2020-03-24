@@ -1,0 +1,311 @@
+<!DOCTYPE html><!-- Documentative--><!-- (c) 2020 dragonwocky <thedragonring.bod@gmail.com>--><!-- (https://dragonwocky.me/) under the MIT license--><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>documentative</title><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Nunito+Sans"><link rel="stylesheet" href="styles.css"><script src="scrollnav.js"></script><link rel="shortcut icon" href="documentative.ico" type="image/x-icon"></head><body><aside class="menu"><div><div class="title"><h1>hm</h1><span class="icon"><img src="documentative.ico"></span></div></div><ul class="nav"><li class="entry"><a href="#documentative">documentative</a><ul><li class="level-2"><a href="#what-is-this-why-use-it">what is this? why use it?</a></li><li class="level-2"><a href="#usage">usage</a></li><li class="level-4"><a href="#to-buildprecompile-to-a-directory">to build/precompile to a directory</a></li><li class="level-4"><a href="#to-serve-the-directory-from-a-local-http-server">to serve the directory from a local http server</a></li><li class="level-2"><a href="#cli">cli</a></li><li class="level-2"><a href="#writing-a-page">writing a page</a></li><li class="level-2"><a href="#options">options</a></li><li class="level-3"><a href="#the-nav-default-behaviour">the nav: default behaviour</a></li><li class="level-3"><a href="#the-nav-custom-behaviour">the nav: custom behaviour</a></li><li class="level-4"><a href="#defining-a-title">defining a title</a></li><li class="level-4"><a href="#defining-a-page">defining a page</a></li><li class="level-4"><a href="#defining-a-link">defining a link</a></li><li class="level-4"><a href="#example-nav">example nav</a></li><li class="level-2"><a href="#output">output</a></li><li class="level-4"><a href="#build">build</a></li><li class="level-4"><a href="#serve">serve</a></li><li class="level-2"><a href="#potential-future-features">potential future features</a></li></ul></li></ul><p class="mark"><a href="https://dragonwocky.me/documentative">docs by documentative</a></p></aside><div class="wrapper"><div class="toggle"><button>☰</button><h1>hm</h1></div><article class="documentative"><div class="content">
+    
+          <section class="block">
+            <h1 id="documentative">
+              <a href="#documentative">documentative</a>
+            </h1>
+        <p>a tool for precompiling docs from markdown</p>
+<p><code>// add badges</code></p>
+
+          </section>
+          <section class="block">
+            <h2 id="what-is-this-why-use-it">
+              <a href="#what-is-this-why-use-it">what is this? why use it?</a>
+            </h2>
+        <p>there are a lot of tools out there for publishing websites and for generating documentation.
+some are really powerful. sometimes too powerful, or too complicated - they&#39;ll process commented source code
+to build an API documentation, or will on-the-fly process markdown into your website, requiring a server
+to run. sometimes it&#39;s simpler to just build something yourself and serve it from github pages.</p>
+<p>i was doing that a lot: and it was taking me nearly as long to build/update the documentation each time
+as it was to actually build/update the project itself. this is, essentially, a node tool that will precompile
+documentation from markdown docs. though I could have used Sphinx or MkDocs, I already had a fairly capable
+template I had put a decent amount of work into. so, I just built a parser/generator for it.</p>
+<p>documentative may not make writing documentation easier, but it sure does make help when it comes to
+publishing and maintaining it.</p>
+
+          </section>
+          <section class="block">
+            <h2 id="usage">
+              <a href="#usage">usage</a>
+            </h2>
+        <p>this package is available from the npm package registry.</p>
+<pre><code class="undefinedbash">npm i -s documentative</code></pre>
+<pre><code class="undefinedjs">const doc = require(&#39;documentative&#39;);</code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="to-buildprecompile-to-a-directory">
+              <a href="#to-buildprecompile-to-a-directory">to build/precompile to a directory</a>
+            </h4>
+        <pre><code class="undefinedjs">doc.build(inputdir, outputdir, options);
+// returns a promise: resolves to true</code></pre>
+<table>
+<thead>
+<tr>
+<th>argument</th>
+<th>type</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>inputdir</code></td>
+<td>string</td>
+<td>e.g. <code>&quot;pages&quot;</code></td>
+</tr>
+<tr>
+<td><code>outputdir</code></td>
+<td>string</td>
+<td>e.g. <code>&quot;build&quot;</code></td>
+</tr>
+<tr>
+<td><code>options</code></td>
+<td>object</td>
+<td>see <a href="#options">#options</a></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>❗ ensure the output directory is safely empty! all files within it will be deleted.</p>
+</blockquote>
+
+          </section>
+          <section class="block">
+            <h4 id="to-serve-the-directory-from-a-local-http-server">
+              <a href="#to-serve-the-directory-from-a-local-http-server">to serve the directory from a local http server</a>
+            </h4>
+        <pre><code class="undefinedjs">doc.serve(inputdir, port, options);
+// returns a promise: resolves to the started http server</code></pre>
+<table>
+<thead>
+<tr>
+<th>argument</th>
+<th>type</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>inputdir</code></td>
+<td>string</td>
+<td>e.g. <code>&quot;pages&quot;</code></td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td>number</td>
+<td>e.g. <code>8080</code></td>
+</tr>
+<tr>
+<td><code>options</code></td>
+<td>object</td>
+<td>see <a href="#options">#options</a></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>❗ not recommended unless for testing purposes
+- especially if serving a larger directory,
+as it will re-read the entire directory to serve
+every single file.</p>
+</blockquote>
+
+          </section>
+          <section class="block">
+            <h2 id="cli">
+              <a href="#cli">cli</a>
+            </h2>
+        <pre><code>usage:
+
+  &gt; documentative-build &lt;inputdir&gt; &lt;outputdir&gt;
+  e.g. documentative-build pages build
+
+  &gt; documentative-serve &lt;inputdir&gt; [--port, -p PORT]
+  e.g. documentative-serve pages -p 3000
+
+options:
+  --help, -h   show this message
+  --port, -p   set the HTTP server port used by documentative-serve
+    (default: 8080)
+
+** to configure the process, place configuration options into
+   &lt;inputdir&gt;/config.json</code></pre>
+          </section>
+          <section class="block">
+            <h2 id="writing-a-page">
+              <a href="#writing-a-page">writing a page</a>
+            </h2>
+        <p>pages are written in github flavoured markdown.</p>
+<p>it is recommended to start every page with a <code># h1</code>, as that is what is used
+for the sidebar table-of-contents documentative generates.</p>
+<p>in order to maintain viability of pages as both markdown and html, any local markdown page
+links are changed to match page src -&gt; output. e.g. a link written as <code>[link](README.md)</code>
+may transformed to <code>&lt;a href=&quot;index.html&quot;&gt;link&lt;/a&gt;</code>.</p>
+<p>check out <a href="styling-guide.md">the styling guide</a> for ways to further customise what comes out.</p>
+
+          </section>
+          <section class="block">
+            <h2 id="options">
+              <a href="#options">options</a>
+            </h2>
+        <pre><code class="undefinedjs">{
+  title: string,
+    // default: &quot;documentative&quot;
+  primary: string,
+    // default: &quot;#712c9c&quot;
+  icon: string/filepath,
+    // default: the documentative icon
+  copyright: {
+    text: string,
+    url: string/link
+  }, // default: none
+  nav: [] // (see below)
+}</code></pre>
+
+          </section>
+          <section class="block">
+            <h3 id="the-nav-default-behaviour">
+              <a href="#the-nav-default-behaviour">the nav: default behaviour</a>
+            </h3>
+        <ol>
+<li>all markdown files are listed.</li>
+<li>nav entry names are the first header within the <code>.md</code>,
+or the filename.</li>
+<li>entries are sorted by alphabetical order,
+though the <code>index.md</code> file is always first.</li>
+<li>if there is no <code>index.md</code> but there is a <code>README.md</code>,
+it becomes the first in the order and is output as <code>index.html</code>.</li>
+<li>entries are categorised by directory (a title is added
+with the name of the directory).</li>
+</ol>
+
+          </section>
+          <section class="block">
+            <h3 id="the-nav-custom-behaviour">
+              <a href="#the-nav-custom-behaviour">the nav: custom behaviour</a>
+            </h3>
+        
+          </section>
+          <section class="block">
+            <h4 id="defining-a-title">
+              <a href="#defining-a-title">defining a title</a>
+            </h4>
+        <p>strict definition:</p>
+<pre><code class="undefinedjs">{
+  type: &#39;title&#39;,
+  text: string // e.g. &#39;this is a title&#39;
+}</code></pre>
+<p>shorthand:</p>
+<pre><code class="undefinedjs">string;
+// e.g. &#39;this is a title&#39;</code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="defining-a-page">
+              <a href="#defining-a-page">defining a page</a>
+            </h4>
+        <p>strict definition:</p>
+<pre><code class="undefinedjs">{
+  type: &#39;page&#39;,
+  output: string/filepath, // e.g. getting-started.html
+  src: string/filepath // e.g. tutorial.md
+}</code></pre>
+<p>shorthand:</p>
+<pre><code class="undefinedjs">[output, src];
+// e.g. [&#39;getting-started.html&#39;, &#39;tutorial.md&#39;]</code></pre>
+<blockquote>
+<p>if the src is not a valid/existing file, it will be assumed to be a link.</p>
+</blockquote>
+
+          </section>
+          <section class="block">
+            <h4 id="defining-a-link">
+              <a href="#defining-a-link">defining a link</a>
+            </h4>
+        <p>strict definition:</p>
+<pre><code class="undefinedjs">{
+  type: &#39;link&#39;,
+  text: string, // e.g. github
+  url: string/link // e.g. https://github.com/dragonwocky/documentative/
+}</code></pre>
+<p>shorthand:</p>
+<pre><code class="undefinedjs">[text, url];
+// e.g. [&#39;github&#39;, &#39;https://github.com/dragonwocky/documentative/&#39;]</code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="example-nav">
+              <a href="#example-nav">example nav</a>
+            </h4>
+        <p>strict definition:</p>
+<pre><code class="undefinedjs">[
+  { type: &#39;page&#39;, output: &#39;getting-started.html&#39;, input: &#39;tutorial.md&#39; },
+  { type: &#39;title&#39;, text: &#39;resources&#39; },
+  {
+    type: &#39;link&#39;,
+    text: &#39;github&#39;,
+    url: &#39;https://github.com/dragonwocky/documentative/&#39;
+  }
+];</code></pre>
+<p>shorthand:</p>
+<pre><code class="undefinedjs">[
+  [&#39;getting-started.html&#39;, &#39;tutorial.md&#39;],
+  &#39;resources&#39;,
+  [&#39;github&#39;, &#39;https://github.com/dragonwocky/documentative/&#39;]
+];</code></pre>
+<p>(these methods can be mixed.)</p>
+
+          </section>
+          <section class="block">
+            <h2 id="output">
+              <a href="#output">output</a>
+            </h2>
+        
+          </section>
+          <section class="block">
+            <h4 id="build">
+              <a href="#build">build</a>
+            </h4>
+        <ol>
+<li>the output directory is emptied or created.</li>
+<li>all markdown files included in the nav are output.</li>
+<li>all assets (non-<code>.md</code>) files are copied across as they are</li>
+<li>documentative resource files are copied across: <code>scrollnav.js</code>,
+<code>styles.css</code> and (only if no icon has been specified in the
+build/serve options) <code>documentative.ico</code>.</li>
+</ol>
+<blockquote>
+<p>❗ note that this means you cannot have any assets with those
+names, as they will be overwritten.</p>
+</blockquote>
+
+          </section>
+          <section class="block">
+            <h4 id="serve">
+              <a href="#serve">serve</a>
+            </h4>
+        <p>a http server is created. whenever a request is received:</p>
+<ol>
+<li>if <code>scrollnav.js</code> or <code>styles.css</code> are requested, serve them
+from documentative&#39;s resources.</li>
+<li>if an icon has been specified and is requested, serve it.
+otherwise, the icon shall be served as <code>documentative.ico</code>.</li>
+<li>if the file exists in the asset list (all non-<code>.md</code> files),
+serve it.</li>
+<li>if a nav entry of type page and with an output
+matching the request exists, serve it.</li>
+<li>if a file has still not been served, return a 404 error.</li>
+</ol>
+<blockquote>
+<p>❗ note that this means if you have a <code>.html</code> file called (e.g.)
+<code>getting-started.html</code> and a <code>.md</code> file with its output set to
+<code>getting-started.md</code>, the <code>.html</code> asset will override the parsed
+<code>.md</code>.</p>
+</blockquote>
+
+          </section>
+          <section class="block">
+            <h2 id="potential-future-features">
+              <a href="#potential-future-features">potential future features</a>
+            </h2>
+        <ul>
+<li>single-file compile</li>
+<li>exclude list</li>
+</ul>
+
+    </section></div><div class="copyright"><hr><p><a href="https://dragonwocky.me/">© copyright 2020, dragonwocky</a></p></div><nav></nav></article></div></body></html>

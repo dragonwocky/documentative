@@ -34,16 +34,18 @@ options:
   `);
 } else if (process.argv[1].endsWith('/documentative-build')) {
   const fs = require('fs'),
-    path = require('path');
-  require('./improved.js')
-    .build(argv['_'][0], argv['_'][1], {
-      ...(fs.existsSync(path.join(argv['_'][0], 'config.json'))
+    path = require('path'),
+    config = {
+      exclude: [],
+      ...(fs.existsSync(path.join(argv['_'][0], 'docs.json'))
         ? JSON.parse(
-            fs.readFileSync(path.join(argv['_'][0], 'config.json'), 'utf8')
+            fs.readFileSync(path.join(argv['_'][0], 'docs.json'), 'utf8')
           )
-        : {}),
-      CLI: true
-    })
+        : {})
+    };
+  config.exclude.unshift('docs.json');
+  require('./index.js')
+    .build(argv['_'][0], argv['_'][1], config)
     .then(success => {
       if (success)
         console.log(
@@ -57,20 +59,22 @@ options:
 } else if (process.argv[1].endsWith('/documentative-serve')) {
   const fs = require('fs'),
     path = require('path'),
+    config = {
+      exclude: [],
+      ...(fs.existsSync(path.join(argv['_'][0], 'docs.json'))
+        ? JSON.parse(
+            fs.readFileSync(path.join(argv['_'][0], 'docs.json'), 'utf8')
+          )
+        : {})
+    },
     port = ![null, undefined].includes(argv.p)
       ? argv.p
       : ![null, undefined].includes(argv.port)
       ? argv.port
       : 8080;
-  require('./improved.js')
-    .serve(argv['_'][0], port, {
-      ...(fs.existsSync(path.join(argv['_'][0], 'config.json'))
-        ? JSON.parse(
-            fs.readFileSync(path.join(argv['_'][0], 'config.json'), 'utf8')
-          )
-        : {}),
-      CLI: true
-    })
+  config.exclude.unshift('docs.json');
+  require('./index.js')
+    .serve(argv['_'][0], port, config)
     .then(server => {
       console.info(
         `Serving HTTP on 0.0.0.0 port ${port} (http://localhost:${port}/)...`

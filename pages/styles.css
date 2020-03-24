@@ -158,7 +158,7 @@ aside ul li a.active {
   font-weight: bold;
   text-shadow: 0 0 0.75em var(--glow);
 }
-aside ul li.entry > a {
+aside ul li.level > a {
   text-decoration: underline var(--border);
 }
 aside ul li.level-1 > a {
@@ -495,3 +495,8 @@ aside .mark a {
 .hljs-strong {
   font-weight: bold;
 }
+.documentative pre .lang-diff::before { content: 'DIFF'; }
+.documentative pre .lang-python::before { content: 'PYTHON'; }
+.documentative pre .lang-html::before { content: 'HTML'; }
+.documentative pre .lang-js::before { content: 'JS'; }
+.documentative pre .lang-plaintext::before { content: 'PLAINTEXT'; }
