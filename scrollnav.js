@@ -156,21 +156,16 @@ class Scrollnav {
 }
 
 const construct = () => {
-  if (location.pathname.endsWith('index.html'))
+  if (
+    location.pathname.endsWith('index.html') &&
+    window.location.protocol !== 'file:'
+  )
     location.replace('./' + location.hash);
 
   new Scrollnav(
     document.querySelector('aside'),
     document.querySelector('.documentative')
   );
-
-  document.querySelector('.toggle button').onclick = () =>
-    document.body.classList.toggle('mobilemenu');
-  document.querySelectorAll('.documentative a').forEach(elem => {
-    const link = new URL(elem.href);
-    if (link.origin === location.origin && link.pathname.endsWith('.md'))
-      elem.href = link.origin + '/' + link.pathname + link.hash;
-  });
 };
 
 if (document.readyState === 'complete') {

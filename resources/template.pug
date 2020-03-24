@@ -26,8 +26,8 @@ html
             if entry.type === 'title'
               p= entry.text
             if entry.type === 'page'
-              a(href=(entry.title.name === _.title.name ? `#${entry.title.hash}` : _.depth + entry.output))= entry.title.name
-              if entry.title.name === _.title.name && _.headings.length
+              a(href=(entry.output === _.output ? `#${entry.title.hash}` : _.depth + entry.output))= entry.title.name
+              if entry.output === _.output && _.headings.length
                 ul
                   each heading in _.headings
                     li(class=`level-${heading.level}`)

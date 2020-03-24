@@ -1,4 +1,4 @@
-<!DOCTYPE html><!-- Documentative--><!-- (c) 2020 dragonwocky <thedragonring.bod@gmail.com>--><!-- (https://dragonwocky.me/) under the MIT license--><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>documentative</title><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Nunito+Sans"><link rel="stylesheet" href="../styles.css"><script src="../scrollnav.js"></script><link rel="shortcut icon" href="../documentative.ico" type="image/x-icon"></head><body><aside class="menu"><div><div class="title"><h1>hm</h1><span class="icon"><img src="../documentative.ico"></span></div></div><ul class="nav"><li class="entry"><p>ok</p></li><li class="entry"><a href="#documentative">documentative</a><ul><li class="level-2"><a href="#what-is-this-why-use-it">what is this? why use it?</a></li><li class="level-2"><a href="#usage">usage</a></li><li class="level-4"><a href="#to-buildprecompile-to-a-directory">to build/precompile to a directory</a></li><li class="level-4"><a href="#to-serve-the-directory-from-a-local-http-server">to serve the directory from a local http server</a></li><li class="level-2"><a href="#cli">cli</a></li><li class="level-2"><a href="#writing-a-page">writing a page</a></li><li class="level-2"><a href="#options">options</a></li><li class="level-3"><a href="#the-nav-default-behaviour">the nav: default behaviour</a></li><li class="level-3"><a href="#the-nav-custom-behaviour">the nav: custom behaviour</a></li><li class="level-4"><a href="#defining-a-title">defining a title</a></li><li class="level-4"><a href="#defining-a-page">defining a page</a></li><li class="level-4"><a href="#defining-a-link">defining a link</a></li><li class="level-4"><a href="#example-nav">example nav</a></li><li class="level-2"><a href="#output">output</a></li><li class="level-4"><a href="#build">build</a></li><li class="level-4"><a href="#serve">serve</a></li><li class="level-2"><a href="#potential-future-features">potential future features</a></li></ul></li><li class="entry"><a href="../ok/styling-guide.html">styling guide</a></li></ul><p class="mark"><a href="https://dragonwocky.me/documentative">docs by documentative</a></p></aside><div class="wrapper"><div class="toggle"><button>☰</button><h1>hm</h1></div><article class="documentative"><div class="content">
+<!DOCTYPE html><!-- Documentative--><!-- (c) 2020 dragonwocky <thedragonring.bod@gmail.com>--><!-- (https://dragonwocky.me/) under the MIT license--><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>documentative</title><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Nunito+Sans"><link rel="stylesheet" href="styles.css"><script src="scrollnav.js"></script><link rel="shortcut icon" href="documentative.ico" type="image/x-icon"></head><body><aside class="menu"><div><div class="title"><h1>documentative</h1><span class="icon"><img src="documentative.ico"></span></div></div><ul class="nav"><li class="entry"><a href="#documentative">documentative</a><ul><li class="level-2"><a href="#what-is-this-why-use-it">what is this? why use it?</a></li><li class="level-2"><a href="#usage">usage</a></li><li class="level-4"><a href="#to-buildprecompile-to-a-directory">to build/precompile to a directory</a></li><li class="level-4"><a href="#to-serve-the-directory-from-a-local-http-server">to serve the directory from a local http server</a></li><li class="level-2"><a href="#cli">cli</a></li><li class="level-2"><a href="#writing-a-page">writing a page</a></li><li class="level-2"><a href="#options">options</a></li><li class="level-3"><a href="#the-nav-default-behaviour">the nav: default behaviour</a></li><li class="level-3"><a href="#the-nav-custom-behaviour">the nav: custom behaviour</a></li><li class="level-4"><a href="#defining-a-title">defining a title</a></li><li class="level-4"><a href="#defining-a-page">defining a page</a></li><li class="level-4"><a href="#defining-a-link">defining a link</a></li><li class="level-4"><a href="#example-nav">example nav</a></li><li class="level-2"><a href="#output">output</a></li><li class="level-4"><a href="#build">build</a></li><li class="level-4"><a href="#serve">serve</a></li><li class="level-2"><a href="#other-details">other details</a></li></ul></li><li class="entry"><p>resources</p></li><li class="entry"><a href="styling-guide.html">styling guide</a></li><li class="entry"><a href="https://github.com/dragonwocky/documentative/">github</a></li><li class="entry"><a href="https://dragonwocky.me/">me (dragonwocky)</a></li></ul><p class="mark"><a href="https://dragonwocky.me/documentative">docs by documentative</a></p></aside><div class="wrapper"><div class="toggle"><button>☰</button><h1>documentative</h1></div><article class="documentative"><div class="content">
     
           <section class="block">
             <h1 id="documentative">
@@ -13,15 +13,13 @@
               <a href="#what-is-this-why-use-it">what is this? why use it?</a>
             </h2>
         <p>there are a lot of tools out there for publishing websites and for generating documentation.
-some are really powerful. sometimes too powerful, or too complicated - they&#39;ll process commented source code
-to build an API documentation, or will on-the-fly process markdown into your website, requiring a server
-to run. sometimes it&#39;s simpler to just build something yourself and serve it from github pages.</p>
-<p>i was doing that a lot: and it was taking me nearly as long to build/update the documentation each time
-as it was to actually build/update the project itself. this is, essentially, a node tool that will precompile
-documentation from markdown docs. though I could have used Sphinx or MkDocs, I already had a fairly capable
-template I had put a decent amount of work into. so, I just built a parser/generator for it.</p>
-<p>documentative may not make writing documentation easier, but it sure does make help when it comes to
-publishing and maintaining it.</p>
+some are really powerful - even to the extend of processing code and building docs straight from that.
+sometimes it&#39;s just simpler to write some markdown and publish it as a static site on github pages.</p>
+<p>i was doing that a lot: and since i was writing markdown and then also manually building a matching
+website, i was spending nearly as much time on that as i was on coding the project itself. i had a
+reasonably solid template i was using already, so i did what leads many people to publishing things
+like this: i thought to myself &quot;how can i automate this?&quot;</p>
+<p>documentative cuts out half the work - you write the markdown; it builds you a responsive, modern website.</p>
 
           </section>
           <section class="block">
@@ -30,14 +28,14 @@ publishing and maintaining it.</p>
             </h2>
         <p>this package is available from the npm package registry.</p>
 <pre><code class="lang-bash">npm i -s documentative</code></pre>
-<pre><code class="lang-js"><span class="hljs-keyword">const</span> doc = <span class="hljs-built_in">require</span>(<span class="hljs-string">'documentative'</span>);</code></pre>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> docs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'documentative'</span>);</code></pre>
 
           </section>
           <section class="block">
             <h4 id="to-buildprecompile-to-a-directory">
               <a href="#to-buildprecompile-to-a-directory">to build/precompile to a directory</a>
             </h4>
-        <pre><code class="lang-js">doc.build(inputdir, outputdir, options);
+        <pre><code class="lang-js">docs.build(inputdir, outputdir, options);
 <span class="hljs-comment">// returns a promise: resolves to true</span></code></pre>
 <table>
 <thead>
@@ -63,16 +61,16 @@ publishing and maintaining it.</p>
 <td>see <a href="#options">#options</a></td>
 </tr>
 </tbody></table>
-<blockquote>
-<p>❗ ensure the output directory is safely empty! all files within it will be deleted.</p>
-</blockquote>
+<p>if you wish your <code>inputdir</code> and <code>outputdir</code> to be the same,
+that works too - just enable the overwrite option (see <a href="#options">#options</a>).</p>
+<pre><code class="lang-js">docs.build(<span class="hljs-string">'.'</span>, <span class="hljs-string">'.'</span>, { <span class="hljs-attr">overwrite</span>: <span class="hljs-literal">true</span> });</code></pre>
 
           </section>
           <section class="block">
             <h4 id="to-serve-the-directory-from-a-local-http-server">
               <a href="#to-serve-the-directory-from-a-local-http-server">to serve the directory from a local http server</a>
             </h4>
-        <pre><code class="lang-js">doc.serve(inputdir, port, options);
+        <pre><code class="lang-js">docs.serve(inputdir, port, options);
 <span class="hljs-comment">// returns a promise: resolves to the started http server</span></code></pre>
 <table>
 <thead>
@@ -101,8 +99,8 @@ publishing and maintaining it.</p>
 <blockquote>
 <p>❗ not recommended unless for testing purposes
 - especially if serving a larger directory,
-as it will re-read the entire directory to serve
-every single file.</p>
+as it will re-read the entire directory for
+every file serve.</p>
 </blockquote>
 
           </section>
@@ -124,7 +122,11 @@ options:
     (default: 8080)
 
 ** to configure the process, place configuration options into
-   &lt;inputdir&gt;/config.json</code></pre>
+   &lt;inputdir&gt;/docs.json</code></pre><blockquote>
+<p>ℹ️ the <code>&lt;inputdir&gt;/docs.json</code> file will be added
+to the exclude list (see <a href="#options">#options</a>)</p>
+</blockquote>
+
           </section>
           <section class="block">
             <h2 id="writing-a-page">
@@ -136,7 +138,7 @@ for the sidebar table-of-contents documentative generates.</p>
 <p>in order to maintain viability of pages as both markdown and html, any local markdown page
 links are changed to match page src -&gt; output. e.g. a link written as <code>[link](README.md)</code>
 may transformed to <code>&lt;a href=&quot;index.html&quot;&gt;link&lt;/a&gt;</code>.</p>
-<p>check out <a href="..//ok/styling-guide.html">the styling guide</a> for ways to further customise what comes out.</p>
+<p>check out <a href="/styling-guide.html">the styling guide</a> for ways to further customise what comes out.</p>
 
           </section>
           <section class="block">
@@ -152,9 +154,31 @@ may transformed to <code>&lt;a href=&quot;index.html&quot;&gt;link&lt;/a&gt;</co
     <span class="hljs-comment">// default: the documentative icon</span>
   <span class="hljs-attr">copyright</span>: {
     <span class="hljs-attr">text</span>: string,
+      <span class="hljs-comment">// default: "© 2020 dragonwocky, under the MIT license"</span>
     <span class="hljs-attr">url</span>: string/link
-  }, <span class="hljs-comment">// default: none</span>
-  <span class="hljs-attr">nav</span>: [] <span class="hljs-comment">// (see below)</span>
+      <span class="hljs-comment">// default: "https://dragonwocky.me/#licensing"</span>
+  },
+  <span class="hljs-attr">overwrite</span>: boolean,
+    <span class="hljs-comment">// default: false</span>
+  <span class="hljs-attr">exclude</span>: [],
+    <span class="hljs-comment">// default: []</span>
+  <span class="hljs-attr">nav</span>: []
+    <span class="hljs-comment">// (see below)</span>
+}</code></pre>
+<blockquote>
+<p>❗ beware of turning on overwrite, as any files copied
+across from the inputdir will irreversibly overwrite
+files in the outputdir with conflicting names.</p>
+</blockquote>
+<blockquote>
+<p>ℹ️ any files within <code>.git</code> or <code>node_modules</code>
+directories will always be excluded, regardless of
+inclusion in the above list.</p>
+</blockquote>
+<p>if you wish to completely hide the <code>copyright</code>,
+simply set the following:</p>
+<pre><code class="lang-js">copyright: {
+  <span class="hljs-attr">text</span>: <span class="hljs-string">''</span>,
 }</code></pre>
 
           </section>
@@ -191,7 +215,7 @@ with the name of the directory).</li>
   <span class="hljs-attr">text</span>: string <span class="hljs-comment">// e.g. 'this is a title'</span>
 }</code></pre>
 <p>shorthand:</p>
-<pre><code class="lang-js">string;
+<pre><code class="lang-js">string,
 <span class="hljs-comment">// e.g. 'this is a title'</span></code></pre>
 
           </section>
@@ -206,7 +230,7 @@ with the name of the directory).</li>
   <span class="hljs-attr">src</span>: string/filepath <span class="hljs-comment">// e.g. tutorial.md</span>
 }</code></pre>
 <p>shorthand:</p>
-<pre><code class="lang-js">[output, src];
+<pre><code class="lang-js">[output, src],
 <span class="hljs-comment">// e.g. ['getting-started.html', 'tutorial.md']</span></code></pre>
 <blockquote>
 <p>if the src is not a valid/existing file, it will be assumed to be a link.</p>
@@ -224,7 +248,7 @@ with the name of the directory).</li>
   <span class="hljs-attr">url</span>: string/link <span class="hljs-comment">// e.g. https://github.com/dragonwocky/documentative/</span>
 }</code></pre>
 <p>shorthand:</p>
-<pre><code class="lang-js">[text, url];
+<pre><code class="lang-js">[text, url],
 <span class="hljs-comment">// e.g. ['github', 'https://github.com/dragonwocky/documentative/']</span></code></pre>
 
           </section>
@@ -262,9 +286,9 @@ with the name of the directory).</li>
               <a href="#build">build</a>
             </h4>
         <ol>
-<li>the output directory is emptied or created.</li>
+<li>the output directory is created if it does not already exist.</li>
+<li>all assets (non-<code>.md</code>) files are copied across as they are.</li>
 <li>all markdown files included in the nav are output.</li>
-<li>all assets (non-<code>.md</code>) files are copied across as they are</li>
 <li>documentative resource files are copied across: <code>scrollnav.js</code>,
 <code>styles.css</code> and (only if no icon has been specified in the
 build/serve options) <code>documentative.ico</code>.</li>
@@ -294,18 +318,16 @@ matching the request exists, serve it.</li>
 <blockquote>
 <p>❗ note that this means if you have a <code>.html</code> file called (e.g.)
 <code>getting-started.html</code> and a <code>.md</code> file with its output set to
-<code>getting-started.md</code>, the <code>.html</code> asset will override the parsed
-<code>.md</code>.</p>
+<code>getting-started.md</code>, the parsed <code>.md</code> will override the <code>.html</code> file.</p>
 </blockquote>
 
           </section>
           <section class="block">
-            <h2 id="potential-future-features">
-              <a href="#potential-future-features">potential future features</a>
+            <h2 id="other-details">
+              <a href="#other-details">other details</a>
             </h2>
-        <ul>
-<li>single-file compile</li>
-<li>exclude list</li>
-</ul>
+        <p>yes, some of the code blocks on this page end with unnecessary commas. my linter enforces it.</p>
+<p>i also have an unhealthy habit of avoiding capital letters. nothing enforces this, i just do it.</p>
+<p>if you have any questions, check my website for contact details.</p>
 
-    </section></div><div class="copyright"><hr><p><a href="https://dragonwocky.me/">© copyright 2020, dragonwocky</a></p></div><nav><a class="next" href="../ok/styling-guide.html">ᐅ</a></nav></article></div></body></html>
+    </section></div><div class="copyright"><hr><p><a href="https://dragonwocky.me/#licensing">© 2020 dragonwocky, under the MIT license</a></p></div><nav><a class="next" href="styling-guide.html">ᐅ</a></nav></article></div></body></html>

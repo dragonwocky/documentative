@@ -92,7 +92,7 @@ to change a colour for the dark theme, define it within the
 | `.title`                       | the (container for) the title in the sidebar                          |
 | `.icon`                        | the icon in the sidebar title                                         |
 | `.active`                      | the currently focused/highlighted sidebar item                        |
-| `.depth-N` (up to `.depth-6` ) | sidebar items related to `## headers` on the page                     |
+| `.level-N` (up to `.level-6` ) | sidebar items related to `## headers` on the page                     |
 | `.wrapper`                     | the combined container for the body and the mobile navbar             |
 | `.documentative`               | the page content                                                      |
 | `.blobk`                       | a section (a header + all content until the next header)              |

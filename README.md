@@ -7,17 +7,15 @@ a tool for precompiling docs from markdown
 ## what is this? why use it?
 
 there are a lot of tools out there for publishing websites and for generating documentation.
-some are really powerful. sometimes too powerful, or too complicated - they'll process commented source code
-to build an API documentation, or will on-the-fly process markdown into your website, requiring a server
-to run. sometimes it's simpler to just build something yourself and serve it from github pages.
+some are really powerful - even to the extend of processing code and building docs straight from that.
+sometimes it's just simpler to write some markdown and publish it as a static site on github pages.
 
-i was doing that a lot: and it was taking me nearly as long to build/update the documentation each time
-as it was to actually build/update the project itself. this is, essentially, a node tool that will precompile
-documentation from markdown docs. though I could have used Sphinx or MkDocs, I already had a fairly capable
-template I had put a decent amount of work into. so, I just built a parser/generator for it.
+i was doing that a lot: and since i was writing markdown and then also manually building a matching
+website, i was spending nearly as much time on that as i was on coding the project itself. i had a
+reasonably solid template i was using already, so i did what leads many people to publishing things
+like this: i thought to myself "how can i automate this?"
 
-documentative may not make writing documentation easier, but it sure does make help when it comes to
-publishing and maintaining it.
+documentative cuts out half the work - you write the markdown; it builds you a responsive, modern website.
 
 ## usage
 
@@ -28,13 +26,13 @@ npm i -s documentative
 ```
 
 ```js
-const doc = require('documentative');
+const docs = require('documentative');
 ```
 
 #### to build/precompile to a directory
 
 ```js
-doc.build(inputdir, outputdir, options);
+docs.build(inputdir, outputdir, options);
 // returns a promise: resolves to true
 ```
 
@@ -44,12 +42,17 @@ doc.build(inputdir, outputdir, options);
 | `outputdir` | string | e.g. `"build"`           |
 | `options`   | object | see [#options](#options) |
 
-> ❗ ensure the output directory is safely empty! all files within it will be deleted.
+if you wish your `inputdir` and `outputdir` to be the same,
+that works too - just enable the overwrite option (see [#options](#options)).
+
+```js
+docs.build('.', '.', { overwrite: true });
+```
 
 #### to serve the directory from a local http server
 
 ```js
-doc.serve(inputdir, port, options);
+docs.serve(inputdir, port, options);
 // returns a promise: resolves to the started http server
 ```
 
@@ -61,8 +64,8 @@ doc.serve(inputdir, port, options);
 
 > ❗ not recommended unless for testing purposes
 > \- especially if serving a larger directory,
-> as it will re-read the entire directory to serve
-> every single file.
+> as it will re-read the entire directory for
+> every file serve.
 
 ## cli
 
@@ -81,8 +84,11 @@ options:
     (default: 8080)
 
 ** to configure the process, place configuration options into
-   <inputdir>/config.json
+   <inputdir>/docs.json
 ```
+
+> ℹ️ the `<inputdir>/docs.json` file will be added
+> to the exclude list (see [#options](#options))
 
 ## writing a page
 
@@ -109,9 +115,33 @@ check out [the styling guide](styling-guide.md) for ways to further customise wh
     // default: the documentative icon
   copyright: {
     text: string,
+      // default: "© 2020 dragonwocky, under the MIT license"
     url: string/link
-  }, // default: none
-  nav: [] // (see below)
+      // default: "https://dragonwocky.me/#licensing"
+  },
+  overwrite: boolean,
+    // default: false
+  exclude: [],
+    // default: []
+  nav: []
+    // (see below)
+}
+```
+
+> ❗ beware of turning on overwrite, as any files copied
+> across from the inputdir will irreversibly overwrite
+> files in the outputdir with conflicting names.
+
+> ℹ️ any files within `.git` or `node_modules`
+> directories will always be excluded, regardless of
+> inclusion in the above list.
+
+if you wish to completely hide the `copyright`,
+simply set the following:
+
+```js
+copyright: {
+  text: '',
 }
 ```
 
@@ -143,7 +173,7 @@ strict definition:
 shorthand:
 
 ```js
-string;
+string,
 // e.g. 'this is a title'
 ```
 
@@ -162,7 +192,7 @@ strict definition:
 shorthand:
 
 ```js
-[output, src];
+[output, src],
 // e.g. ['getting-started.html', 'tutorial.md']
 ```
 
@@ -183,7 +213,7 @@ strict definition:
 shorthand:
 
 ```js
-[text, url];
+[text, url],
 // e.g. ['github', 'https://github.com/dragonwocky/documentative/']
 ```
 
@@ -219,9 +249,9 @@ shorthand:
 
 #### build
 
-1. the output directory is emptied or created.
-2. all markdown files included in the nav are output.
-3. all assets (non-`.md`) files are copied across as they are
+1. the output directory is created if it does not already exist.
+2. all assets (non-`.md`) files are copied across as they are.
+3. all markdown files included in the nav are output.
 4. documentative resource files are copied across: `scrollnav.js`,
    `styles.css` and (only if no icon has been specified in the
    build/serve options) `documentative.ico`.
@@ -245,10 +275,12 @@ a http server is created. whenever a request is received:
 
 > ❗ note that this means if you have a `.html` file called (e.g.)
 > `getting-started.html` and a `.md` file with its output set to
-> `getting-started.md`, the `.html` asset will override the parsed
-> `.md`.
+> `getting-started.md`, the parsed `.md` will override the `.html` file.
 
-## potential future features
+## other details
 
-- single-file compile
-- exclude list
+yes, some of the code blocks on this page end with unnecessary commas. my linter enforces it.
+
+i also have an unhealthy habit of avoiding capital letters. nothing enforces this, i just do it.
+
+if you have any questions, check my website for contact details.

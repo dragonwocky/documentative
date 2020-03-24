@@ -30,7 +30,7 @@ options:
     (default: 8080)
 
 ** to configure the process, place configuration options into
-   <inputdir>/config.json - check the docs for info on these options
+   <inputdir>/docs.json - check the docs for info on these options
   `);
 } else if (process.argv[1].endsWith('/documentative-build')) {
   const fs = require('fs'),

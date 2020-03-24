@@ -1,10 +1,9 @@
 {
   "name": "documentative",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "a tool for generating docs from markdown",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"No test specified\"",
     "serve": "documentative-serve ."
   },
   "repository": {
@@ -18,17 +17,19 @@
   },
   "homepage": "https://github.com/dragonwocky/documentative#readme",
   "dependencies": {
-    "fs-extra": "^8.1.0",
     "highlight.js": "^9.18.1",
     "klaw": "^3.0.0",
     "less": "^3.11.1",
-    "marked": "^0.8.0",
+    "marked": "^0.8.2",
     "mime-types": "^2.1.26",
-    "minimist": "^1.2.3",
+    "minimist": "^1.2.5",
     "pug": "^2.0.4"
   },
   "bin": {
     "documentative-build": "bin.js",
     "documentative-serve": "bin.js"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }
