@@ -1,9 +1,10 @@
 {
   "name": "documentative",
-  "version": "0.1.0",
+  "version": "0.0.4",
   "description": "a tool for generating docs from markdown",
   "main": "index.js",
   "scripts": {
+    "test": "echo \"no test specified\"",
     "serve": "documentative-serve ."
   },
   "repository": {
