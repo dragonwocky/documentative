@@ -188,7 +188,7 @@ may transformed to <code>&lt;a href=&quot;index.html&quot;&gt;link&lt;/a&gt;</co
   },
   <span class="hljs-attr">overwrite</span>: boolean,
     <span class="hljs-comment">// default: false</span>
-  <span class="hljs-attr">exclude</span>: [],
+  <span class="hljs-attr">exclude</span>: [strings/filepaths],
     <span class="hljs-comment">// default: []</span>
   <span class="hljs-attr">nav</span>: []
     <span class="hljs-comment">// (see below)</span>
@@ -208,6 +208,7 @@ simply set the following:</p>
 across from the inputdir will irreversibly overwrite
 files in the outputdir with conflicting names.</p>
 </blockquote>
+<p>to exclude everything with a folder, end the exclude with <code>/*</code> (e.g. <code>ignorethisdir/*</code>).</p>
 <blockquote>
 <p>ℹ️ any files within <code>.git</code> or <code>node_modules</code>
 directories will always be excluded, regardless of

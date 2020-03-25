@@ -151,7 +151,7 @@ check out [the styling guide](styling-guide.md) for ways to further customise wh
   },
   overwrite: boolean,
     // default: false
-  exclude: [],
+  exclude: [strings/filepaths],
     // default: []
   nav: []
     // (see below)
@@ -177,6 +177,8 @@ copyright: {
 > ❗ beware of turning on overwrite, as any files copied
 > across from the inputdir will irreversibly overwrite
 > files in the outputdir with conflicting names.
+
+to exclude everything with a folder, end the exclude with `/*` (e.g. `ignorethisdir/*`).
 
 > ℹ️ any files within `.git` or `node_modules`
 > directories will always be excluded, regardless of

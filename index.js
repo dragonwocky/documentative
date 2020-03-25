@@ -63,7 +63,12 @@ async function build(inputdir, outputdir, config = {}) {
   let [pages, assets] = await filelist(
     inputdir,
     file =>
-      !config.exclude.includes(file) &&
+      !config.exclude.some(exclude =>
+        exclude.endsWith('/*')
+          ? file.startsWith(exclude.slice(0, -1))
+          : file === exclude
+      ) &&
+      // stop re-generation of files pre-existing in outputdir
       (path.relative(inputdir, outputdir).startsWith('.') ||
       !path.relative(inputdir, outputdir)
         ? true
@@ -87,10 +92,15 @@ async function build(inputdir, outputdir, config = {}) {
     throw Error(`documentative<build>: outputdir "${outputdir}" is not empty!
        empty the directory and run again, or set the config.overwrite option to true`);
 
+  for (const asset of assets) {
+    await populateDirs(outputdir, asset);
+  }
+  for (const page of nav.filter(entry => entry.type === 'page')) {
+    await populateDirs(outputdir, page.output);
+  }
   await Promise.all([
     loadResources(),
     ...assets.map(async asset => {
-      await populateDirs(outputdir, asset);
       await fsp.writeFile(
         path.join(outputdir, asset),
         await fsp.readFile(path.join(inputdir, asset))
@@ -101,7 +111,6 @@ async function build(inputdir, outputdir, config = {}) {
   nav
     .filter(entry => entry.type === 'page')
     .forEach(async page => {
-      await populateDirs(outputdir, page.output);
       await fsp.writeFile(
         path.join(outputdir, page.output),
         $.resources.get('template')({

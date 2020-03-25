@@ -10,11 +10,7 @@
   "exclude": [
     "index.js",
     "bin.js",
-    "resources/light-docs.png",
-    "resources/dark-docs.png",
-    "resources/docs.js",
-    "resources/docs.less",
-    "resources/template.pug",
+    "resources/*",
     "package.json",
     "package-lock.json",
     ".gitignore"
