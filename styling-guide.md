@@ -3,12 +3,6 @@
 to add a custom stylesheet, simply append a html
 `<link rel="stylesheet" src="custom.css">` to the top of the page.
 
-nice things in the default styles (other than general looks):
-
-- responsive! mobile support is robust, with the sidebar transforming into
-  a hamburger-triggered menu
-- light/dark mode that matches the user's system mode
-
 ## the example block
 
 in order to show raw html in a standout way, use an example block:

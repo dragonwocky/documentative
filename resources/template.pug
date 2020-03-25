@@ -12,6 +12,17 @@ html
     script(src=_.depth + 'docs.js')
     link(rel='icon', href=_.depth + (icon.dark || icon.light || 'dark-docs.png'), media='(prefers-color-scheme: dark)')
     link(rel='icon', href=_.depth + (icon.light || icon.dark || 'light-docs.png'))
+    - if (!config.card.url.endsWith('/')) config.card.url += '/'
+    - const canonicalicon = (config.card.url + _.output.split('/').slice(0, -1).join('/') + _.depth + (icon.light || icon.dark || 'light-docs.png'));
+    meta(name='title', content=_.title.name)
+    meta(name='description', content=config.card.description)
+    meta(name='theme-color' content=config.primary)
+    meta(property='og:type', content='website')
+    meta(property='og:url', content=config.card.url + _.output)
+    meta(property='og:title', content=_.title.name)
+    meta(property='og:description', content=config.card.description)
+    meta(property='og:image', content=canonicalicon)
+    meta(property='twitter:card', content='summary')
   body
     aside.menu
       div

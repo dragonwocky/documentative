@@ -21,6 +21,10 @@ const path = require('path'),
 const $ = {
   defaults: {
     title: 'documentative',
+    card: {
+      description: 'a tool for precompiling docs from markdown',
+      url: 'https://dragonwocky.me/documentative/'
+    },
     primary: '#712c9c',
     copyright: {
       text: '© 2020 dragonwocky, under the MIT license',
@@ -101,7 +105,10 @@ async function build(inputdir, outputdir, config = {}) {
       await fsp.writeFile(
         path.join(outputdir, page.output),
         $.resources.get('template')({
-          _: page,
+          _: {
+            ...page,
+            output: page.output.split(path.sep).join('/')
+          },
           config,
           nav,
           icon
@@ -222,7 +229,8 @@ async function serve(inputdir, port, config = {}) {
               )
             )
               req.url += '/index.html';
-            if (nav.find(item => item.output === req.url.slice(1))) {
+            const page = nav.find(item => item.output === req.url.slice(1));
+            if (page) {
               nav = await Promise.all(
                 nav.map((entry, i, nav) =>
                   entry.type === 'page'
@@ -231,7 +239,10 @@ async function serve(inputdir, port, config = {}) {
                 )
               );
               content = $.resources.get('template')({
-                _: nav.find(item => item.output === req.url.slice(1)),
+                _: {
+                  ...page,
+                  output: page.output.split(path.sep).join('/')
+                },
                 config,
                 nav,
                 icon

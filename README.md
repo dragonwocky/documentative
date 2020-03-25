@@ -21,6 +21,15 @@ documentative cuts out half the work - you write the markdown; it builds you a r
 
 **demo:** [https://dragonwocky.me/documentative/](https://dragonwocky.me/documentative/)
 
+features of a built site include:
+
+- a responsive layout! mobile support is robust, with the sidebar transforming into
+  a hamburger-triggered menu.
+- light/dark mode that respects the user's system mode (with the capability to display a different
+  icon depending on the mode).
+- in-page navigation via #IDs (with a sidebar that scrolls to match the reader location).
+- \+ check out the stuff defined in the [#options](#options) section.
+
 ## usage
 
 this package is available from the npm package registry.
@@ -115,13 +124,19 @@ check out [the styling guide](styling-guide.md) for ways to further customise wh
 {
   title: string,
     // default: "documentative"
+  card: {
+    description: string,
+      // default: "a tool for precompiling docs from markdown"
+    url: string
+      // default: "https://dragonwocky.me/documentative/"
+  },
   primary: string,
     // default: "#712c9c"
   icon: {
     light: string/filepath,
-      // default: the documentative icon
+      // default: the documentative (light) icon
     dark: string/filepath
-      // default: the documentative icon
+      // default: the documentative (dark) icon
   },
   copyright: {
     text: string,
@@ -138,13 +153,9 @@ check out [the styling guide](styling-guide.md) for ways to further customise wh
 }
 ```
 
-> ❗ beware of turning on overwrite, as any files copied
-> across from the inputdir will irreversibly overwrite
-> files in the outputdir with conflicting names.
-
-> ℹ️ any files within `.git` or `node_modules`
-> directories will always be excluded, regardless of
-> inclusion in the above list.
+the `card` properties are used for the preview embeds/cards created by social media platforms
+when linking to your page. the `card.url` should be the canonical base url for your site and must end with a `/`.
+(e.g. `https://example.com/` or `https://dragonwocky.me/documentative/`, but NOT `https://dragonwocky.me/documentative/page.html`)
 
 the light/dark icons will be shown dependent on whether the viewer has light/dark mode enabled.
 if only 1 of the icons is set (either light or dark), that icon will be shown for both modes.
@@ -157,6 +168,14 @@ copyright: {
   text: '',
 }
 ```
+
+> ❗ beware of turning on overwrite, as any files copied
+> across from the inputdir will irreversibly overwrite
+> files in the outputdir with conflicting names.
+
+> ℹ️ any files within `.git` or `node_modules`
+> directories will always be excluded, regardless of
+> inclusion in the above list.
 
 ### the nav: default behaviour
 
