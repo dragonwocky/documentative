@@ -21,14 +21,17 @@ documentative cuts out half the work - you write the markdown; it builds you a r
 
 **demo:** [https://dragonwocky.me/documentative/](https://dragonwocky.me/documentative/)
 
-features of a built site include:
+_features of a built site include..._
 
 - a responsive layout! mobile support is robust, with the sidebar transforming into
   a hamburger-triggered menu.
 - light/dark mode that respects the user's system mode (with the capability to display a different
   icon depending on the mode).
-- in-page navigation via #IDs (with a sidebar that scrolls to match the reader location).
-- \+ check out the stuff defined in the [#options](#options) section.
+- in-page navigation via #IDs (with a sidebar that scrolls to match the reader location), allowing
+  for keeping your place on the page when you reload or linking to a specific section.
+- social-media embed friendly.
+- \+ y'know, like, being a configurably built site - you pick a primary colour, there's a footer/copyright,
+  you choose which files are served or precompiled... etc.
 
 ## usage
 

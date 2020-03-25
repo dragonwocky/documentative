@@ -2,24 +2,30 @@ doctype html
 // Documentative
 // (c) 2020 dragonwocky <thedragonring.bod@gmail.com>
 // (https://dragonwocky.me/) under the MIT license
-html
+html(prefix='og: http://ogp.me/ns#')
   head
+    - if (!config.card.url.endsWith("/")) config.card.url += "/";
+    - const lighticon = _.depth + (icon.light || icon.dark || "light-docs.png");
+    - const darkicon = _.depth + (icon.dark || icon.light || "dark-docs.png");
+    - const canonicalicon = config.card.url + _.output.split("/").slice(0, -1).join("/") + _.depth + lighticon;
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    title= _.title.name
-    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Source+Code+Pro|Nunito+Sans')
-    link(rel='stylesheet', href=_.depth + 'docs.css')
-    script(src=_.depth + 'docs.js')
-    link(rel='icon', href=_.depth + (icon.dark || icon.light || 'dark-docs.png'), media='(prefers-color-scheme: dark)')
-    link(rel='icon', href=_.depth + (icon.light || icon.dark || 'light-docs.png'))
-    - if (!config.card.url.endsWith('/')) config.card.url += '/'
-    - const canonicalicon = (config.card.url + _.output.split('/').slice(0, -1).join('/') + _.depth + (icon.light || icon.dark || 'light-docs.png'));
-    meta(name='title', content=_.title.name)
+    title= _.title.name + " | " + config.title
+    link(
+      rel='stylesheet',
+      href='https://fonts.googleapis.com/css?family=Source+Code+Pro|Nunito+Sans'
+    )
+    link(rel='stylesheet', href=_.depth + "docs.css")
+    script(src=_.depth + "docs.js")
+    link(rel='icon', href=darkicon, media='(prefers-color-scheme: dark)')
+    link(rel='icon', href=lighticon)
+    meta(name='title', content=_.title.name + " | " + config.title)
     meta(name='description', content=config.card.description)
-    meta(name='theme-color' content=config.primary)
-    meta(property='og:type', content='website')
+    meta(name='theme-color', content=config.primary)
+    meta(property='og:type', content='article')
     meta(property='og:url', content=config.card.url + _.output)
     meta(property='og:title', content=_.title.name)
+    meta(property='og:site_name', content=config.title)
     meta(property='og:description', content=config.card.description)
     meta(property='og:image', content=canonicalicon)
     meta(property='twitter:card', content='summary')
@@ -29,8 +35,8 @@ html
         .title
           h1= config.title
           picture.icon
-            source(srcset=_.depth + (icon.dark || icon.light || 'dark-docs.png'), media='(prefers-color-scheme: dark)')
-            img(src=_.depth + (icon.light || icon.dark || 'light-docs.png'))
+            source(srcset=darkicon, media='(prefers-color-scheme: dark)')
+            img(src=lighticon)
       ul.nav
         each entry in nav
           li.entry
@@ -39,7 +45,9 @@ html
             if entry.type === 'title'
               p= entry.text
             if entry.type === 'page'
-              a(href=(entry.output === _.output ? `#${entry.title.hash}` : _.depth + entry.output))= entry.title.name
+              a(
+                href=entry.output === _.output ? `#${entry.title.hash}` : _.depth + entry.output
+              )= entry.title.name
               if entry.output === _.output && _.headings.length
                 ul
                   each heading in _.headings
