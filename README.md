@@ -19,6 +19,8 @@ like this: i thought to myself "how can i automate this?"
 
 documentative cuts out half the work - you write the markdown; it builds you a responsive, modern website.
 
+**demo:** [https://dragonwocky.me/documentative/](https://dragonwocky.me/documentative/)
+
 ## usage
 
 this package is available from the npm package registry.
