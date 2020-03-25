@@ -494,8 +494,8 @@ aside .mark a {
 .hljs-strong {
   font-weight: bold;
 }
-.documentative pre .lang-md::before { content: 'MD'; }
-.documentative pre .lang-css::before { content: 'CSS'; }
 .documentative pre .lang-bash::before { content: 'BASH'; }
 .documentative pre .lang-js::before { content: 'JS'; }
 .documentative pre .lang-plaintext::before { content: 'PLAINTEXT'; }
+.documentative pre .lang-md::before { content: 'MD'; }
+.documentative pre .lang-css::before { content: 'CSS'; }
