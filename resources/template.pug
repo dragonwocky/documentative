@@ -8,9 +8,10 @@ html(prefix='og: http://ogp.me/ns#')
     - const lighticon = _.depth + (icon.light || icon.dark || "light-docs.png");
     - const darkicon = _.depth + (icon.dark || icon.light || "dark-docs.png");
     - const canonicalicon = config.card.url + _.output.split("/").slice(0, -1).join("/") + _.depth + lighticon;
+    - const title = [...new Set([_.title.name, config.title])].join(" | ");
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    title= _.title.name + " | " + config.title
+    title= title
     link(
       rel='stylesheet',
       href='https://fonts.googleapis.com/css?family=Source+Code+Pro|Nunito+Sans'
@@ -19,7 +20,7 @@ html(prefix='og: http://ogp.me/ns#')
     script(src=_.depth + "docs.js")
     link(rel='icon', href=darkicon, media='(prefers-color-scheme: dark)')
     link(rel='icon', href=lighticon)
-    meta(name='title', content=_.title.name + " | " + config.title)
+    meta(name='title', content=title)
     meta(name='description', content=config.card.description)
     meta(name='theme-color', content=config.primary)
     meta(property='og:type', content='article')
