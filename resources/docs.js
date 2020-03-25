@@ -70,7 +70,6 @@ class Scrollnav {
   set(ID) {
     if (!ID || typeof ID !== 'string')
       ID = location.hash || this._topheading.id;
-    console.log(ID);
     if (!ID.startsWith('#')) ID = '#' + ID;
     if (!this._menu.querySelector(`[href="${ID}"]`))
       ID = '#' + this._topheading.id;
@@ -83,17 +82,18 @@ class Scrollnav {
             ? el.classList.add('active')
             : el.classList.remove('active')
         );
-      if (history.replaceState)
+      if (history.replaceState) {
         history.replaceState(
           null,
           null,
           ID === '#' + this._topheading.id ? '#' : ID
         );
-      if (ID === '#' + this._topheading.id)
-        this._content.scroll({
-          top: 0,
-          behavior: 'smooth'
-        });
+        if (ID === '#' + this._topheading.id)
+          this._content.scroll({
+            top: 0,
+            behavior: 'smooth'
+          });
+      } else this._content.querySelector(ID).parentElement.scrollIntoView(true);
     }, 100);
   }
   scroll(func) {
