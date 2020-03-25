@@ -10,9 +10,10 @@
   "exclude": [
     "index.js",
     "bin.js",
-    "resources/documentative.ico",
-    "resources/scrollnav.js",
-    "resources/styles.less",
+    "resources/light-docs.png",
+    "resources/dark-docs.png",
+    "resources/docs.js",
+    "resources/docs.less",
     "resources/template.pug",
     "package.json",
     "package-lock.json",

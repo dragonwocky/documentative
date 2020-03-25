@@ -71,6 +71,8 @@ docs.serve(inputdir, port, options);
 
 ## cli
 
+if this is your preferred method of use, it is recommended to install via `npm i -g documentative`.
+
 ```
 usage:
 
@@ -90,7 +92,7 @@ options:
 ```
 
 > ℹ️ the `<inputdir>/docs.json` file will be added
-> to the exclude list (see [#options](#options))
+> to the exclude list (see [#options](#options)).
 
 ## writing a page
 
@@ -113,8 +115,12 @@ check out [the styling guide](styling-guide.md) for ways to further customise wh
     // default: "documentative"
   primary: string,
     // default: "#712c9c"
-  icon: string/filepath,
-    // default: the documentative icon
+  icon: {
+    light: string/filepath,
+      // default: the documentative icon
+    dark: string/filepath
+      // default: the documentative icon
+  },
   copyright: {
     text: string,
       // default: "© 2020 dragonwocky, under the MIT license"
@@ -137,6 +143,9 @@ check out [the styling guide](styling-guide.md) for ways to further customise wh
 > ℹ️ any files within `.git` or `node_modules`
 > directories will always be excluded, regardless of
 > inclusion in the above list.
+
+the light/dark icons will be shown dependent on whether the viewer has light/dark mode enabled.
+if only 1 of the icons is set (either light or dark), that icon will be shown for both modes.
 
 if you wish to completely hide the `copyright`,
 simply set the following:
@@ -254,9 +263,9 @@ shorthand:
 1. the output directory is created if it does not already exist.
 2. all assets (non-`.md`) files are copied across as they are.
 3. all markdown files included in the nav are output.
-4. documentative resource files are copied across: `scrollnav.js`,
-   `styles.css` and (only if no icon has been specified in the
-   build/serve options) `documentative.ico`.
+4. documentative resource files are copied across: `docs.js`,
+   `docs.css` and (only if no icon has been specified in the
+   build/serve options) `light-docs.png` and `dark-docs.png`.
 
 > ❗ note that this means you cannot have any assets with those
 > names, as they will be overwritten.
@@ -265,10 +274,10 @@ shorthand:
 
 a http server is created. whenever a request is received:
 
-1. if `scrollnav.js` or `styles.css` are requested, serve them
+1. if `docs.js` or `docs.css` are requested, serve them
    from documentative's resources.
 2. if an icon has been specified and is requested, serve it.
-   otherwise, the icon shall be served as `documentative.ico`.
+   otherwise, the icon shall be served as `light-docs.png` or `dark-docs.png`.
 3. if the file exists in the asset list (all non-`.md` files),
    serve it.
 4. if a nav entry of type page and with an output
@@ -284,5 +293,7 @@ a http server is created. whenever a request is received:
 yes, some of the code blocks on this page end with unnecessary commas. my linter enforces it.
 
 i also have an unhealthy habit of avoiding capital letters. nothing enforces this, i just do it.
+
+the awesome logo is thanks to [@nathfreder](https://github.com/nathfreder/) :D
 
 if you have any questions, check my website for contact details.

@@ -110,24 +110,23 @@ async function build(inputdir, outputdir, config = {}) {
       );
     });
 
-  if ([null, undefined].includes(icon)) {
-    if (!$.resources.has('icon'))
-      $.resources.set(
-        'icon',
-        await fsp.readFile(resourcepath('documentative.ico'))
-      );
-    fsp.writeFile(
-      path.join(outputdir, 'documentative.ico'),
-      $.resources.get('icon')
-    );
+  if (icon.light || icon.dark) {
+    if (icon.light && !assets.includes(path.relative(inputdir, icon.light)))
+      console.warn('documentative<config.icon>: light does not exist');
+    if (icon.dark && !assets.includes(path.relative(inputdir, icon.dark)))
+      console.warn('documentative<config.icon>: dark does not exist');
   } else {
-    if (typeof icon !== 'string')
-      throw Error(`documentative<config.icon>: should be a string/filepath`);
-    if (!assets.includes(path.relative(inputdir, icon)))
-      console.warn('documentative<config.icon>: does not exist');
+    fsp.writeFile(
+      path.join(outputdir, 'light-docs.png'),
+      $.resources.get('icon.light')
+    );
+    fsp.writeFile(
+      path.join(outputdir, 'dark-docs.png'),
+      $.resources.get('icon.dark')
+    );
   }
   fsp.writeFile(
-    path.join(outputdir, 'styles.css'),
+    path.join(outputdir, 'docs.css'),
     (
       await less.render(
         $.resources.get('css').replace(/__primary__/g, config.primary)
@@ -141,11 +140,7 @@ async function build(inputdir, outputdir, config = {}) {
         .join('\n'),
     'utf8'
   );
-  fsp.writeFile(
-    path.join(outputdir, 'scrollnav.js'),
-    $.resources.get('js'),
-    'utf8'
-  );
+  fsp.writeFile(path.join(outputdir, 'docs.js'), $.resources.get('js'), 'utf8');
   return true;
 }
 
@@ -159,8 +154,6 @@ async function serve(inputdir, port, config = {}) {
   inputdir = path.relative('.', inputdir);
   let icon, confNav;
   [config, icon, confNav] = parseConfig(config);
-  if (![null, undefined].includes(icon) && typeof icon !== 'string')
-    throw Error(`documentative<config.icon>: should be a string/filepath`);
   await loadResources();
 
   return http
@@ -172,7 +165,7 @@ async function serve(inputdir, port, config = {}) {
       nav = parseNav(inputdir, pages, confNav);
       let content, type;
       switch (req.url) {
-        case '/styles.css':
+        case '/docs.css':
           content =
             (
               await less.render(
@@ -187,22 +180,29 @@ async function serve(inputdir, port, config = {}) {
               .join('\n');
           type = 'text/css';
           break;
-        case '/scrollnav.js':
+        case '/docs.js':
           content = $.resources.get('js');
           type = 'text/javascript';
           break;
         default:
-          if (![null, undefined].includes(icon)) {
-            if (!assets.includes(path.relative(inputdir, icon)))
-              console.warn('documentative<config.icon>: does not exist');
-          } else if (req.url === '/documentative.ico') {
-            if (!$.resources.has('icon'))
-              $.resources.set(
-                'icon',
-                await fsp.readFile(resourcepath('documentative.ico'))
-              );
-            content = $.resources.get('icon');
-            type = 'image/x-icon';
+          if (icon.light || icon.dark) {
+            if (
+              icon.light &&
+              !assets.includes(path.relative(inputdir, icon.light))
+            )
+              console.warn('documentative<config.icon>: light does not exist');
+            if (
+              icon.dark &&
+              !assets.includes(path.relative(inputdir, icon.dark))
+            )
+              console.warn('documentative<config.icon>: dark does not exist');
+          } else if (req.url === '/light-docs.png') {
+            content = $.resources.get('icon.light');
+            type = 'image/png';
+            break;
+          } else if (req.url === '/dark-docs.png') {
+            content = $.resources.get('icon.dark');
+            type = 'image/png';
             break;
           }
           if (assets.includes(req.url.slice(1))) {
@@ -255,6 +255,18 @@ async function serve(inputdir, port, config = {}) {
 function parseConfig(obj = {}) {
   if (typeof obj !== 'object')
     throw Error(`documentative<config>: should be an object`);
+  if (obj.icon) {
+    if (typeof obj.icon !== 'object')
+      throw Error(`documentative<config.icon>: should be an object`);
+    if (obj.icon.light && typeof obj.icon.light !== 'string')
+      throw Error(
+        `documentative<config.icon>: light should be of type string/filepath`
+      );
+    if (obj.icon.dark && typeof obj.icon.dark !== 'string')
+      throw Error(
+        `documentative<config.icon>: dark should be of type string/filepath`
+      );
+  } else obj.icon = {};
   return [validateObj(obj, $.defaults), obj.icon, obj.nav];
 }
 function validateObj(obj, against) {
@@ -328,14 +340,21 @@ async function loadResources() {
   if (!$.resources.has('template'))
     $.resources.set('template', pug.compileFile(resourcepath('template.pug')));
   if (!$.resources.has('js'))
-    $.resources.set(
-      'js',
-      await fsp.readFile(resourcepath('scrollnav.js'), 'utf8')
-    );
+    $.resources.set('js', await fsp.readFile(resourcepath('docs.js'), 'utf8'));
   if (!$.resources.has('css'))
     $.resources.set(
       'css',
-      await fsp.readFile(resourcepath('styles.less'), 'utf8')
+      await fsp.readFile(resourcepath('docs.less'), 'utf8')
+    );
+  if (!$.resources.has('icon.light'))
+    $.resources.set(
+      'icon.light',
+      await fsp.readFile(resourcepath('light-docs.png'))
+    );
+  if (!$.resources.has('icon.dark'))
+    $.resources.set(
+      'icon.dark',
+      await fsp.readFile(resourcepath('dark-docs.png'))
     );
   return true;
 }

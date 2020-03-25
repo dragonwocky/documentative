@@ -1,14 +1,13 @@
-<!DOCTYPE html><!-- Documentative--><!-- (c) 2020 dragonwocky <thedragonring.bod@gmail.com>--><!-- (https://dragonwocky.me/) under the MIT license--><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>documentative</title><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Nunito+Sans"><link rel="stylesheet" href="styles.css"><script src="scrollnav.js"></script><link rel="shortcut icon" href="documentative.ico" type="image/x-icon"></head><body><aside class="menu"><div><div class="title"><h1>documentative</h1><span class="icon"><img src="documentative.ico"></span></div></div><ul class="nav"><li class="entry"><a href="#documentative">documentative</a><ul><li class="level-2"><a href="#what-is-this-why-use-it">what is this? why use it?</a></li><li class="level-2"><a href="#usage">usage</a></li><li class="level-4"><a href="#to-buildprecompile-to-a-directory">to build/precompile to a directory</a></li><li class="level-4"><a href="#to-serve-the-directory-from-a-local-http-server">to serve the directory from a local http server</a></li><li class="level-2"><a href="#cli">cli</a></li><li class="level-2"><a href="#writing-a-page">writing a page</a></li><li class="level-2"><a href="#options">options</a></li><li class="level-3"><a href="#the-nav-default-behaviour">the nav: default behaviour</a></li><li class="level-3"><a href="#the-nav-custom-behaviour">the nav: custom behaviour</a></li><li class="level-4"><a href="#defining-a-title">defining a title</a></li><li class="level-4"><a href="#defining-a-page">defining a page</a></li><li class="level-4"><a href="#defining-a-link">defining a link</a></li><li class="level-4"><a href="#example-nav">example nav</a></li><li class="level-2"><a href="#output">output</a></li><li class="level-4"><a href="#build">build</a></li><li class="level-4"><a href="#serve">serve</a></li><li class="level-2"><a href="#other-details">other details</a></li></ul></li><li class="entry"><p>resources</p></li><li class="entry"><a href="styling-guide.html">styling guide</a></li><li class="entry"><a href="https://github.com/dragonwocky/documentative/">github</a></li><li class="entry"><a href="https://dragonwocky.me/">me (dragonwocky)</a></li></ul><p class="mark"><a href="https://dragonwocky.me/documentative">docs by documentative</a></p></aside><div class="wrapper"><div class="toggle"><button>☰</button><h1>documentative</h1></div><article class="documentative"><div class="content">
+<!DOCTYPE html><!-- Documentative--><!-- (c) 2020 dragonwocky <thedragonring.bod@gmail.com>--><!-- (https://dragonwocky.me/) under the MIT license--><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>documentative</title><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Nunito+Sans"><link rel="stylesheet" href="docs.css"><script src="docs.js"></script><link rel="icon" href="dark-docs.png" media="(prefers-color-scheme: dark)"><link rel="icon" href="light-docs.png"></head><body><aside class="menu"><div><div class="title"><h1>documentative</h1><picture class="icon"><source srcset="dark-docs.png" media="(prefers-color-scheme: dark)"><img src="light-docs.png"></picture></div></div><ul class="nav"><li class="entry"><a href="#documentative">documentative</a><ul><li class="level-2"><a href="#what-is-this-why-use-it">what is this? why use it?</a></li><li class="level-2"><a href="#usage">usage</a></li><li class="level-4"><a href="#to-buildprecompile-to-a-directory">to build/precompile to a directory</a></li><li class="level-4"><a href="#to-serve-the-directory-from-a-local-http-server">to serve the directory from a local http server</a></li><li class="level-2"><a href="#cli">cli</a></li><li class="level-2"><a href="#writing-a-page">writing a page</a></li><li class="level-2"><a href="#options">options</a></li><li class="level-3"><a href="#the-nav-default-behaviour">the nav: default behaviour</a></li><li class="level-3"><a href="#the-nav-custom-behaviour">the nav: custom behaviour</a></li><li class="level-4"><a href="#defining-a-title">defining a title</a></li><li class="level-4"><a href="#defining-a-page">defining a page</a></li><li class="level-4"><a href="#defining-a-link">defining a link</a></li><li class="level-4"><a href="#example-nav">example nav</a></li><li class="level-2"><a href="#output">output</a></li><li class="level-4"><a href="#build">build</a></li><li class="level-4"><a href="#serve">serve</a></li><li class="level-2"><a href="#other-details">other details</a></li></ul></li><li class="entry"><p>resources</p></li><li class="entry"><a href="styling-guide.html">styling guide</a></li><li class="entry"><a href="https://github.com/dragonwocky/documentative/">github</a></li><li class="entry"><a href="https://dragonwocky.me/">me (dragonwocky)</a></li></ul><p class="mark"><a href="https://dragonwocky.me/documentative">docs by documentative</a></p></aside><div class="wrapper"><div class="toggle"><button>☰</button><h1>documentative</h1></div><article class="documentative"><div class="content">
     
           <section class="block">
             <h1 id="documentative">
               <a href="#documentative">documentative</a>
             </h1>
         <p>a tool for precompiling docs from markdown</p>
-<p><a href="https://npmjs.com/package/documentative"><img src="https://badgen.net/npm/v/documentative" alt="npm"></a>
-<a href="https://packagephobia.now.sh/result?p=documentative"><img src="https://badgen.net/packagephobia/install/documentative" alt="install size"></a>
-<a href="https://npmjs.com/package/documentative"><img src="https://badgen.net/npm/dt/documentative" alt="downloads"></a>
-<a href="https://dragonwocky.me/#mit"><img src="https://badgen.net/npm/license/documentative" alt="license"></a></p>
+<p><a href="https://npmjs.com/package/documentative"><img src="https://badgen.net/npm/v/documentative?color=green" alt="npm"></a>
+<a href="https://packagephobia.now.sh/result?p=documentative"><img src="https://badgen.net/packagephobia/install/documentative?color=blue" alt="install size"></a>
+<a href="https://dragonwocky.me/#mit"><img src="https://badgen.net/npm/license/documentative?color=purple" alt="license"></a></p>
 
           </section>
           <section class="block">
@@ -111,7 +110,8 @@ every file serve.</p>
             <h2 id="cli">
               <a href="#cli">cli</a>
             </h2>
-        <pre><code>usage:
+        <p>if this is your preferred method of use, it is recommended to install via <code>npm i -g documentative</code>.</p>
+<pre><code>usage:
 
   &gt; documentative-build &lt;inputdir&gt; &lt;outputdir&gt;
   e.g. documentative-build pages build
@@ -127,7 +127,7 @@ options:
 ** to configure the process, place configuration options into
    &lt;inputdir&gt;/docs.json</code></pre><blockquote>
 <p>ℹ️ the <code>&lt;inputdir&gt;/docs.json</code> file will be added
-to the exclude list (see <a href="#options">#options</a>)</p>
+to the exclude list (see <a href="#options">#options</a>).</p>
 </blockquote>
 
           </section>
@@ -153,8 +153,12 @@ may transformed to <code>&lt;a href=&quot;index.html&quot;&gt;link&lt;/a&gt;</co
     <span class="hljs-comment">// default: "documentative"</span>
   <span class="hljs-attr">primary</span>: string,
     <span class="hljs-comment">// default: "#712c9c"</span>
-  <span class="hljs-attr">icon</span>: string/filepath,
-    <span class="hljs-comment">// default: the documentative icon</span>
+  <span class="hljs-attr">icon</span>: {
+    <span class="hljs-attr">light</span>: string/filepath,
+      <span class="hljs-comment">// default: the documentative icon</span>
+    <span class="hljs-attr">dark</span>: string/filepath
+      <span class="hljs-comment">// default: the documentative icon</span>
+  },
   <span class="hljs-attr">copyright</span>: {
     <span class="hljs-attr">text</span>: string,
       <span class="hljs-comment">// default: "© 2020 dragonwocky, under the MIT license"</span>
@@ -178,6 +182,8 @@ files in the outputdir with conflicting names.</p>
 directories will always be excluded, regardless of
 inclusion in the above list.</p>
 </blockquote>
+<p>the light/dark icons will be shown dependent on whether the viewer has light/dark mode enabled.
+if only 1 of the icons is set (either light or dark), that icon will be shown for both modes.</p>
 <p>if you wish to completely hide the <code>copyright</code>,
 simply set the following:</p>
 <pre><code class="lang-js">copyright: {
@@ -292,9 +298,9 @@ with the name of the directory).</li>
 <li>the output directory is created if it does not already exist.</li>
 <li>all assets (non-<code>.md</code>) files are copied across as they are.</li>
 <li>all markdown files included in the nav are output.</li>
-<li>documentative resource files are copied across: <code>scrollnav.js</code>,
-<code>styles.css</code> and (only if no icon has been specified in the
-build/serve options) <code>documentative.ico</code>.</li>
+<li>documentative resource files are copied across: <code>docs.js</code>,
+<code>docs.css</code> and (only if no icon has been specified in the
+build/serve options) <code>light-docs.png</code> and <code>dark-docs.png</code>.</li>
 </ol>
 <blockquote>
 <p>❗ note that this means you cannot have any assets with those
@@ -308,10 +314,10 @@ names, as they will be overwritten.</p>
             </h4>
         <p>a http server is created. whenever a request is received:</p>
 <ol>
-<li>if <code>scrollnav.js</code> or <code>styles.css</code> are requested, serve them
+<li>if <code>docs.js</code> or <code>docs.css</code> are requested, serve them
 from documentative&#39;s resources.</li>
 <li>if an icon has been specified and is requested, serve it.
-otherwise, the icon shall be served as <code>documentative.ico</code>.</li>
+otherwise, the icon shall be served as <code>light-docs.png</code> or <code>dark-docs.png</code>.</li>
 <li>if the file exists in the asset list (all non-<code>.md</code> files),
 serve it.</li>
 <li>if a nav entry of type page and with an output
@@ -331,6 +337,7 @@ matching the request exists, serve it.</li>
             </h2>
         <p>yes, some of the code blocks on this page end with unnecessary commas. my linter enforces it.</p>
 <p>i also have an unhealthy habit of avoiding capital letters. nothing enforces this, i just do it.</p>
+<p>the awesome logo is thanks to <a href="https://github.com/nathfreder/">@nathfreder</a> :D</p>
 <p>if you have any questions, check my website for contact details.</p>
 
     </section></div><div class="copyright"><hr><p><a href="https://dragonwocky.me/#mit">© 2020 dragonwocky, under the MIT license</a></p></div><nav><a class="next" href="styling-guide.html">ᐅ</a></nav></article></div></body></html>

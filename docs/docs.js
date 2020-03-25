@@ -1,5 +1,5 @@
 /*
- * Documentative Scrollnav
+ * Documentative Scripts
  * (c) 2020 dragonwocky <thedragonring.bod@gmail.com>
  * (https://dragonwocky.me/) under the MIT license
  */
@@ -166,6 +166,21 @@ const construct = () => {
     document.querySelector('aside'),
     document.querySelector('.documentative')
   );
+
+  if (window.matchMedia) {
+    let prev;
+    const links = [...document.head.querySelectorAll('link[rel*="icon"]')],
+      pointer = document.createElement('link');
+    pointer.setAttribute('rel', 'icon');
+    document.head.appendChild(pointer);
+    setInterval(() => {
+      const match = links.find(link => window.matchMedia(link.media).matches);
+      if (!match || match.media === prev) return;
+      prev = match.media;
+      pointer.setAttribute('href', match.getAttribute('href'));
+    }, 500);
+    links.forEach(link => document.head.removeChild(link));
+  }
 };
 
 if (document.readyState === 'complete') {

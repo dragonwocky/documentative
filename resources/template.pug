@@ -5,19 +5,21 @@ doctype html
 html
   head
     meta(charset='utf-8')
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
     title= _.title.name
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Source+Code+Pro|Nunito+Sans')
-    link(rel='stylesheet', href=_.depth + 'styles.css')
-    script(src=_.depth + 'scrollnav.js')
-    link(rel="shortcut icon", href=_.depth + (icon || 'documentative.ico'), type="image/x-icon")
+    link(rel='stylesheet', href=_.depth + 'docs.css')
+    script(src=_.depth + 'docs.js')
+    link(rel='icon', href=_.depth + (icon.dark || icon.light || 'dark-docs.png'), media='(prefers-color-scheme: dark)')
+    link(rel='icon', href=_.depth + (icon.light || icon.dark || 'light-docs.png'))
   body
     aside.menu
       div
         .title
           h1= config.title
-          span.icon
-            img(src=_.depth + (icon || 'documentative.ico'))
+          picture.icon
+            source(srcset=_.depth + (icon.dark || icon.light || 'dark-docs.png'), media='(prefers-color-scheme: dark)')
+            img(src=_.depth + (icon.light || icon.dark || 'light-docs.png'))
       ul.nav
         each entry in nav
           li.entry
@@ -33,7 +35,7 @@ html
                     li(class=`level-${heading.level}`)
                       a(href=`#${heading.hash}`)= heading.name
       p.mark
-        a(href="https://dragonwocky.me/documentative") docs by documentative
+        a(href='https://dragonwocky.me/documentative') docs by documentative
     .wrapper
       .toggle
         button ☰
