@@ -2,8 +2,8 @@
 
 a tool for precompiling docs from markdown
 
-[![npm](https://badgen.net/npm/v/documentative?color=green)](https://npmjs.com/package/documentative)
-[![install size](https://badgen.net/packagephobia/install/documentative?color=blue)](https://packagephobia.now.sh/result?p=documentative)
+[![npm](https://badgen.net/npm/v/documentative?color=green&cache=1800)](https://npmjs.com/package/documentative)
+[![install size](https://badgen.net/packagephobia/install/documentative?color=blue&cache=1800)](https://packagephobia.now.sh/result?p=documentative)
 [![license](https://badgen.net/npm/license/documentative?color=purple)](https://dragonwocky.me/#mit)
 
 ## what is this? why use it?
