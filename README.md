@@ -294,7 +294,7 @@ shorthand:
    build/serve options) `light-docs.png` and `dark-docs.png`.
 
 > ❗ note that this means you cannot have any assets with those
-> names, as they will be overwritten.
+> names, as they will be overriden.
 
 #### serve
 
@@ -304,10 +304,10 @@ a http server is created. whenever a request is received:
    from documentative's resources.
 2. if an icon has been specified and is requested, serve it.
    otherwise, the icon shall be served as `light-docs.png` or `dark-docs.png`.
-3. if the file exists in the asset list (all non-`.md` files),
-   serve it.
-4. if a nav entry of type page and with an output
+3. if a nav entry of type page and with an output
    matching the request exists, serve it.
+4. if the file exists in the asset list (all non-`.md` files),
+   serve it.
 5. if a file has still not been served, return a 404 error.
 
 > ❗ note that this means if you have a `.html` file called (e.g.)

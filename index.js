@@ -171,8 +171,9 @@ async function serve(inputdir, port, config = {}) {
       );
       nav = parseNav(inputdir, pages, confNav);
       let content, type;
+      req.url = req.url.slice(1, req.url.endsWith('/') ? -1 : undefined);
       switch (req.url) {
-        case '/docs.css':
+        case 'docs.css':
           content =
             (
               await less.render(
@@ -187,7 +188,7 @@ async function serve(inputdir, port, config = {}) {
               .join('\n');
           type = 'text/css';
           break;
-        case '/docs.js':
+        case 'docs.js':
           content = $.resources.get('js');
           type = 'text/javascript';
           break;
@@ -203,57 +204,50 @@ async function serve(inputdir, port, config = {}) {
               !assets.includes(path.relative(inputdir, icon.dark))
             )
               console.warn('documentative<config.icon>: dark does not exist');
-          } else if (req.url === '/light-docs.png') {
+          } else if (req.url === 'light-docs.png') {
             content = $.resources.get('icon.light');
             type = 'image/png';
             break;
-          } else if (req.url === '/dark-docs.png') {
+          } else if (req.url === 'dark-docs.png') {
             content = $.resources.get('icon.dark');
             type = 'image/png';
             break;
           }
-          if (assets.includes(req.url.slice(1))) {
-            content = await fs.readFile(path.join(inputdir, req.url.slice(1)));
+
+          if (!req.url) req.url = 'index.html';
+          if (
+            nav.find(
+              item =>
+                item.type === 'page' &&
+                item.output.split(path.sep).slice(0, -1).join('/') === req.url
+            )
+          )
+            req.url += '/index.html';
+          const page = nav.find(item => item.output === req.url);
+          if (page) {
+            nav = await Promise.all(
+              nav.map((entry, i, nav) =>
+                entry.type === 'page' ? parsePage(inputdir, entry, nav) : entry
+              )
+            );
+            content = $.resources.get('template')({
+              _: {
+                ...page,
+                output: page.output.split(path.sep).join('/')
+              },
+              config,
+              nav,
+              icon
+            });
+            type = 'text/html';
+          } else if (assets.includes(req.url)) {
+            content = await fsp.readFile(path.join(inputdir, req.url));
             type = mime.lookup(req.url);
           } else {
-            if (req.url.endsWith('/')) req.url = req.url.slice(0, -1);
-            if (
-              !req.url ||
-              nav.find(
-                item =>
-                  item.type === 'page' &&
-                  item.output
-                    .split(path.sep)
-                    .slice(0, -1)
-                    .join('/') === req.url.slice(1)
-              )
-            )
-              req.url += '/index.html';
-            const page = nav.find(item => item.output === req.url.slice(1));
-            if (page) {
-              nav = await Promise.all(
-                nav.map((entry, i, nav) =>
-                  entry.type === 'page'
-                    ? parsePage(inputdir, entry, nav)
-                    : entry
-                )
-              );
-              content = $.resources.get('template')({
-                _: {
-                  ...page,
-                  output: page.output.split(path.sep).join('/')
-                },
-                config,
-                nav,
-                icon
-              });
-              type = 'text/html';
-            } else {
-              res.statusCode = 404;
-              res.statusMessage = http.STATUS_CODES['404'];
-              res.end();
-              return false;
-            }
+            res.statusCode = 404;
+            res.statusMessage = http.STATUS_CODES['404'];
+            res.end();
+            return false;
           }
       }
       res.writeHead(200, { 'Content-Type': type });
@@ -315,16 +309,15 @@ async function filelist(dir, filter = () => true) {
     .map(item =>
       path
         .relative('.', item)
-        .slice(dir !== '.' ? dir.length + path.sep.length : 0)
+        .slice(['', '.', './'].includes(dir) ? 0 : dir.length + path.sep.length)
     )
     .filter(
       item =>
         item &&
         !item.split(path.sep).includes('node_modules') &&
-        !item.split(path.sep).includes('.git')
-    )
-    .filter(
-      item => !fs.lstatSync(path.join(dir, item)).isDirectory() && filter(item)
+        !item.split(path.sep).includes('.git') &&
+        !fs.lstatSync(path.join(dir, item)).isDirectory() &&
+        filter(item)
     )
     .sort()
     .reduce(
@@ -439,10 +432,7 @@ function parseNav(inputdir, files, arr = []) {
       })
     : Object.entries(
         files.reduce((prev, val) => {
-          const dir = val
-            .split(path.sep)
-            .slice(0, -1)
-            .join(path.sep);
+          const dir = val.split(path.sep).slice(0, -1).join(path.sep);
           if (!prev[dir]) prev[dir] = [];
           prev[dir].push({
             type: 'page',
@@ -534,17 +524,11 @@ async function parsePage(inputdir, page, nav) {
   );
   const renderer = new marked.Renderer();
   renderer.ordinaryLink = renderer.link;
-  renderer.link = function(href, title, text) {
+  renderer.link = function (href, title, text) {
     if (href.endsWith('.md')) {
       const output =
         nav[
-          path.join(
-            page.src
-              .split(path.sep)
-              .slice(0, -1)
-              .join(path.sep),
-            href
-          )
+          path.join(page.src.split(path.sep).slice(0, -1).join(path.sep), href)
         ];
       if (output) href = [...page.depth.split('/'), output].join('/');
     }

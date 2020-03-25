@@ -328,7 +328,7 @@ build/serve options) <code>light-docs.png</code> and <code>dark-docs.png</code>.
 </ol>
 <blockquote>
 <p>❗ note that this means you cannot have any assets with those
-names, as they will be overwritten.</p>
+names, as they will be overriden.</p>
 </blockquote>
 
           </section>
@@ -342,10 +342,10 @@ names, as they will be overwritten.</p>
 from documentative&#39;s resources.</li>
 <li>if an icon has been specified and is requested, serve it.
 otherwise, the icon shall be served as <code>light-docs.png</code> or <code>dark-docs.png</code>.</li>
-<li>if the file exists in the asset list (all non-<code>.md</code> files),
-serve it.</li>
 <li>if a nav entry of type page and with an output
 matching the request exists, serve it.</li>
+<li>if the file exists in the asset list (all non-<code>.md</code> files),
+serve it.</li>
 <li>if a file has still not been served, return a 404 error.</li>
 </ol>
 <blockquote>
