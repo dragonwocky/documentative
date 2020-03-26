@@ -2,9 +2,9 @@
 
 a tool for precompiling docs from markdown
 
-[![npm](https://badgen.net/npm/v/documentative?color=blue&cache=1800)](https://npmjs.com/package/documentative)
-[![install size](https://badgen.net/packagephobia/install/documentative?color=pink&cache=1800)](https://packagephobia.now.sh/result?p=documentative)
-[![downloads](https://badgen.net/npm/dt/documentative?color=green&cache=600)](https://npmjs.com/package/documentative)
+[![npm](https://badgen.net/npm/v/documentative?color=blue)](https://npmjs.com/package/documentative)
+[![install size](https://badgen.net/packagephobia/install/documentative?color=pink)](https://packagephobia.now.sh/result?p=documentative)
+[![downloads](https://badgen.net/npm/dt/documentative?color=green)](https://npmjs.com/package/documentative)
 [![discord](https://badgen.net/badge/icon/discord?icon=discord&label&color=purple)](https://discord.gg/g39aNQe)
 [![license](https://badgen.net/npm/license/documentative?color=red)](https://dragonwocky.me/#mit)
 
@@ -178,7 +178,7 @@ copyright: {
 > across from the inputdir will irreversibly overwrite
 > files in the outputdir with conflicting names.
 
-to exclude everything with a folder, end the exclude with `/*` (e.g. `ignorethisdir/*`).
+to exclude everything within a folder, end the exclude with `/*` (e.g. `ignorethisdir/*`).
 
 > ℹ️ any files within `.git` or `node_modules`
 > directories will always be excluded, regardless of
