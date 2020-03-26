@@ -51,7 +51,7 @@ to change a colour for the dark theme, define it within the
 | `--contrast`                                | `#fff`                                                  | `#000`                         |
 | `--text`                                    | `rgba(0, 0, 0, 0.84)`                                   | `#ddd`                         |
 | `--link`                                    | `--primary`                                             | 22.5% lighter than `--primary` |
-| `--grey`                                    | `#dedede`                                               | `#52555C`                      |
+| `--grey`                                    | `#6f6f6f`                                               | `#52555C`                      |
 | `--bg`                                      | `#fbfcfc`                                               | `#0e0f0f`                      |
 | `--box`                                     | `#f2f3f4`                                               | `#050505`                      |
 | `--code`                                    | `#f7f9f9`                                               | `#000`                         |

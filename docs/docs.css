@@ -9,7 +9,7 @@
   --contrast: #fff;
   --text: rgba(0, 0, 0, 0.84);
   --link: var(--primary);
-  --grey: #dedede;
+  --grey: #6f6f6f;
   --bg: #fbfcfc;
   --box: #f2f3f4;
   --code: #f7f9f9;
@@ -181,7 +181,7 @@ aside ul li.level-6 > a {
 aside .mark {
   text-align: right;
   margin-top: auto;
-  padding: 2px 1.5em;
+  padding: 1.5em 1.5em 2px 1.5em;
   font-size: 0.8em;
 }
 aside .mark a {
