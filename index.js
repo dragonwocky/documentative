@@ -85,22 +85,21 @@ async function build(inputdir, outputdir, config = {}) {
     )
   );
 
-  if (!fs.existsSync(outputdir)) await fsp.mkdir(outputdir);
+  if (!fs.existsSync(outputdir))
+    await fsp.mkdir(outputdir, { recursive: true });
   if (!fs.lstatSync(outputdir).isDirectory())
     throw Error(`documentative<build>: failed, output dir is not a directory`);
   if ((await filelist(outputdir)).flat().length && !config.overwrite)
     throw Error(`documentative<build>: outputdir "${outputdir}" is not empty!
        empty the directory and run again, or set the config.overwrite option to true`);
 
-  for (const asset of assets) {
-    await populateDirs(outputdir, asset);
-  }
-  for (const page of nav.filter(entry => entry.type === 'page')) {
-    await populateDirs(outputdir, page.output);
-  }
   await Promise.all([
     loadResources(),
     ...assets.map(async asset => {
+      await fsp.mkdir(
+        path.join(outputdir, ...asset.split(path.sep).slice(0, -1)),
+        { recursive: true }
+      );
       await fsp.writeFile(
         path.join(outputdir, asset),
         await fsp.readFile(path.join(inputdir, asset))
@@ -111,6 +110,10 @@ async function build(inputdir, outputdir, config = {}) {
   nav
     .filter(entry => entry.type === 'page')
     .forEach(async page => {
+      await fsp.mkdir(
+        path.join(outputdir, ...page.output.split(path.sep).slice(0, -1)),
+        { recursive: true }
+      );
       await fsp.writeFile(
         path.join(outputdir, page.output),
         $.resources.get('template')({
@@ -336,18 +339,6 @@ async function filelist(dir, filter = () => true) {
       },
       [[], []]
     );
-}
-async function populateDirs(loc, from) {
-  let dirs = from.split(path.sep);
-  for (let i = 1; i < dirs.length; i++) {
-    let dir = path.join(loc, dirs.slice(0, i).join(path.sep));
-    if (!fs.existsSync(dir)) await fsp.mkdir(dir);
-    if (!fs.lstatSync(dir).isDirectory()) {
-      await fsp.unlink(dir);
-      await fsp.mkdir(dir);
-    }
-  }
-  return true;
 }
 async function loadResources() {
   if (!$.resources.has('template'))
