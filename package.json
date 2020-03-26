@@ -2,6 +2,12 @@
   "name": "documentative",
   "version": "0.3.2",
   "description": "a tool for generating docs from markdown",
+  "keywords": [
+    "documentation-generator",
+    "markdown",
+    "navigation",
+    "precompile"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "echo \"no test specified\"",
@@ -35,15 +41,8 @@
     "documentative-serve": "bin.js"
   },
   "files": [
-    "README.md",
-    "styling-guide.md",
-    "LICENSE",
-    "index.js",
     "bin.js",
-    "resources/light-docs.png",
-    "resources/dark-docs.png",
-    "resources/docs.js",
-    "resources/docs.less",
-    "resources/template.pug"
+    "styling-guide.md",
+    "resources"
   ]
 }

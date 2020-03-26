@@ -21,14 +21,13 @@ const path = require('path'),
 const $ = {
   defaults: {
     title: 'documentative',
-    card: {
-      description: 'a tool for precompiling docs from markdown',
-      url: 'https://dragonwocky.me/documentative/'
-    },
     primary: '#712c9c',
-    copyright: {
-      text: '© 2020 dragonwocky, under the MIT license',
-      url: 'https://dragonwocky.me/#mit'
+    git: '',
+    footer:
+      '© 2020 someone, under the [MIT license](https://choosealicense.com/licenses/mit/).',
+    card: {
+      description: '',
+      url: ''
     },
     exclude: [],
     overwrite: false
@@ -272,6 +271,7 @@ async function serve(inputdir, port, config = {}) {
 function parseConfig(obj = {}) {
   if (typeof obj !== 'object')
     throw Error(`documentative<config>: should be an object`);
+  const typechecked = validateObj(obj, $.defaults);
   if (obj.icon) {
     if (typeof obj.icon !== 'object')
       throw Error(`documentative<config.icon>: should be an object`);
@@ -284,7 +284,16 @@ function parseConfig(obj = {}) {
         `documentative<config.icon>: dark should be of type string/filepath`
       );
   } else obj.icon = {};
-  return [validateObj(obj, $.defaults), obj.icon, obj.nav];
+  return [
+    {
+      ...typechecked,
+      footer: typechecked.footer
+        ? marked(typechecked.footer)
+        : typechecked.footer
+    },
+    obj.icon,
+    obj.nav
+  ];
 }
 function validateObj(obj, against) {
   return Object.fromEntries(

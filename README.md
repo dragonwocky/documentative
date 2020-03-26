@@ -6,7 +6,7 @@ a tool for precompiling docs from markdown
 [![install size](https://badgen.net/packagephobia/install/documentative?color=pink)](https://packagephobia.now.sh/result?p=documentative)
 [![downloads](https://badgen.net/npm/dt/documentative?color=green)](https://npmjs.com/package/documentative)
 [![discord](https://badgen.net/badge/icon/discord?icon=discord&label&color=purple)](https://discord.gg/g39aNQe)
-[![license](https://badgen.net/npm/license/documentative?color=red)](https://dragonwocky.me/#mit)
+[![license](https://badgen.net/npm/license/documentative?color=red)](https://choosealicense.com/licenses/mit/)
 
 ## what is this? why use it?
 
@@ -17,7 +17,7 @@ sometimes it's just simpler to write some markdown and publish it as a static si
 i was doing that a lot: and since i was writing markdown and then also manually building a matching
 website, i was spending nearly as much time on that as i was on coding the project itself. i had a
 reasonably solid template i was using already, so i did what leads many people to publishing things
-like this: i thought to myself "how can i automate this?"
+like this: i thought to myself 'how can i automate this?'
 
 documentative cuts out half the work - you write the markdown; it builds you a responsive, modern website.
 
@@ -32,7 +32,7 @@ _features of a built site include..._
 - in-page navigation via #IDs (with a sidebar that scrolls to match the reader location), allowing
   for keeping your place on the page when you reload or linking to a specific section.
 - social-media embed friendly.
-- \+ y'know, like, being a configurably built site - you pick a primary colour, there's a footer/copyright,
+- \+ y'know, like, being a configurably built site - you pick a primary colour, you define a footer,
   you choose which files are served or precompiled... etc.
 
 ## usage
@@ -56,8 +56,8 @@ docs.build(inputdir, outputdir, options);
 
 | argument    | type   | value                    |
 | ----------- | ------ | ------------------------ |
-| `inputdir`  | string | e.g. `"pages"`           |
-| `outputdir` | string | e.g. `"build"`           |
+| `inputdir`  | string | e.g. `'pages'`           |
+| `outputdir` | string | e.g. `'build'`           |
 | `options`   | object | see [#options](#options) |
 
 if you wish your `inputdir` and `outputdir` to be the same,
@@ -76,7 +76,7 @@ docs.serve(inputdir, port, options);
 
 | argument   | type   | value                    |
 | ---------- | ------ | ------------------------ |
-| `inputdir` | string | e.g. `"pages"`           |
+| `inputdir` | string | e.g. `'pages'`           |
 | `port`     | number | e.g. `8080`              |
 | `options`  | object | see [#options](#options) |
 
@@ -119,7 +119,7 @@ for the sidebar table-of-contents documentative generates.
 
 in order to maintain viability of pages as both markdown and html, any local markdown page
 links are changed to match page src -> output. e.g. a link written as `[link](README.md)`
-may transformed to `<a href="index.html">link</a>`.
+may transformed to `<a href='index.html'>link</a>`.
 
 check out [the styling guide](styling-guide.md) for ways to further customise what comes out.
 
@@ -127,56 +127,65 @@ check out [the styling guide](styling-guide.md) for ways to further customise wh
 
 ```js
 {
-  title: string,
-    // default: "documentative"
+  title: string, // default: 'documentative'
+  primary: string/colour, // default: '#712c9c
+  git: string/url,
+  footer: string,
+    // default: '© 2020 someone, under the [MIT license](https://choosealicense.com/licenses/mit/).'
   card: {
     description: string,
-      // default: "a tool for precompiling docs from markdown"
-    url: string
-      // default: "https://dragonwocky.me/documentative/"
+    url: string/url
   },
-  primary: string,
-    // default: "#712c9c"
   icon: {
     light: string/filepath,
-      // default: the documentative (light) icon
     dark: string/filepath
-      // default: the documentative (dark) icon
   },
-  copyright: {
-    text: string,
-      // default: "© 2020 dragonwocky, under the MIT license"
-    url: string/link
-      // default: "https://dragonwocky.me/#mit"
-  },
-  overwrite: boolean,
-    // default: false
+  overwrite: boolean, // default: false
   exclude: [strings/filepaths],
-    // default: []
   nav: []
-    // (see below)
 }
 ```
+
+#### git + footer
+
+markdown can be used within the footer.
+
+the `git` property defines the url to your inputdir on github or a similar site, excluding the file itself.
+for github repos, the url must be `https://github.com/user/repo/blob/<branch>/[folder/]`.
+for gitlab, it must be `https://gitlab.com/user/repo/-/blob/<branch>/[folder/]`.
+
+e.g. your `.md` files are in a folder called `docs` @ the `master` branch of the repo `https://github.com/myname/project/`.
+you would set the `git` property to `https://github.com/myname/project/blob/master/nav`.
+
+then, if within the footer you wish to link to the hosted `.md` of the page, simply set it to:
+`"[Edit on Github](__git__)"`. the `__git__` will be replaced by the config definition + the page source.
+for the example above, when visiting `page.html`, the footer would link to `https://github.com/myname/project/blob/master/nav/page.md`.
+
+if you wish to completely hide the `footer`,
+simply set the following:
+
+```js
+footer: '',
+```
+
+#### card
 
 the `card` properties are used for the preview embeds/cards created by social media platforms
 when linking to your page. the `card.url` should be the canonical base url for your site and must end with a `/`.
 (e.g. `https://example.com/` or `https://dragonwocky.me/documentative/`, but NOT `https://dragonwocky.me/documentative/page.html`)
 
+#### icon
+
 the light/dark icons will be shown dependent on whether the viewer has light/dark mode enabled.
 if only 1 of the icons is set (either light or dark), that icon will be shown for both modes.
 
-if you wish to completely hide the `copyright`,
-simply set the following:
-
-```js
-copyright: {
-  text: '',
-}
-```
+#### overwrite
 
 > ❗ beware of turning on overwrite, as any files copied
 > across from the inputdir will irreversibly overwrite
 > files in the outputdir with conflicting names.
+
+#### exclude
 
 to exclude everything within a folder, end the exclude with `/*` (e.g. `ignorethisdir/*`).
 
@@ -223,15 +232,15 @@ strict definition:
 ```js
 {
   type: 'page',
-  output: string/filepath, // e.g. getting-started.html
-  src: string/filepath // e.g. tutorial.md
+  output: string/filepath, // e.g. 'getting-started.html'
+  src: string/filepath, // e.g. 'tutorial.md'
 }
 ```
 
 shorthand:
 
 ```js
-[output, src],
+[output, src, git],
 // e.g. ['getting-started.html', 'tutorial.md']
 ```
 
@@ -245,7 +254,7 @@ strict definition:
 {
   type: 'link',
   text: string, // e.g. github
-  url: string/link // e.g. https://github.com/dragonwocky/documentative/
+  url: string/url // e.g. https://github.com/dragonwocky/documentative/
 }
 ```
 

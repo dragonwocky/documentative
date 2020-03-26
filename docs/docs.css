@@ -43,7 +43,7 @@
     --contrast: #000;
     --text: #ddd;
     --link: #aa67d4;
-    --grey: #36393f;
+    --grey: #52555c;
     --bg: #0e0f0f;
     --box: #050505;
     --code: #000;
@@ -250,17 +250,19 @@ aside .mark a {
   text-shadow: none !important;
   background-color: var(--button);
 }
-.wrapper .documentative .copyright {
+.wrapper .documentative .footer {
   text-align: right;
   color: var(--grey);
   margin: auto 1.5em 0;
 }
-.wrapper .documentative .copyright hr {
+.wrapper .documentative .footer hr {
   border-color: var(--grey);
 }
-.wrapper .documentative .copyright a {
+.wrapper .documentative .footer a {
   color: var(--grey);
+  font-weight: bold;
   text-shadow: none;
+  text-decoration: dotted underline;
 }
 .wrapper .documentative h1,
 .wrapper .documentative h2,
@@ -494,8 +496,8 @@ aside .mark a {
 .hljs-strong {
   font-weight: bold;
 }
-.documentative pre .lang-md::before { content: 'MD'; }
-.documentative pre .lang-css::before { content: 'CSS'; }
 .documentative pre .lang-bash::before { content: 'BASH'; }
 .documentative pre .lang-js::before { content: 'JS'; }
 .documentative pre .lang-plaintext::before { content: 'PLAINTEXT'; }
+.documentative pre .lang-md::before { content: 'MD'; }
+.documentative pre .lang-css::before { content: 'CSS'; }

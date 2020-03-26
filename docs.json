@@ -1,11 +1,12 @@
 {
-  "nav": [
-    ["index.html", "README.md"],
-    "resources",
-    ["styling-guide.html", "styling-guide.md"],
-    ["github", "https://github.com/dragonwocky/documentative/"],
-    ["me (dragonwocky)", "https://dragonwocky.me/"]
-  ],
+  "title": "documentative",
+  "primary": "#712c9c",
+  "git": "https://github.com/dragonwocky/documentative/blob/master/",
+  "footer": "[Edit on GitHub](__git__) // © 2020 dragonwocky, under the [MIT license](https://choosealicense.com/licenses/mit/).",
+  "card": {
+    "description": "a tool for precompiling docs from markdown",
+    "url": "https://dragonwocky.me/documentative/"
+  },
   "overwrite": true,
   "exclude": [
     "index.js",
@@ -14,5 +15,12 @@
     "package.json",
     "package-lock.json",
     ".gitignore"
+  ],
+  "nav": [
+    ["index.html", "README.md"],
+    "resources",
+    ["styling-guide.html", "styling-guide.md"],
+    ["github", "https://github.com/dragonwocky/documentative/"],
+    ["me (dragonwocky)", "https://dragonwocky.me/"]
   ]
 }

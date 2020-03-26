@@ -1,7 +1,7 @@
 # styling guide
 
 to add a custom stylesheet, simply append a html
-`<link rel="stylesheet" src="custom.css">` to the top of the page.
+`<link rel='stylesheet' src='custom.css'>` to the top of the page.
 
 ## the example block
 
@@ -51,7 +51,7 @@ to change a colour for the dark theme, define it within the
 | `--contrast`                                | `#fff`                                                  | `#000`                         |
 | `--text`                                    | `rgba(0, 0, 0, 0.84)`                                   | `#ddd`                         |
 | `--link`                                    | `--primary`                                             | 22.5% lighter than `--primary` |
-| `--grey`                                    | `#dedede`                                               | `#36393f`                      |
+| `--grey`                                    | `#dedede`                                               | `#52555C`                      |
 | `--bg`                                      | `#fbfcfc`                                               | `#0e0f0f`                      |
 | `--box`                                     | `#f2f3f4`                                               | `#050505`                      |
 | `--code`                                    | `#f7f9f9`                                               | `#000`                         |
@@ -93,7 +93,7 @@ to change a colour for the dark theme, define it within the
 | `.example`                     | an [example block](#the-example-block)                                |
 | `.prev`                        | the previous page button: ᐊ                                           |
 | `.next`                        | the previous page button: ᐅ                                           |
-| `.copyright`                   | the footer defined by [the build/serve options](README.md#options)    |
+| `.footer`                      | the footer defined in [the build/serve options](README.md#options)    |
 | `.toggle`                      | the mobile nav bar, inc. the hamburger button                         |
 | `.mobilemenu`                  | the class toggled on/off the body to open/close the sidebar on mobile |
 

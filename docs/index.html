@@ -1,4 +1,4 @@
-<!DOCTYPE html><!-- Documentative--><!-- (c) 2020 dragonwocky <thedragonring.bod@gmail.com>--><!-- (https://dragonwocky.me/) under the MIT license--><html prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>documentative</title><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Nunito+Sans"><link rel="stylesheet" href="docs.css"><script src="docs.js"></script><link rel="icon" href="dark-docs.png" media="(prefers-color-scheme: dark)"><link rel="icon" href="light-docs.png"><meta name="title" content="documentative"><meta name="description" content="a tool for precompiling docs from markdown"><meta name="theme-color" content="#712c9c"><meta property="og:type" content="article"><meta property="og:url" content="https://dragonwocky.me/documentative/index.html"><meta property="og:title" content="documentative"><meta property="og:site_name" content="documentative"><meta property="og:description" content="a tool for precompiling docs from markdown"><meta property="og:image" content="https://dragonwocky.me/documentative/light-docs.png"><meta property="twitter:card" content="summary"></head><body><aside class="menu"><div><div class="title"><h1>documentative</h1><picture class="icon"><source srcset="dark-docs.png" media="(prefers-color-scheme: dark)"><img src="light-docs.png"></picture></div></div><ul class="nav"><li class="entry"><a href="#documentative">documentative</a><ul><li class="level-2"><a href="#what-is-this-why-use-it">what is this? why use it?</a></li><li class="level-2"><a href="#usage">usage</a></li><li class="level-4"><a href="#to-buildprecompile-to-a-directory">to build/precompile to a directory</a></li><li class="level-4"><a href="#to-serve-the-directory-from-a-local-http-server">to serve the directory from a local http server</a></li><li class="level-2"><a href="#cli">cli</a></li><li class="level-2"><a href="#writing-a-page">writing a page</a></li><li class="level-2"><a href="#options">options</a></li><li class="level-3"><a href="#the-nav-default-behaviour">the nav: default behaviour</a></li><li class="level-3"><a href="#the-nav-custom-behaviour">the nav: custom behaviour</a></li><li class="level-4"><a href="#defining-a-title">defining a title</a></li><li class="level-4"><a href="#defining-a-page">defining a page</a></li><li class="level-4"><a href="#defining-a-link">defining a link</a></li><li class="level-4"><a href="#example-nav">example nav</a></li><li class="level-2"><a href="#output">output</a></li><li class="level-4"><a href="#build">build</a></li><li class="level-4"><a href="#serve">serve</a></li><li class="level-2"><a href="#other-details">other details</a></li></ul></li><li class="entry"><p>resources</p></li><li class="entry"><a href="styling-guide.html">styling guide</a></li><li class="entry"><a href="https://github.com/dragonwocky/documentative/">github</a></li><li class="entry"><a href="https://dragonwocky.me/">me (dragonwocky)</a></li></ul><p class="mark"><a href="https://dragonwocky.me/documentative">docs by documentative</a></p></aside><div class="wrapper"><div class="toggle"><button>☰</button><h1>documentative</h1></div><article class="documentative"><div class="content">
+<!DOCTYPE html><!-- Documentative--><!-- (c) 2020 dragonwocky <thedragonring.bod@gmail.com>--><!-- (https://dragonwocky.me/) under the MIT license--><html prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>documentative</title><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Nunito+Sans"><link rel="stylesheet" href="docs.css"><script src="docs.js"></script><link rel="icon" href="dark-docs.png" media="(prefers-color-scheme: dark)"><link rel="icon" href="light-docs.png"><meta name="title" content="documentative"><meta name="description" content="a tool for precompiling docs from markdown"><meta name="theme-color" content="#712c9c"><meta property="og:type" content="article"><meta property="og:url" content="https://dragonwocky.me/documentative/index.html"><meta property="og:title" content="documentative"><meta property="og:site_name" content="documentative"><meta property="og:description" content="a tool for precompiling docs from markdown"><meta property="og:image" content="https://dragonwocky.me/documentative/light-docs.png"><meta property="twitter:card" content="summary"></head><body><aside class="menu"><div><div class="title"><h1>documentative</h1><picture class="icon"><source srcset="dark-docs.png" media="(prefers-color-scheme: dark)"><img src="light-docs.png"></picture></div></div><ul class="nav"><li class="entry"><a href="#documentative">documentative</a><ul><li class="level-2"><a href="#what-is-this-why-use-it">what is this? why use it?</a></li><li class="level-2"><a href="#usage">usage</a></li><li class="level-4"><a href="#to-buildprecompile-to-a-directory">to build/precompile to a directory</a></li><li class="level-4"><a href="#to-serve-the-directory-from-a-local-http-server">to serve the directory from a local http server</a></li><li class="level-2"><a href="#cli">cli</a></li><li class="level-2"><a href="#writing-a-page">writing a page</a></li><li class="level-2"><a href="#options">options</a></li><li class="level-4"><a href="#git--footer">git + footer</a></li><li class="level-4"><a href="#card">card</a></li><li class="level-4"><a href="#icon">icon</a></li><li class="level-4"><a href="#overwrite">overwrite</a></li><li class="level-4"><a href="#exclude">exclude</a></li><li class="level-3"><a href="#the-nav-default-behaviour">the nav: default behaviour</a></li><li class="level-3"><a href="#the-nav-custom-behaviour">the nav: custom behaviour</a></li><li class="level-4"><a href="#defining-a-title">defining a title</a></li><li class="level-4"><a href="#defining-a-page">defining a page</a></li><li class="level-4"><a href="#defining-a-link">defining a link</a></li><li class="level-4"><a href="#example-nav">example nav</a></li><li class="level-2"><a href="#output">output</a></li><li class="level-4"><a href="#build">build</a></li><li class="level-4"><a href="#serve">serve</a></li><li class="level-2"><a href="#other-details">other details</a></li></ul></li><li class="entry"><p>resources</p></li><li class="entry"><a href="styling-guide.html">styling guide</a></li><li class="entry"><a href="https://github.com/dragonwocky/documentative/">github</a></li><li class="entry"><a href="https://dragonwocky.me/">me (dragonwocky)</a></li></ul><p class="mark"><a href="https://dragonwocky.me/documentative">docs by documentative</a></p></aside><div class="wrapper"><div class="toggle"><button>☰</button><h1>documentative</h1></div><article class="documentative"><div class="content">
     
           <section class="block">
             <h1 id="documentative">
@@ -9,7 +9,7 @@
 <a href="https://packagephobia.now.sh/result?p=documentative"><img src="https://badgen.net/packagephobia/install/documentative?color=pink" alt="install size"></a>
 <a href="https://npmjs.com/package/documentative"><img src="https://badgen.net/npm/dt/documentative?color=green" alt="downloads"></a>
 <a href="https://discord.gg/g39aNQe"><img src="https://badgen.net/badge/icon/discord?icon=discord&label&color=purple" alt="discord"></a>
-<a href="https://dragonwocky.me/#mit"><img src="https://badgen.net/npm/license/documentative?color=red" alt="license"></a></p>
+<a href="https://choosealicense.com/licenses/mit/"><img src="https://badgen.net/npm/license/documentative?color=red" alt="license"></a></p>
 
           </section>
           <section class="block">
@@ -22,7 +22,7 @@ sometimes it&#39;s just simpler to write some markdown and publish it as a stati
 <p>i was doing that a lot: and since i was writing markdown and then also manually building a matching
 website, i was spending nearly as much time on that as i was on coding the project itself. i had a
 reasonably solid template i was using already, so i did what leads many people to publishing things
-like this: i thought to myself &quot;how can i automate this?&quot;</p>
+like this: i thought to myself &#39;how can i automate this?&#39;</p>
 <p>documentative cuts out half the work - you write the markdown; it builds you a responsive, modern website.</p>
 <p><strong>demo:</strong> <a href="https://dragonwocky.me/documentative/">https://dragonwocky.me/documentative/</a></p>
 <p><em>features of a built site include...</em></p>
@@ -34,7 +34,7 @@ icon depending on the mode).</li>
 <li>in-page navigation via #IDs (with a sidebar that scrolls to match the reader location), allowing
 for keeping your place on the page when you reload or linking to a specific section.</li>
 <li>social-media embed friendly.</li>
-<li>+ y&#39;know, like, being a configurably built site - you pick a primary colour, there&#39;s a footer/copyright,
+<li>+ y&#39;know, like, being a configurably built site - you pick a primary colour, you define a footer,
 you choose which files are served or precompiled... etc.</li>
 </ul>
 
@@ -65,12 +65,12 @@ you choose which files are served or precompiled... etc.</li>
 <tbody><tr>
 <td><code>inputdir</code></td>
 <td>string</td>
-<td>e.g. <code>&quot;pages&quot;</code></td>
+<td>e.g. <code>&#39;pages&#39;</code></td>
 </tr>
 <tr>
 <td><code>outputdir</code></td>
 <td>string</td>
-<td>e.g. <code>&quot;build&quot;</code></td>
+<td>e.g. <code>&#39;build&#39;</code></td>
 </tr>
 <tr>
 <td><code>options</code></td>
@@ -100,7 +100,7 @@ that works too - just enable the overwrite option (see <a href="#options">#optio
 <tbody><tr>
 <td><code>inputdir</code></td>
 <td>string</td>
-<td>e.g. <code>&quot;pages&quot;</code></td>
+<td>e.g. <code>&#39;pages&#39;</code></td>
 </tr>
 <tr>
 <td><code>port</code></td>
@@ -155,7 +155,7 @@ to the exclude list (see <a href="#options">#options</a>).</p>
 for the sidebar table-of-contents documentative generates.</p>
 <p>in order to maintain viability of pages as both markdown and html, any local markdown page
 links are changed to match page src -&gt; output. e.g. a link written as <code>[link](README.md)</code>
-may transformed to <code>&lt;a href=&quot;index.html&quot;&gt;link&lt;/a&gt;</code>.</p>
+may transformed to <code>&lt;a href=&#39;index.html&#39;&gt;link&lt;/a&gt;</code>.</p>
 <p>check out <a href="/styling-guide.html">the styling guide</a> for ways to further customise what comes out.</p>
 
           </section>
@@ -164,51 +164,76 @@ may transformed to <code>&lt;a href=&quot;index.html&quot;&gt;link&lt;/a&gt;</co
               <a href="#options">options</a>
             </h2>
         <pre><code class="lang-js">{
-  <span class="hljs-attr">title</span>: string,
-    <span class="hljs-comment">// default: "documentative"</span>
+  <span class="hljs-attr">title</span>: string, <span class="hljs-comment">// default: 'documentative'</span>
+  <span class="hljs-attr">primary</span>: string/colour, <span class="hljs-comment">// default: '#712c9c</span>
+  <span class="hljs-attr">git</span>: string/url,
+  <span class="hljs-attr">footer</span>: string,
+    <span class="hljs-comment">// default: '© 2020 someone, under the [MIT license](https://choosealicense.com/licenses/mit/).'</span>
   <span class="hljs-attr">card</span>: {
     <span class="hljs-attr">description</span>: string,
-      <span class="hljs-comment">// default: "a tool for precompiling docs from markdown"</span>
-    <span class="hljs-attr">url</span>: string
-      <span class="hljs-comment">// default: "https://dragonwocky.me/documentative/"</span>
+    <span class="hljs-attr">url</span>: string/url
   },
-  <span class="hljs-attr">primary</span>: string,
-    <span class="hljs-comment">// default: "#712c9c"</span>
   <span class="hljs-attr">icon</span>: {
     <span class="hljs-attr">light</span>: string/filepath,
-      <span class="hljs-comment">// default: the documentative (light) icon</span>
     <span class="hljs-attr">dark</span>: string/filepath
-      <span class="hljs-comment">// default: the documentative (dark) icon</span>
   },
-  <span class="hljs-attr">copyright</span>: {
-    <span class="hljs-attr">text</span>: string,
-      <span class="hljs-comment">// default: "© 2020 dragonwocky, under the MIT license"</span>
-    <span class="hljs-attr">url</span>: string/link
-      <span class="hljs-comment">// default: "https://dragonwocky.me/#mit"</span>
-  },
-  <span class="hljs-attr">overwrite</span>: boolean,
-    <span class="hljs-comment">// default: false</span>
+  <span class="hljs-attr">overwrite</span>: boolean, <span class="hljs-comment">// default: false</span>
   <span class="hljs-attr">exclude</span>: [strings/filepaths],
-    <span class="hljs-comment">// default: []</span>
   <span class="hljs-attr">nav</span>: []
-    <span class="hljs-comment">// (see below)</span>
 }</code></pre>
-<p>the <code>card</code> properties are used for the preview embeds/cards created by social media platforms
+
+          </section>
+          <section class="block">
+            <h4 id="git--footer">
+              <a href="#git--footer">git + footer</a>
+            </h4>
+        <p>markdown can be used within the footer.</p>
+<p>the <code>git</code> property defines the url to your inputdir on github or a similar site, excluding the file itself.
+for github repos, the url must be <code>https://github.com/user/repo/blob/&lt;branch&gt;/[folder/]</code>.
+for gitlab, it must be <code>https://gitlab.com/user/repo/-/blob/&lt;branch&gt;/[folder/]</code>.</p>
+<p>e.g. your <code>.md</code> files are in a folder called <code>docs</code> @ the <code>master</code> branch of the repo <code>https://github.com/myname/project/</code>.
+you would set the <code>git</code> property to <code>https://github.com/myname/project/blob/master/nav</code>.</p>
+<p>then, if within the footer you wish to link to the hosted <code>.md</code> of the page, simply set it to:
+<code>&quot;[Edit on Github](__git__)&quot;</code>. the <code>__git__</code> will be replaced by the config definition + the page source.
+for the example above, when visiting <code>page.html</code>, the footer would link to <code>https://github.com/myname/project/blob/master/nav/page.md</code>.</p>
+<p>if you wish to completely hide the <code>footer</code>,
+simply set the following:</p>
+<pre><code class="lang-js">footer: <span class="hljs-string">''</span>,</code></pre>
+
+          </section>
+          <section class="block">
+            <h4 id="card">
+              <a href="#card">card</a>
+            </h4>
+        <p>the <code>card</code> properties are used for the preview embeds/cards created by social media platforms
 when linking to your page. the <code>card.url</code> should be the canonical base url for your site and must end with a <code>/</code>.
 (e.g. <code>https://example.com/</code> or <code>https://dragonwocky.me/documentative/</code>, but NOT <code>https://dragonwocky.me/documentative/page.html</code>)</p>
-<p>the light/dark icons will be shown dependent on whether the viewer has light/dark mode enabled.
+
+          </section>
+          <section class="block">
+            <h4 id="icon">
+              <a href="#icon">icon</a>
+            </h4>
+        <p>the light/dark icons will be shown dependent on whether the viewer has light/dark mode enabled.
 if only 1 of the icons is set (either light or dark), that icon will be shown for both modes.</p>
-<p>if you wish to completely hide the <code>copyright</code>,
-simply set the following:</p>
-<pre><code class="lang-js">copyright: {
-  <span class="hljs-attr">text</span>: <span class="hljs-string">''</span>,
-}</code></pre>
-<blockquote>
+
+          </section>
+          <section class="block">
+            <h4 id="overwrite">
+              <a href="#overwrite">overwrite</a>
+            </h4>
+        <blockquote>
 <p>❗ beware of turning on overwrite, as any files copied
 across from the inputdir will irreversibly overwrite
 files in the outputdir with conflicting names.</p>
 </blockquote>
-<p>to exclude everything within a folder, end the exclude with <code>/*</code> (e.g. <code>ignorethisdir/*</code>).</p>
+
+          </section>
+          <section class="block">
+            <h4 id="exclude">
+              <a href="#exclude">exclude</a>
+            </h4>
+        <p>to exclude everything within a folder, end the exclude with <code>/*</code> (e.g. <code>ignorethisdir/*</code>).</p>
 <blockquote>
 <p>ℹ️ any files within <code>.git</code> or <code>node_modules</code>
 directories will always be excluded, regardless of
@@ -260,11 +285,11 @@ with the name of the directory).</li>
         <p>strict definition:</p>
 <pre><code class="lang-js">{
   <span class="hljs-attr">type</span>: <span class="hljs-string">'page'</span>,
-  <span class="hljs-attr">output</span>: string/filepath, <span class="hljs-comment">// e.g. getting-started.html</span>
-  <span class="hljs-attr">src</span>: string/filepath <span class="hljs-comment">// e.g. tutorial.md</span>
+  <span class="hljs-attr">output</span>: string/filepath, <span class="hljs-comment">// e.g. 'getting-started.html'</span>
+  <span class="hljs-attr">src</span>: string/filepath, <span class="hljs-comment">// e.g. 'tutorial.md'</span>
 }</code></pre>
 <p>shorthand:</p>
-<pre><code class="lang-js">[output, src],
+<pre><code class="lang-js">[output, src, git],
 <span class="hljs-comment">// e.g. ['getting-started.html', 'tutorial.md']</span></code></pre>
 <blockquote>
 <p>if the src is not a valid/existing file, it will be assumed to be a link.</p>
@@ -279,7 +304,7 @@ with the name of the directory).</li>
 <pre><code class="lang-js">{
   <span class="hljs-attr">type</span>: <span class="hljs-string">'link'</span>,
   <span class="hljs-attr">text</span>: string, <span class="hljs-comment">// e.g. github</span>
-  <span class="hljs-attr">url</span>: string/link <span class="hljs-comment">// e.g. https://github.com/dragonwocky/documentative/</span>
+  <span class="hljs-attr">url</span>: string/url <span class="hljs-comment">// e.g. https://github.com/dragonwocky/documentative/</span>
 }</code></pre>
 <p>shorthand:</p>
 <pre><code class="lang-js">[text, url],
@@ -365,4 +390,5 @@ serve it.</li>
 <p>the awesome logo is thanks to <a href="https://github.com/nathfreder/">@nathfreder</a> :D</p>
 <p>if you have any questions, check my website for contact details.</p>
 
-    </section></div><div class="copyright"><hr><p><a href="https://dragonwocky.me/#mit">© 2020 dragonwocky, under the MIT license</a></p></div><nav><a class="next" href="styling-guide.html">ᐅ</a></nav></article></div></body></html>
+    </section></div><footer class="footer"><hr><p><a href="https://github.com/dragonwocky/documentative/blob/master/README.md">Edit on GitHub</a> // © 2020 dragonwocky, under the <a href="https://choosealicense.com/licenses/mit/">MIT license</a>.</p>
+</footer><nav><a class="next" href="styling-guide.html">ᐅ</a></nav></article></div></body></html>

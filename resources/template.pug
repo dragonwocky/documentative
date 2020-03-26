@@ -63,11 +63,11 @@ html(prefix='og: http://ogp.me/ns#')
       article.documentative
         .content
           != _.content
-        if config.copyright.text
-          .copyright
+        if config.footer
+          footer.footer
             hr
-            p
-              a(href=config.copyright.url)= config.copyright.text
+            - if (config.git && !config.git.endsWith("/")) config.git += "/";
+            != config.footer.replace(/__git__/g, config.git + _.src)
         nav
           if nav[_.prev]
             a.prev(href=_.depth + nav[_.prev].output) ᐊ
