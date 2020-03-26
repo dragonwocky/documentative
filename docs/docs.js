@@ -178,6 +178,9 @@ const construct = () => {
     document.querySelector('.documentative')
   );
 
+  document.querySelector('.toggle button').onclick = () =>
+    document.body.classList.toggle('mobilemenu');
+
   if (window.matchMedia) {
     let prev;
     const links = [...document.head.querySelectorAll('link[rel*="icon"]')],
