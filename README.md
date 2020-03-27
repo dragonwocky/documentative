@@ -6,7 +6,7 @@ a tool for precompiling docs from markdown
 [![install size](https://badgen.net/packagephobia/install/documentative?color=pink)](https://packagephobia.now.sh/result?p=documentative)
 [![downloads](https://badgen.net/npm/dt/documentative?color=green)](https://npmjs.com/package/documentative)
 [![discord](https://badgen.net/badge/icon/discord?icon=discord&label&color=purple)](https://discord.gg/g39aNQe)
-[![license](https://badgen.net/npm/license/documentative?color=red)](https://choosealicense.com/licenses/mit/)
+[![license](https://badgen.net/npm/license/documentative?color=b20000)](https://choosealicense.com/licenses/mit/)
 
 ## what is this? why use it?
 
