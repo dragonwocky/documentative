@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/dragonwocky/documentative/issues"
   },
-  "homepage": "https://github.com/dragonwocky/documentative#readme",
+  "homepage": "https://dragonwocky.me/documentative/#",
   "dependencies": {
     "highlight.js": "^9.18.1",
     "klaw": "^3.0.0",
