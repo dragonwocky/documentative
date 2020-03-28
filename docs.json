@@ -20,6 +20,10 @@
     ["index.html", "README.md"],
     "resources",
     ["styling-guide.html", "styling-guide.md"],
+    [
+      "license",
+      "https://github.com/dragonwocky/documentative/blob/master/LICENSE"
+    ],
     ["github", "https://github.com/dragonwocky/documentative/"],
     ["me (dragonwocky)", "https://dragonwocky.me/"]
   ]
