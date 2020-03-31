@@ -1,7 +1,7 @@
 <!DOCTYPE html><!-- Documentative--><!-- (c) 2020 dragonwocky <thedragonring.bod@gmail.com>--><!-- (https://dragonwocky.me/) under the MIT license--><html prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>documentative</title><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Nunito+Sans"><link rel="stylesheet" href="docs.css"><script src="docs.js"></script><link rel="icon" href="dark-docs.png" media="(prefers-color-scheme: dark)"><link rel="icon" href="light-docs.png"><meta name="title" content="documentative"><meta name="description" content="a tool for precompiling docs from markdown"><meta name="theme-color" content="#712c9c"><meta property="og:type" content="article"><meta property="og:url" content="https://dragonwocky.me/documentative/index.html"><meta property="og:title" content="documentative"><meta property="og:site_name" content="documentative"><meta property="og:description" content="a tool for precompiling docs from markdown"><meta property="og:image" content="https://dragonwocky.me/documentative/light-docs.png"><meta property="twitter:card" content="summary"></head><body><aside class="menu"><div><div class="title"><h1>documentative</h1><picture class="icon"><source srcset="dark-docs.png" media="(prefers-color-scheme: dark)"><img src="light-docs.png"></picture></div></div><ul class="nav"><li class="entry"><a href="#documentative">documentative</a><ul><li class="level-2"><a href="#what-is-this-why-use-it">what is this? why use it?</a></li><li class="level-2"><a href="#usage">usage</a></li><li class="level-4"><a href="#to-buildprecompile-to-a-directory">to build/precompile to a directory</a></li><li class="level-4"><a href="#to-serve-the-directory-from-a-local-http-server">to serve the directory from a local http server</a></li><li class="level-2"><a href="#cli">cli</a></li><li class="level-2"><a href="#writing-a-page">writing a page</a></li><li class="level-2"><a href="#options">options</a></li><li class="level-4"><a href="#git--footer">git + footer</a></li><li class="level-4"><a href="#card">card</a></li><li class="level-4"><a href="#icon">icon</a></li><li class="level-4"><a href="#overwrite">overwrite</a></li><li class="level-4"><a href="#exclude">exclude</a></li><li class="level-3"><a href="#the-nav-default-behaviour">the nav: default behaviour</a></li><li class="level-3"><a href="#the-nav-custom-behaviour">the nav: custom behaviour</a></li><li class="level-4"><a href="#defining-a-title">defining a title</a></li><li class="level-4"><a href="#defining-a-page">defining a page</a></li><li class="level-4"><a href="#defining-a-link">defining a link</a></li><li class="level-4"><a href="#example-nav">example nav</a></li><li class="level-2"><a href="#output">output</a></li><li class="level-4"><a href="#build">build</a></li><li class="level-4"><a href="#serve">serve</a></li><li class="level-2"><a href="#other-details">other details</a></li></ul></li><li class="entry"><p>resources</p></li><li class="entry"><a href="styling-guide.html">styling guide</a></li><li class="entry"><a href="https://github.com/dragonwocky/documentative/blob/master/LICENSE">license</a></li><li class="entry"><a href="https://github.com/dragonwocky/documentative/">github</a></li><li class="entry"><a href="https://dragonwocky.me/">me (dragonwocky)</a></li></ul><p class="mark"><a href="https://dragonwocky.me/documentative">docs by documentative</a></p></aside><div class="wrapper"><div class="toggle"><button>☰</button><h1>documentative</h1></div><article class="documentative"><div class="content">
     
-          <section class="block">
-            <h1 id="documentative">
+          <section class="block" id="documentative">
+            <h1>
               <a href="#documentative">documentative</a>
             </h1>
         <p>a tool for precompiling docs from markdown</p>
@@ -12,8 +12,8 @@
 <a href="https://choosealicense.com/licenses/mit/"><img src="https://badgen.net/npm/license/documentative?color=b20000" alt="license"></a></p>
 
           </section>
-          <section class="block">
-            <h2 id="what-is-this-why-use-it">
+          <section class="block" id="what-is-this-why-use-it">
+            <h2>
               <a href="#what-is-this-why-use-it">what is this? why use it?</a>
             </h2>
         <p>there are a lot of tools out there for publishing websites and for generating documentation.
@@ -39,8 +39,8 @@ you choose which files are served or precompiled... etc.</li>
 </ul>
 
           </section>
-          <section class="block">
-            <h2 id="usage">
+          <section class="block" id="usage">
+            <h2>
               <a href="#usage">usage</a>
             </h2>
         <p>this package is available from the npm package registry.</p>
@@ -48,8 +48,8 @@ you choose which files are served or precompiled... etc.</li>
 <pre><code class="lang-js"><span class="hljs-keyword">const</span> docs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'documentative'</span>);</code></pre>
 
           </section>
-          <section class="block">
-            <h4 id="to-buildprecompile-to-a-directory">
+          <section class="block" id="to-buildprecompile-to-a-directory">
+            <h4>
               <a href="#to-buildprecompile-to-a-directory">to build/precompile to a directory</a>
             </h4>
         <pre><code class="lang-js">docs.build(inputdir, outputdir, options);
@@ -83,8 +83,8 @@ that works too - just enable the overwrite option (see <a href="#options">#optio
 <pre><code class="lang-js">docs.build(<span class="hljs-string">'.'</span>, <span class="hljs-string">'.'</span>, { <span class="hljs-attr">overwrite</span>: <span class="hljs-literal">true</span> });</code></pre>
 
           </section>
-          <section class="block">
-            <h4 id="to-serve-the-directory-from-a-local-http-server">
+          <section class="block" id="to-serve-the-directory-from-a-local-http-server">
+            <h4>
               <a href="#to-serve-the-directory-from-a-local-http-server">to serve the directory from a local http server</a>
             </h4>
         <pre><code class="lang-js">docs.serve(inputdir, port, options);
@@ -121,8 +121,8 @@ every file serve.</p>
 </blockquote>
 
           </section>
-          <section class="block">
-            <h2 id="cli">
+          <section class="block" id="cli">
+            <h2>
               <a href="#cli">cli</a>
             </h2>
         <p>if this is your preferred method of use, it is recommended to install via <code>npm i -g documentative</code>.</p>
@@ -146,8 +146,8 @@ to the exclude list (see <a href="#options">#options</a>).</p>
 </blockquote>
 
           </section>
-          <section class="block">
-            <h2 id="writing-a-page">
+          <section class="block" id="writing-a-page">
+            <h2>
               <a href="#writing-a-page">writing a page</a>
             </h2>
         <p>pages are written in github flavoured markdown.</p>
@@ -159,8 +159,8 @@ may transformed to <code>&lt;a href=&#39;index.html&#39;&gt;link&lt;/a&gt;</code
 <p>check out <a href="/styling-guide.html">the styling guide</a> for ways to further customise what comes out.</p>
 
           </section>
-          <section class="block">
-            <h2 id="options">
+          <section class="block" id="options">
+            <h2>
               <a href="#options">options</a>
             </h2>
         <pre><code class="lang-js">{
@@ -183,8 +183,8 @@ may transformed to <code>&lt;a href=&#39;index.html&#39;&gt;link&lt;/a&gt;</code
 }</code></pre>
 
           </section>
-          <section class="block">
-            <h4 id="git--footer">
+          <section class="block" id="git--footer">
+            <h4>
               <a href="#git--footer">git + footer</a>
             </h4>
         <p>markdown can be used within the footer.</p>
@@ -201,8 +201,8 @@ simply set the following:</p>
 <pre><code class="lang-js">footer: <span class="hljs-string">''</span>,</code></pre>
 
           </section>
-          <section class="block">
-            <h4 id="card">
+          <section class="block" id="card">
+            <h4>
               <a href="#card">card</a>
             </h4>
         <p>the <code>card</code> properties are used for the preview embeds/cards created by social media platforms
@@ -210,16 +210,16 @@ when linking to your page. the <code>card.url</code> should be the canonical bas
 (e.g. <code>https://example.com/</code> or <code>https://dragonwocky.me/documentative/</code>, but NOT <code>https://dragonwocky.me/documentative/page.html</code>)</p>
 
           </section>
-          <section class="block">
-            <h4 id="icon">
+          <section class="block" id="icon">
+            <h4>
               <a href="#icon">icon</a>
             </h4>
         <p>the light/dark icons will be shown dependent on whether the viewer has light/dark mode enabled.
 if only 1 of the icons is set (either light or dark), that icon will be shown for both modes.</p>
 
           </section>
-          <section class="block">
-            <h4 id="overwrite">
+          <section class="block" id="overwrite">
+            <h4>
               <a href="#overwrite">overwrite</a>
             </h4>
         <blockquote>
@@ -229,8 +229,8 @@ files in the outputdir with conflicting names.</p>
 </blockquote>
 
           </section>
-          <section class="block">
-            <h4 id="exclude">
+          <section class="block" id="exclude">
+            <h4>
               <a href="#exclude">exclude</a>
             </h4>
         <p>to exclude everything within a folder, end the exclude with <code>/*</code> (e.g. <code>ignorethisdir/*</code>).</p>
@@ -241,8 +241,8 @@ inclusion in the above list.</p>
 </blockquote>
 
           </section>
-          <section class="block">
-            <h3 id="the-nav-default-behaviour">
+          <section class="block" id="the-nav-default-behaviour">
+            <h3>
               <a href="#the-nav-default-behaviour">the nav: default behaviour</a>
             </h3>
         <ol>
@@ -258,14 +258,14 @@ with the name of the directory).</li>
 </ol>
 
           </section>
-          <section class="block">
-            <h3 id="the-nav-custom-behaviour">
+          <section class="block" id="the-nav-custom-behaviour">
+            <h3>
               <a href="#the-nav-custom-behaviour">the nav: custom behaviour</a>
             </h3>
         
           </section>
-          <section class="block">
-            <h4 id="defining-a-title">
+          <section class="block" id="defining-a-title">
+            <h4>
               <a href="#defining-a-title">defining a title</a>
             </h4>
         <p>strict definition:</p>
@@ -278,8 +278,8 @@ with the name of the directory).</li>
 <span class="hljs-comment">// e.g. 'this is a title'</span></code></pre>
 
           </section>
-          <section class="block">
-            <h4 id="defining-a-page">
+          <section class="block" id="defining-a-page">
+            <h4>
               <a href="#defining-a-page">defining a page</a>
             </h4>
         <p>strict definition:</p>
@@ -296,8 +296,8 @@ with the name of the directory).</li>
 </blockquote>
 
           </section>
-          <section class="block">
-            <h4 id="defining-a-link">
+          <section class="block" id="defining-a-link">
+            <h4>
               <a href="#defining-a-link">defining a link</a>
             </h4>
         <p>strict definition:</p>
@@ -311,8 +311,8 @@ with the name of the directory).</li>
 <span class="hljs-comment">// e.g. ['github', 'https://github.com/dragonwocky/documentative/']</span></code></pre>
 
           </section>
-          <section class="block">
-            <h4 id="example-nav">
+          <section class="block" id="example-nav">
+            <h4>
               <a href="#example-nav">example nav</a>
             </h4>
         <p>strict definition:</p>
@@ -334,14 +334,14 @@ with the name of the directory).</li>
 <p>(these methods can be mixed.)</p>
 
           </section>
-          <section class="block">
-            <h2 id="output">
+          <section class="block" id="output">
+            <h2>
               <a href="#output">output</a>
             </h2>
         
           </section>
-          <section class="block">
-            <h4 id="build">
+          <section class="block" id="build">
+            <h4>
               <a href="#build">build</a>
             </h4>
         <ol>
@@ -358,8 +358,8 @@ names, as they will be overriden.</p>
 </blockquote>
 
           </section>
-          <section class="block">
-            <h4 id="serve">
+          <section class="block" id="serve">
+            <h4>
               <a href="#serve">serve</a>
             </h4>
         <p>a http server is created. whenever a request is received:</p>
@@ -381,8 +381,8 @@ serve it.</li>
 </blockquote>
 
           </section>
-          <section class="block">
-            <h2 id="other-details">
+          <section class="block" id="other-details">
+            <h2>
               <a href="#other-details">other details</a>
             </h2>
         <p>yes, some of the code blocks on this page end with unnecessary commas. my linter enforces it.</p>

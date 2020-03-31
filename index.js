@@ -505,8 +505,8 @@ async function parsePage(inputdir, page, nav) {
         token.type = 'html';
         token.text = `
           </section>
-          <section class="block">
-            <h${token.depth} id="${ID}">
+          <section class="block" id="${ID}">
+            <h${token.depth}>
               <a href="#${ID}">${token.text}</a>
             </h${token.depth}>
         `;
