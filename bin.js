@@ -39,8 +39,8 @@ options:
       exclude: [],
       ...(fs.existsSync(path.join(argv['_'][0], 'docs.json'))
         ? JSON.parse(
-            fs.readFileSync(path.join(argv['_'][0], 'docs.json'), 'utf8')
-          )
+          fs.readFileSync(path.join(argv['_'][0], 'docs.json'), 'utf8')
+        )
         : {})
     };
   config.exclude.unshift('docs.json');
@@ -49,7 +49,7 @@ options:
     .then(success => {
       if (success)
         console.log(
-          `documentative: sucessfully built ${argv['_'][0]} to ${argv['_'][1]}`
+          `documentative: successfully built ${argv['_'][0]} to ${argv['_'][1]}`
         );
     })
     .catch(err => {
@@ -63,15 +63,15 @@ options:
       exclude: [],
       ...(fs.existsSync(path.join(argv['_'][0], 'docs.json'))
         ? JSON.parse(
-            fs.readFileSync(path.join(argv['_'][0], 'docs.json'), 'utf8')
-          )
+          fs.readFileSync(path.join(argv['_'][0], 'docs.json'), 'utf8')
+        )
         : {})
     },
     port = ![null, undefined].includes(argv.p)
       ? argv.p
       : ![null, undefined].includes(argv.port)
-      ? argv.port
-      : 8080;
+        ? argv.port
+        : 8080;
   config.exclude.unshift('docs.json');
   require('./index.js')
     .serve(argv['_'][0], port, config)
@@ -84,9 +84,9 @@ options:
           `- served ${req.url} to ${(req.headers['x-forwarded-for'] || '')
             .split(',')
             .pop() ||
-            req.connection.remoteAddress ||
-            req.socket.remoteAddress ||
-            req.connection.socket.remoteAddress}`
+          req.connection.remoteAddress ||
+          req.socket.remoteAddress ||
+          req.connection.socket.remoteAddress}`
         );
       });
     })
