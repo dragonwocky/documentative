@@ -64,9 +64,6 @@ class Scrollnav {
     this.setHash(ID);
   }
 
-  get ID() {
-    return this.ID;
-  }
   parseID(ID) {
     if (!ID || typeof ID !== 'string') ID = location.hash || this._topheading;
     if (!ID.startsWith('#')) ID = `#${ID}`;
