@@ -1,6 +1,6 @@
 {
   "name": "documentative",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "a tool for generating docs from markdown",
   "keywords": [
     "documentation-generator",
