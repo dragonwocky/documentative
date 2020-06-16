@@ -135,6 +135,7 @@ async function build(inputdir, outputdir, config = {}) {
       return true;
     }),
   ]);
+  console.log(nav);
   nav
     .filter((entry) => entry.type === 'page')
     .forEach(async (page) => {
@@ -519,57 +520,41 @@ function parseNav(inputdir, files, arr = []) {
   });
 }
 async function parsePage(inputdir, page, nav) {
-  const IDs = new marked.Slugger(),
-    tokens = marked.lexer(
-      await fsp.readFile(path.join(inputdir, page.src), 'utf8')
-    );
-  page.headings = [];
-  for (let token of tokens) {
-    switch (token.type) {
-      case 'heading':
-        const ID = IDs.slug(token.text.toLowerCase());
-        page.headings.push({
-          name: token.text,
-          level: token.depth,
-          hash: ID,
-        });
-        token.type = 'html';
-        token.text = `
-          </section>
-          <section class="block" id="${ID}">
-            <h${token.depth}>
-              <a href="#${ID}">${token.text}</a>
-            </h${token.depth}>
-        `;
-        break;
-    }
-  }
-  page.title = page.headings.shift() || page.output.slice(0, -5);
-
   // map src -> output (links)
   nav = Object.fromEntries(
     nav
       .filter((entry) => entry.type === 'page')
       .map((entry) => [entry.src, entry.output])
   );
+  page.headings = [];
   marked.use({
     renderer: {
+      heading(text, level, raw, slugger) {
+        const ID = slugger.slug(text.toLowerCase());
+        page.headings.push({
+          name: text,
+          level: level,
+          hash: ID,
+        });
+        return `
+          </section>
+          <section class="block" id="${ID}">
+            <h${level}>
+              <a href="#${ID}">${text}</a>
+            </h${level}>
+        `;
+      },
       link(href, title, text) {
-        href = href.split('#');
-        href = [href[0], href[1] || ''];
-        if (href[0].endsWith('.md')) {
+        if (href.endsWith('.md')) {
           const output =
             nav[
               path.join(
                 page.src.split(path.sep).slice(0, -1).join(path.sep),
-                href[0]
+                href
               )
             ];
-          let depth = page.depth.split('/');
-          if (depth.length == 1 && depth[0] == '') depth = [];
-          if (output) href[0] = [...depth, output].join('/');
+          if (output) href = [...page.depth.split('/'), output].join('/');
         }
-        href = href.join('#');
         if (!href) return text;
         return `<a href="${htmlescape(href)}" title="${
           title || ''
@@ -577,10 +562,10 @@ async function parsePage(inputdir, page, nav) {
       },
     },
   });
-
   page.content = `
     <section class="block">
-      ${marked.parser(tokens)}
+      ${marked(await fsp.readFile(path.join(inputdir, page.src), 'utf8'))}
     </section>`.replace(/<section class="block">\s*<\/section>/g, '');
+  page.title = page.headings.shift() || page.output.slice(0, -5);
   return page;
 }
