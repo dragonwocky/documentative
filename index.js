@@ -42,6 +42,7 @@ const $ = {
     },
     exclude: [],
     overwrite: false,
+    ignoredotfiles: true,
   },
   resources: new Map(),
   languages: new Set(),
@@ -104,7 +105,11 @@ async function build(inputdir, outputdir, config = {}) {
             outputdir.slice(
               inputdir !== '.' ? inputdir.length + path.sep.length : 0
             )
-          ))
+          )) &&
+      // ignore dotfiles
+      (!config.ignoredotfiles ||
+        (!(file.startsWith('.') && !file.startsWith('./')) &&
+          !file.includes('/.')))
   );
   if (!path.relative(inputdir, outputdir)) assets = [];
   nav = await Promise.all(
@@ -207,7 +212,12 @@ async function serve(inputdir, port, config = {}) {
     .createServer(async (req, res) => {
       let [pages, assets] = await filelist(
         inputdir,
-        (file) => !config.exclude.includes(file)
+        (file) =>
+          !config.exclude.includes(file) &&
+          // ignore dotfiles
+          (!config.ignoredotfiles ||
+            (!(file.startsWith('.') && !file.startsWith('./')) &&
+              !file.includes('/.')))
       );
       nav = parseNav(inputdir, pages, confNav);
       let content, type;
@@ -365,7 +375,6 @@ async function filelist(dir, filter = () => true) {
       (item) =>
         item &&
         !item.split(path.sep).includes('node_modules') &&
-        !item.split(path.sep).includes('.git') &&
         !fs.lstatSync(path.join(dir, item)).isDirectory() &&
         filter(item)
     )

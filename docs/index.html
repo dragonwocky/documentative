@@ -1,4 +1,4 @@
-<!DOCTYPE html><!-- Documentative--><!-- (c) 2020 dragonwocky <thedragonring.bod@gmail.com>--><!-- (https://dragonwocky.me/) under the MIT license--><html prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>documentative</title><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Nunito+Sans"><link rel="stylesheet" href="docs.css"><script src="docs.js"></script><link rel="icon" href="dark-docs.png" media="(prefers-color-scheme: dark)"><link rel="icon" href="light-docs.png"><meta name="title" content="documentative"><meta name="description" content="a tool for precompiling docs from markdown"><meta name="theme-color" content="#712c9c"><meta property="og:type" content="article"><meta property="og:url" content="https://dragonwocky.me/documentative/index.html"><meta property="og:title" content="documentative"><meta property="og:site_name" content="documentative"><meta property="og:description" content="a tool for precompiling docs from markdown"><meta property="og:image" content="https://dragonwocky.me/documentative/light-docs.png"><meta property="twitter:card" content="summary"></head><body><aside class="menu"><div><div class="title"><h1>documentative</h1><picture class="icon"><source srcset="dark-docs.png" media="(prefers-color-scheme: dark)"><img src="light-docs.png"></picture></div></div><ul class="nav"><li class="entry"><a href="#documentative">documentative</a><ul><li class="level-2"><a href="#what-is-this-why-use-it">what is this? why use it?</a></li><li class="level-2"><a href="#usage">usage</a></li><li class="level-4"><a href="#to-buildprecompile-to-a-directory">to build/precompile to a directory</a></li><li class="level-4"><a href="#to-serve-the-directory-from-a-local-http-server">to serve the directory from a local http server</a></li><li class="level-2"><a href="#cli">cli</a></li><li class="level-2"><a href="#writing-a-page">writing a page</a></li><li class="level-2"><a href="#options">options</a></li><li class="level-4"><a href="#git--footer">git + footer</a></li><li class="level-4"><a href="#card">card</a></li><li class="level-4"><a href="#icon">icon</a></li><li class="level-4"><a href="#overwrite">overwrite</a></li><li class="level-4"><a href="#exclude">exclude</a></li><li class="level-3"><a href="#the-nav-default-behaviour">the nav: default behaviour</a></li><li class="level-3"><a href="#the-nav-custom-behaviour">the nav: custom behaviour</a></li><li class="level-4"><a href="#defining-a-title">defining a title</a></li><li class="level-4"><a href="#defining-a-page">defining a page</a></li><li class="level-4"><a href="#defining-a-link">defining a link</a></li><li class="level-4"><a href="#example-nav">example nav</a></li><li class="level-2"><a href="#output">output</a></li><li class="level-4"><a href="#build">build</a></li><li class="level-4"><a href="#serve">serve</a></li><li class="level-2"><a href="#other-details">other details</a></li></ul></li><li class="entry"><p>resources</p></li><li class="entry"><a href="styling-guide.html">styling guide</a></li><li class="entry"><a href="https://github.com/dragonwocky/documentative/blob/master/LICENSE">license</a></li><li class="entry"><a href="https://github.com/dragonwocky/documentative/">github</a></li><li class="entry"><a href="https://dragonwocky.me/">me (dragonwocky)</a></li></ul><p class="mark"><a href="https://dragonwocky.me/documentative">docs by documentative</a></p></aside><div class="wrapper"><div class="toggle"><button>☰</button><h1>documentative</h1></div><article class="documentative"><div class="content">
+<!DOCTYPE html><!-- Documentative--><!-- (c) 2020 dragonwocky <thedragonring.bod@gmail.com>--><!-- (https://dragonwocky.me/) under the MIT license--><html prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>documentative</title><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Nunito+Sans"><link rel="stylesheet" href="docs.css"><script src="docs.js"></script><link rel="icon" href="dark-docs.png" media="(prefers-color-scheme: dark)"><link rel="icon" href="light-docs.png"><meta name="title" content="documentative"><meta name="description" content="a tool for precompiling docs from markdown"><meta name="theme-color" content="#712c9c"><meta property="og:type" content="article"><meta property="og:url" content="https://dragonwocky.me/documentative/index.html"><meta property="og:title" content="documentative"><meta property="og:site_name" content="documentative"><meta property="og:description" content="a tool for precompiling docs from markdown"><meta property="og:image" content="https://dragonwocky.me/documentative/light-docs.png"><meta property="twitter:card" content="summary"></head><body><aside class="menu"><div><div class="title"><h1>documentative</h1><picture class="icon"><source srcset="dark-docs.png" media="(prefers-color-scheme: dark)"><img src="light-docs.png"></picture></div></div><ul class="nav"><li class="entry"><a href="#documentative">documentative</a><ul><li class="level-2"><a href="#what-is-this-why-use-it">what is this? why use it?</a></li><li class="level-2"><a href="#usage">usage</a></li><li class="level-4"><a href="#to-buildprecompile-to-a-directory">to build/precompile to a directory</a></li><li class="level-4"><a href="#to-serve-the-directory-from-a-local-http-server">to serve the directory from a local http server</a></li><li class="level-2"><a href="#cli">cli</a></li><li class="level-2"><a href="#writing-a-page">writing a page</a></li><li class="level-2"><a href="#options">options</a></li><li class="level-4"><a href="#git--footer">git + footer</a></li><li class="level-4"><a href="#card">card</a></li><li class="level-4"><a href="#icon">icon</a></li><li class="level-4"><a href="#overwrite">overwrite</a></li><li class="level-4"><a href="#exclude">exclude</a></li><li class="level-4"><a href="#ignoredotfiles">ignoredotfiles</a></li><li class="level-3"><a href="#the-nav-default-behaviour">the nav: default behaviour</a></li><li class="level-3"><a href="#the-nav-custom-behaviour">the nav: custom behaviour</a></li><li class="level-4"><a href="#defining-a-title">defining a title</a></li><li class="level-4"><a href="#defining-a-page">defining a page</a></li><li class="level-4"><a href="#defining-a-link">defining a link</a></li><li class="level-4"><a href="#example-nav">example nav</a></li><li class="level-2"><a href="#output">output</a></li><li class="level-4"><a href="#build">build</a></li><li class="level-4"><a href="#serve">serve</a></li><li class="level-2"><a href="#other-details">other details</a></li></ul></li><li class="entry"><p>resources</p></li><li class="entry"><a href="styling-guide.html">styling guide</a></li><li class="entry"><a href="https://github.com/dragonwocky/documentative/blob/master/LICENSE">license</a></li><li class="entry"><a href="https://github.com/dragonwocky/documentative/">github</a></li><li class="entry"><a href="https://dragonwocky.me/">me (dragonwocky)</a></li></ul><p class="mark"><a href="https://dragonwocky.me/documentative">docs by documentative</a></p></aside><div class="wrapper"><div class="toggle"><button>☰</button><h1>documentative</h1></div><article class="documentative"><div class="content">
     
           <section class="block" id="documentative">
             <h1>
@@ -180,6 +180,7 @@ may transformed to <code>&lt;a href=&#39;index.html&#39;&gt;link&lt;/a&gt;</code
   },
   <span class="hljs-attr">overwrite</span>: boolean, <span class="hljs-comment">// default: false</span>
   <span class="hljs-attr">exclude</span>: [strings/filepaths],
+  <span class="hljs-attr">ignoredotfiles</span>: boolean, <span class="hljs-comment">// default: true</span>
   <span class="hljs-attr">nav</span>: []
 }</code></pre>
 
@@ -236,10 +237,17 @@ files in the outputdir with conflicting names.</p>
             </h4>
         <p>to exclude everything within a folder, end the exclude with <code>/*</code> (e.g. <code>ignorethisdir/*</code>).</p>
 <blockquote>
-<p>ℹ️ any files within <code>.git</code> or <code>node_modules</code>
+<p>ℹ️ any files within <code>node_modules</code>
 directories will always be excluded, regardless of
 inclusion in the above list.</p>
 </blockquote>
+
+          </section>
+          <section class="block" id="ignoredotfiles">
+            <h4>
+              <a href="#ignoredotfiles">ignoredotfiles</a>
+            </h4>
+        <p>if true, will not build/serve any files or folders starting with a <code>.</code>.</p>
 
           </section>
           <section class="block" id="the-nav-default-behaviour">
@@ -323,14 +331,14 @@ with the name of the directory).</li>
   {
     <span class="hljs-attr">type</span>: <span class="hljs-string">'link'</span>,
     <span class="hljs-attr">text</span>: <span class="hljs-string">'github'</span>,
-    <span class="hljs-attr">url</span>: <span class="hljs-string">'https://github.com/dragonwocky/documentative/'</span>
-  }
+    <span class="hljs-attr">url</span>: <span class="hljs-string">'https://github.com/dragonwocky/documentative/'</span>,
+  },
 ];</code></pre>
 <p>shorthand:</p>
 <pre><code class="lang-js">[
   [<span class="hljs-string">'getting-started.html'</span>, <span class="hljs-string">'tutorial.md'</span>],
   <span class="hljs-string">'resources'</span>,
-  [<span class="hljs-string">'github'</span>, <span class="hljs-string">'https://github.com/dragonwocky/documentative/'</span>]
+  [<span class="hljs-string">'github'</span>, <span class="hljs-string">'https://github.com/dragonwocky/documentative/'</span>],
 ];</code></pre>
 <p>(these methods can be mixed.)</p>
 

@@ -142,6 +142,7 @@ check out [the styling guide](styling-guide.md) for ways to further customise wh
   },
   overwrite: boolean, // default: false
   exclude: [strings/filepaths],
+  ignoredotfiles: boolean, // default: true
   nav: []
 }
 ```
@@ -189,9 +190,13 @@ if only 1 of the icons is set (either light or dark), that icon will be shown fo
 
 to exclude everything within a folder, end the exclude with `/*` (e.g. `ignorethisdir/*`).
 
-> ℹ️ any files within `.git` or `node_modules`
+> ℹ️ any files within `node_modules`
 > directories will always be excluded, regardless of
 > inclusion in the above list.
+
+#### ignoredotfiles
+
+if true, will not build/serve any files or folders starting with a `.`.
 
 ### the nav: default behaviour
 
@@ -276,8 +281,8 @@ strict definition:
   {
     type: 'link',
     text: 'github',
-    url: 'https://github.com/dragonwocky/documentative/'
-  }
+    url: 'https://github.com/dragonwocky/documentative/',
+  },
 ];
 ```
 
@@ -287,7 +292,7 @@ shorthand:
 [
   ['getting-started.html', 'tutorial.md'],
   'resources',
-  ['github', 'https://github.com/dragonwocky/documentative/']
+  ['github', 'https://github.com/dragonwocky/documentative/'],
 ];
 ```
 
